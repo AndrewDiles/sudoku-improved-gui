@@ -1,11 +1,12 @@
 import {useState} from "react";
 import styled from "styled-components";
+import ColorThemeSelection from "./components/ColorThemeSelection";
 
 function App() {
 	const [themeNumber, setThemeNumber] = useState(0);
   return (
     <MasterContainer className="App" themeNumber = {themeNumber}>
-			Here is some stuff
+			<ColorThemeSelection themeNumber = {themeNumber} setThemeNumber = {setThemeNumber}/>
     </MasterContainer>
   );
 }
@@ -16,5 +17,6 @@ const MasterContainer = styled.div`
 	box-sizing: border-box;
 	min-height: 100vh;
 	min-width: 100vw;
-	background: ${p=>`var(--bg${p.themeNumber})`};
+	background: ${p=>`var(--bg-${p.themeNumber})`};
+	color: ${p=>`var(--text-${p.themeNumber})`};
 `

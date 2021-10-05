@@ -14,8 +14,10 @@ code {
 
 /* Theme colors */ 
 :root {
-	--bg0: blue;
-  --bg1: orange;
+	--bg-0: white;
+  --bg-1: dimgray;
+	--text-0: black;
+  --text-1: white;
 }
 
 @media (prefers-reduced-motion: no-preference) {
