@@ -16,8 +16,14 @@ code {
 :root {
 	--bg-0: white;
   --bg-1: dimgray;
+	--bg-3: hsl(255, 80%, 59%);
+	--border-4: hsl(255, 80%, 50%);
 	--text-0: black;
   --text-1: white;
+	--focus-0: blue;
+	--focus-1: lime;
+	--hover-0: skyblue;
+	--hover-1: green;
 }
 
 @media (prefers-reduced-motion: no-preference) {
