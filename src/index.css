@@ -14,16 +14,25 @@ code {
 
 /* Theme colors */ 
 :root {
-	--bg-0: white;
-  --bg-1: dimgray;
-	--bg-3: hsl(255, 80%, 59%);
-	--border-4: hsl(255, 80%, 50%);
-	--text-0: black;
-  --text-1: white;
-	--focus-0: blue;
-	--focus-1: lime;
-	--hover-0: skyblue;
-	--hover-1: green;
+	--bg-0: hsl(255, 80%, 59%);
+	--bg2-0: hsl(255, 80%, 69%);
+	--text-0: hsl(180, 80%, 50%);
+	--border-0: hsl(255, 80%, 50%);
+	--no-0: red;
+	--yes-0: lime;
+	--hover-0: hsl(280, 80%, 80%);
+	--focus-0: hsl(280, 80%, 60%);
+
+	--bg-1: white;
+	--bg2-1: lightgrey;
+	--text-1: black;
+	--border-1: dimgray;
+	--no-1: red;
+	--yes-1: lime;
+	--hover-1: skyblue;
+	--focus-1: blue;
+	
+
 }
 
 @media (prefers-reduced-motion: no-preference) {
