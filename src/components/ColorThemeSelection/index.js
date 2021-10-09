@@ -2,13 +2,14 @@ import styled from "styled-components";
 
 function ColorThemeSelection({ themeNumber, setThemeNumber }) {
   const colorNames = ["violet", "classic"];
+	
   return (
     <ButtonsContainer className="App" themeNumber={themeNumber}>
       {Array.from(Array(2).keys()).map((n, index) => {
         return (
-          <P key={index} n={n}>
+          <SetColorButton key={index} n={n} onClick = {()=>{setThemeNumber(n)}}>
             {colorNames[n]}
-          </P>
+          </SetColorButton>
         );
       })}
     </ButtonsContainer>
@@ -25,9 +26,9 @@ const ButtonsContainer = styled.div`
   padding: 20px;
   justify-content: center;
 `;
-const P = styled.button`
-  margin: 0 20px;
-  padding: 10px 20px;
+const SetColorButton = styled.button`
+font-size: 0.7rem;
+  margin: 0 5px 10px;
   background: ${(p) => `var(--bg-${p.n})`};
   border: ${(p) => `2px solid var(--border-${p.n})`};
   color: ${(p) => `var(--text-${p.n})`};
@@ -54,6 +55,11 @@ linear-gradient(90deg, transparent 75%, var(--bg2-${p.n}) 25%)`};
 :active {
 	outline: 2px solid ${p => `var(--focus-${p.n})`};
 }
+padding: 5px 10px;
+@media screen and (min-width: 500px) {
+	padding: 8px 15px;
+	font-size: 1rem;
+  }
 `;
 
 // background-image: ${ p=> `linear-gradient(
