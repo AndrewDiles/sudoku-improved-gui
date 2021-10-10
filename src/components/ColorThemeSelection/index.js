@@ -4,7 +4,7 @@ function ColorThemeSelection({ themeNumber, setThemeNumber }) {
   const colorNames = ["violet", "classic"];
 	
   return (
-    <ButtonsContainer className="App" themeNumber={themeNumber}>
+    <ButtonsContainer className="App">
       {Array.from(Array(2).keys()).map((n, index) => {
         return (
           <SetColorButton key={index} n={n} onClick = {()=>{setThemeNumber(n)}}>
@@ -61,9 +61,3 @@ padding: 5px 10px;
 	font-size: 1rem;
   }
 `;
-
-// background-image: ${ p=> `linear-gradient(
-// 	red 5px,
-// 	transparent 0.1em
-// ),
-// linear-gradient(90deg, transparent 20px, var(--bg2-${p.n}) 20px,)`};

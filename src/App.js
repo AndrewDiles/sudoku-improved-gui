@@ -1,12 +1,14 @@
 import {useState} from "react";
 import styled from "styled-components";
 import ColorThemeSelection from "./components/ColorThemeSelection";
+import Sudoku from "./components/Sudoku";
 
 function App() {
 	const [themeNumber, setThemeNumber] = useState(0);
   return (
     <MasterContainer className="App" themeNumber = {themeNumber}>
 			<ColorThemeSelection themeNumber = {themeNumber} setThemeNumber = {setThemeNumber}/>
+			<Sudoku themeNumber = {themeNumber}/>
     </MasterContainer>
   );
 }
