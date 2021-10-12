@@ -1,6 +1,11 @@
+import {useState} from "react";
 import styled from "styled-components";
 
 function Sudoku({ themeNumber }) {
+	const [inputtingOwnPuzzle, setInputtingOwnPuzzle] = useState(null);
+	// const [valueHistory, setValueHistory] = useState(createInitialValueHistory);
+	// const [currentPotentials, setCurrentPotentials] = useState(createInitialCurrentPotentials);
+
   return (
     <Container>
       <GridContainer themeNumber={themeNumber}>
