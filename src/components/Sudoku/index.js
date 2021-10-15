@@ -1,13 +1,14 @@
 import { useState } from "react";
 import styled from "styled-components";
+import {createInitialValueHistory, createInitialCurrentPotentials} from "../../helpers/functions";
 
 function Sudoku({ themeNumber }) {
   const [inputtingOwnPuzzle, setInputtingOwnPuzzle] = useState(null);
   const [displaySelectedCellIndicator, setDisplaySelectedCellIndicator] =
     useState(false);
 	const [selectedCellNumber, setSelectedCellNumber] = useState(0);
-  // const [valueHistory, setValueHistory] = useState(createInitialValueHistory);
-  // const [currentPotentials, setCurrentPotentials] = useState(createInitialCurrentPotentials);
+  const [valueHistory, setValueHistory] = useState(createInitialValueHistory);
+  const [currentPotentials, setCurrentPotentials] = useState(createInitialCurrentPotentials);
 
   return (
     <Container>
