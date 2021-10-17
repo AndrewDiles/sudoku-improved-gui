@@ -1,14 +1,19 @@
 import { useState } from "react";
 import styled from "styled-components";
-import {createInitialValueHistory, createInitialCurrentPotentials} from "../../helpers/functions";
+import {
+  createInitialValueHistory,
+  createInitialCurrentPotentials,
+} from "../../helpers/functions";
 
 function Sudoku({ themeNumber }) {
   const [inputtingOwnPuzzle, setInputtingOwnPuzzle] = useState(null);
   const [displaySelectedCellIndicator, setDisplaySelectedCellIndicator] =
     useState(false);
-	const [selectedCellNumber, setSelectedCellNumber] = useState(0);
+  const [selectedCellNumber, setSelectedCellNumber] = useState(0);
   const [valueHistory, setValueHistory] = useState(createInitialValueHistory);
-  const [currentPotentials, setCurrentPotentials] = useState(createInitialCurrentPotentials);
+  const [currentPotentials, setCurrentPotentials] = useState(
+    createInitialCurrentPotentials
+  );
 
   return (
     <Container>
@@ -59,23 +64,17 @@ const GridContainer = styled.div`
   background: ${(p) => `var(--text-${p.themeNumber})`};
 `;
 const Block = styled.div`
-  height: 32px;
-  width: 32px;
+  /* height: 62px;
+  width: 62px; */
+  height: min(2px + 30vw, 152px);
+  width: min(2px + 30vw, 152px);
   grid-gap: 1px;
   background: ${(p) => `var(--border-${p.themeNumber})`};
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  @media screen and (min-width: 500px) {
-    height: 92px;
-    width: 92px;
-  }
 `;
 const Cell = styled.div`
-  height: 10px;
-  width: 10px;
+  height: min(10vw, 50px);
+  width: min(10vw, 50px);
   background: ${(p) => `var(--bg-${p.themeNumber})`};
-  @media screen and (min-width: 500px) {
-    height: 30px;
-    width: 30px;
-  }
 `;

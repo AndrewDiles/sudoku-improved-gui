@@ -26,13 +26,12 @@ code {
 	--bg-1: white;
 	--bg2-1: lightgrey;
 	--text-1: black;
-	--border-1: dimgray;
+	--border-1: lightgray;
 	--no-1: red;
 	--yes-1: lime;
 	--hover-1: skyblue;
 	--focus-1: blue;
 	
-
 }
 
 @media (prefers-reduced-motion: no-preference) {
