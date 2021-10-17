@@ -4,6 +4,7 @@ import {
   createInitialValueHistory,
   createInitialCurrentPotentials,
 } from "../../helpers/functions";
+import CellSelector from "./CellSelector";
 
 function Sudoku({ themeNumber }) {
   const [inputtingOwnPuzzle, setInputtingOwnPuzzle] = useState(null);
@@ -17,6 +18,7 @@ function Sudoku({ themeNumber }) {
 
   return (
     <Container>
+			<CellSelector selectedCellNumber = {selectedCellNumber} setSelectedCellNumber = {setSelectedCellNumber}/>
       <GridContainer themeNumber={themeNumber}>
         {Array.from(Array(9).keys()).map((blockNumber) => {
           return (
