@@ -46,6 +46,34 @@
     return result;
 	}
 
+	function returnCellNumberGivenInitial(initial, cellNumber){
+		switch(cellNumber){
+			case 1 : return initial;
+			case 2 : return initial+1;
+			case 3 : return initial+2;
+			case 4 : return initial+9;
+			case 5 : return initial+10;
+			case 6 : return initial+11;
+			case 7 : return initial+18;
+			case 8 : return initial+19;
+			case 9 : return initial+20;
+		}
+	}
+
+	function resolveSelectedCellNumberFromBlockNumberAndCellNumber (blockNumber, cellNumber) {
+		switch(blockNumber){
+			case 1 : return returnCellNumberGivenInitial(0, cellNumber);
+			case 2 : return returnCellNumberGivenInitial(3, cellNumber);
+			case 3 : return returnCellNumberGivenInitial(6, cellNumber);
+			case 4 : return returnCellNumberGivenInitial(27, cellNumber);
+			case 5 : return returnCellNumberGivenInitial(30, cellNumber);
+			case 6 : return returnCellNumberGivenInitial(33, cellNumber);
+			case 7 : return returnCellNumberGivenInitial(54, cellNumber);
+			case 8 : return returnCellNumberGivenInitial(57, cellNumber);
+			case 9 : return returnCellNumberGivenInitial(60, cellNumber);
+		}
+	}
+
   function setArrayForGivens (setfunctionOngoing, valueHistory, currentPotentials, setCurrentPotentials) {
     setfunctionOngoing(true);
 		let replacementCurrentPotentials = duplicate(currentPotentials);
@@ -1237,6 +1265,7 @@
 export {
   createInitialValueHistory,
 	createInitialCurrentPotentials,
+	resolveSelectedCellNumberFromBlockNumberAndCellNumber,
   // confirmInputs,
   // testEasy,
   // testMedium,

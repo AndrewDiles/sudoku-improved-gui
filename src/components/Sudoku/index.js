@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {
   createInitialValueHistory,
   createInitialCurrentPotentials,
+	resolveSelectedCellNumberFromBlockNumberAndCellNumber,
 } from "../../helpers/functions";
 import CellSelector from "./CellSelector";
 
@@ -33,6 +34,7 @@ function Sudoku({ themeNumber }) {
                     key={cellNumber}
                     themeNumber={themeNumber}
                     cellNumber={1 + cellNumber}
+										isSelected = {selectedCellNumber === resolveSelectedCellNumberFromBlockNumberAndCellNumber(1 + blockNumber, 1 + cellNumber)}
                   ></Cell>
                 );
               })}
@@ -78,5 +80,8 @@ const Block = styled.div`
 const Cell = styled.div`
   height: min(10vw, 50px);
   width: min(10vw, 50px);
-  background: ${(p) => `var(--bg-${p.themeNumber})`};
+  background: ${(p) => p.isSelected ? `radial-gradient(var(--bg2-${p.themeNumber}), var(--bg-${p.themeNumber}))` :`var(--bg-${p.themeNumber})`};
+	outline: ${(p) => p.isSelected && `1px solid var(--hover-${p.themeNumber})`};
+	outline-offset: -2px;
 `;
+// radial-gradient(#e66465, #9198e5);
