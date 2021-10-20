@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 
 function CellSelector({ selectedCellNumber, setSelectedCellNumber }) {
+	let scopedSelectedCellNumber = 0;
   useEffect(() => {
-    let scopedSelectedCellNumber = 0;
     window.addEventListener("keydown", (e) => {
       if (e.code === "KeyS" || e.code === "ArrowDown") {
+				console.log({scopedSelectedCellNumber})
         if (scopedSelectedCellNumber > 71) {
           // console.log("bottom row on down");
           scopedSelectedCellNumber -= 72;
@@ -47,6 +48,11 @@ function CellSelector({ selectedCellNumber, setSelectedCellNumber }) {
       }
     });
   }, []);
+
+	useEffect(()=>{
+		scopedSelectedCellNumber=selectedCellNumber;
+		console.log('changed scopedSelectedCellNumber to ', selectedCellNumber)
+	},[selectedCellNumber])
 
   useEffect(() => {
     console.log(selectedCellNumber);

@@ -14,7 +14,7 @@ function App() {
 }
 
 export default App;
-const MasterContainer = styled.div`
+const MasterContainer = styled.main`
 	text-align: center;
 	box-sizing: border-box;
 	min-height: 100vh;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {
   createInitialValueHistory,
   createInitialCurrentPotentials,
-	resolveSelectedCellNumberFromBlockNumberAndCellNumber,
+  resolveSelectedCellNumberFromBlockNumberAndCellNumber,
 } from "../../helpers/functions";
 import CellSelector from "./CellSelector";
 
@@ -19,7 +19,10 @@ function Sudoku({ themeNumber }) {
 
   return (
     <Container>
-			<CellSelector selectedCellNumber = {selectedCellNumber} setSelectedCellNumber = {setSelectedCellNumber}/>
+      <CellSelector
+        selectedCellNumber={selectedCellNumber}
+        setSelectedCellNumber={setSelectedCellNumber}
+      />
       <GridContainer themeNumber={themeNumber}>
         {Array.from(Array(9).keys()).map((blockNumber) => {
           return (
@@ -34,7 +37,21 @@ function Sudoku({ themeNumber }) {
                     key={cellNumber}
                     themeNumber={themeNumber}
                     cellNumber={1 + cellNumber}
-										isSelected = {selectedCellNumber === resolveSelectedCellNumberFromBlockNumberAndCellNumber(1 + blockNumber, 1 + cellNumber)}
+                    isSelected={
+                      selectedCellNumber ===
+                      resolveSelectedCellNumberFromBlockNumberAndCellNumber(
+                        1 + blockNumber,
+                        1 + cellNumber
+                      )
+                    }
+                    onClick={() => {
+                      setSelectedCellNumber(
+                        resolveSelectedCellNumberFromBlockNumberAndCellNumber(
+                          1 + blockNumber,
+                          1 + cellNumber
+                        )
+                      );
+                    }}
                   ></Cell>
                 );
               })}
@@ -47,7 +64,7 @@ function Sudoku({ themeNumber }) {
 }
 
 export default Sudoku;
-const Container = styled.div`
+const Container = styled.section`
   padding-bottom: 20px;
   text-align: center;
   box-sizing: border-box;
@@ -68,8 +85,6 @@ const GridContainer = styled.div`
   background: ${(p) => `var(--text-${p.themeNumber})`};
 `;
 const Block = styled.div`
-  /* height: 62px;
-  width: 62px; */
   height: min(2px + 30vw, 152px);
   width: min(2px + 30vw, 152px);
   grid-gap: 1px;
@@ -80,8 +95,13 @@ const Block = styled.div`
 const Cell = styled.div`
   height: min(10vw, 50px);
   width: min(10vw, 50px);
-  background: ${(p) => p.isSelected ? `radial-gradient(var(--bg2-${p.themeNumber}), var(--bg-${p.themeNumber}))` :`var(--bg-${p.themeNumber})`};
-	outline: ${(p) => p.isSelected && `1px solid var(--hover-${p.themeNumber})`};
-	outline-offset: -2px;
+  background: ${(p) =>
+    p.isSelected
+      ? `radial-gradient(var(--bg2-${p.themeNumber}), var(--bg-${p.themeNumber}))`
+      : `var(--bg-${p.themeNumber})`};
+  outline: ${(p) => p.isSelected && `1px solid var(--hover-${p.themeNumber})`};
+  outline-offset: -2px;
+  :hover {
+    cursor: pointer;
+  }
 `;
-// radial-gradient(#e66465, #9198e5);

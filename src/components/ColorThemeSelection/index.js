@@ -17,7 +17,7 @@ function ColorThemeSelection({ themeNumber, setThemeNumber }) {
 }
 
 export default ColorThemeSelection;
-const ButtonsContainer = styled.div`
+const ButtonsContainer = styled.section`
   padding-bottom: 20px;
   text-align: center;
   box-sizing: border-box;
@@ -45,6 +45,7 @@ font-size: 0.7rem;
 	var(--no-${p.n}) 2%
 ),
 linear-gradient(90deg, transparent 75%, var(--bg2-${p.n}) 25%)`};
+transform: scale(1);
 :hover {
 	outline: 2px solid ${p => `var(--hover-${p.n})`};
 	cursor: pointer;
@@ -54,7 +55,9 @@ linear-gradient(90deg, transparent 75%, var(--bg2-${p.n}) 25%)`};
 }
 :active {
 	outline: 2px solid ${p => `var(--focus-${p.n})`};
+	transform: scale(0.95);
 }
+transition: transform 0.3s ease-in-out;
 padding: 5px 10px;
 @media screen and (min-width: 500px) {
 	padding: 8px 15px;
