@@ -33,6 +33,12 @@ code {
 	--focus-1: blue;
 	
 }
+.centered {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

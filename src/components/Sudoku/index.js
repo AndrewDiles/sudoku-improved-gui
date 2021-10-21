@@ -16,10 +16,12 @@ function Sudoku({ themeNumber }) {
   const [currentPotentials, setCurrentPotentials] = useState(
     createInitialCurrentPotentials
   );
+  let cellLocation = {a:0};
 
   return (
     <Container>
       <CellSelector
+        cellLocation={cellLocation}
         selectedCellNumber={selectedCellNumber}
         setSelectedCellNumber={setSelectedCellNumber}
       />
@@ -35,6 +37,7 @@ function Sudoku({ themeNumber }) {
                 return (
                   <Cell
                     key={cellNumber}
+										className="centered"
                     themeNumber={themeNumber}
                     cellNumber={1 + cellNumber}
                     isSelected={
@@ -45,12 +48,12 @@ function Sudoku({ themeNumber }) {
                       )
                     }
                     onClick={() => {
-                      setSelectedCellNumber(
+                      cellLocation.a =
                         resolveSelectedCellNumberFromBlockNumberAndCellNumber(
                           1 + blockNumber,
                           1 + cellNumber
-                        )
-                      );
+                        );
+                      setSelectedCellNumber(cellLocation.a);
                     }}
                   ></Cell>
                 );
@@ -103,5 +106,6 @@ const Cell = styled.div`
   outline-offset: -2px;
   :hover {
     cursor: pointer;
+		outline: ${(p) => `1px solid var(--hover-${p.themeNumber})`};
   }
 `;
