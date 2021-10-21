@@ -1,62 +1,82 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function CellSelector({ selectedCellNumber, setSelectedCellNumber }) {
-	let scopedSelectedCellNumber = 0;
+	const [updated, setUpdated] = useState(true);
+	let keyDownFunction = (e) => {
+		if (e.code === "KeyS" || e.code === "ArrowDown") {
+			if (selectedCellNumber > 71) {
+				setSelectedCellNumber(selectedCellNumber-72);
+			} else {
+				setSelectedCellNumber(selectedCellNumber+9);
+			}
+		} else if (e.code === "KeyW" || e.code === "ArrowUp") {
+			if (selectedCellNumber < 9) {
+				setSelectedCellNumber(selectedCellNumber+72);
+			} else {
+				setSelectedCellNumber(selectedCellNumber-9);
+			}
+		} else if (e.code === "KeyA" || e.code === "ArrowLeft") {
+			if (selectedCellNumber % 9 === 0) {
+				setSelectedCellNumber(selectedCellNumber+8);
+			} else {
+				setSelectedCellNumber(selectedCellNumber-1);
+			}
+		} else if (e.code === "KeyD" || e.code === "ArrowRight") {
+			if ((selectedCellNumber - 8) % 9 === 0) {
+				setSelectedCellNumber(selectedCellNumber-8);
+			} else {
+				setSelectedCellNumber(selectedCellNumber+1);
+			}
+		}
+		console.log('setting updated to false')
+		setUpdated(false);
+		console.log({updated})
+	}
+
+	useEffect(()=>{
+		console.log({updated})
+	},[updated])
+
   useEffect(() => {
-    window.addEventListener("keydown", (e) => {
-      if (e.code === "KeyS" || e.code === "ArrowDown") {
-				console.log({scopedSelectedCellNumber})
-        if (scopedSelectedCellNumber > 71) {
-          // console.log("bottom row on down");
-          scopedSelectedCellNumber -= 72;
-          setSelectedCellNumber(scopedSelectedCellNumber);
-        } else {
-          // console.log("normal down press");
-          scopedSelectedCellNumber += 9;
-          setSelectedCellNumber(scopedSelectedCellNumber);
-        }
-      } else if (e.code === "KeyW" || e.code === "ArrowUp") {
-        if (scopedSelectedCellNumber < 9) {
-          // console.log("top row on up");
-          scopedSelectedCellNumber += 72;
-          setSelectedCellNumber(scopedSelectedCellNumber);
-        } else {
-          // console.log("normal up press");
-          scopedSelectedCellNumber -= 9;
-          setSelectedCellNumber(scopedSelectedCellNumber);
-        }
-      } else if (e.code === "KeyA" || e.code === "ArrowLeft") {
-        if (scopedSelectedCellNumber % 9 === 0) {
-          // console.log("left col on left");
-          scopedSelectedCellNumber += 8;
-          setSelectedCellNumber(scopedSelectedCellNumber);
-        } else {
-          // console.log("normal left press");
-          scopedSelectedCellNumber--;
-          setSelectedCellNumber(scopedSelectedCellNumber);
-        }
-      } else if (e.code === "KeyD" || e.code === "ArrowRight") {
-        if ((scopedSelectedCellNumber - 8) % 9 === 0) {
-          // console.log("right col on right");
-          scopedSelectedCellNumber -= 8;
-          setSelectedCellNumber(scopedSelectedCellNumber);
-        } else {
-          // console.log("normal right press");
-          scopedSelectedCellNumber++;
-          setSelectedCellNumber(scopedSelectedCellNumber);
-        }
-      }
-    });
+    window.addEventListener("keydown", keyDownFunction);
   }, []);
 
 	useEffect(()=>{
-		scopedSelectedCellNumber=selectedCellNumber;
-		console.log('changed scopedSelectedCellNumber to ', selectedCellNumber)
+		console.log('selectedCellNumber change triggered useEffect:', selectedCellNumber);
+		console.log({updated})
+		if (updated) return;
+		window.removeEventListener("keydown", keyDownFunction);
+		setUpdated(true);
+		keyDownFunction = (e) => {
+			if (e.code === "KeyS" || e.code === "ArrowDown") {
+				if (selectedCellNumber > 71) {
+					setSelectedCellNumber(selectedCellNumber-72);
+				} else {
+					setSelectedCellNumber(selectedCellNumber+9);
+				}
+			} else if (e.code === "KeyW" || e.code === "ArrowUp") {
+				if (selectedCellNumber < 9) {
+					setSelectedCellNumber(selectedCellNumber+72);
+				} else {
+					setSelectedCellNumber(selectedCellNumber-9);
+				}
+			} else if (e.code === "KeyA" || e.code === "ArrowLeft") {
+				if (selectedCellNumber % 9 === 0) {
+					setSelectedCellNumber(selectedCellNumber+8);
+				} else {
+					setSelectedCellNumber(selectedCellNumber-1);
+				}
+			} else if (e.code === "KeyD" || e.code === "ArrowRight") {
+				if ((selectedCellNumber - 8) % 9 === 0) {
+					setSelectedCellNumber(selectedCellNumber-8);
+				} else {
+					setSelectedCellNumber(selectedCellNumber+1);
+				}
+			}
+			setUpdated(false);
+		}
+		window.addEventListener("keydown", keyDownFunction);
 	},[selectedCellNumber])
-
-  useEffect(() => {
-    console.log(selectedCellNumber);
-  }, [selectedCellNumber]);
 
   return null;
 }
