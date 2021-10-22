@@ -1,93 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-function CellSelector({ cellLocation, selectedCellNumber, setSelectedCellNumber }) {
-	// const [updated, setUpdated] = useState(true);
-	let keyDownFunction = (e) => {
-		if (e.code === "KeyS" || e.code === "ArrowDown") {
-			if (cellLocation.a > 71) {
-				cellLocation.a-=72;
-				setSelectedCellNumber(cellLocation.a);
-			} else {
-				cellLocation.a+=9;
-				setSelectedCellNumber(cellLocation.a);
-			}
-		} else if (e.code === "KeyW" || e.code === "ArrowUp") {
-			if (cellLocation.a < 9) {
-				cellLocation.a+=72;
-				setSelectedCellNumber(cellLocation.a);
-			} else {
-				cellLocation.a-=9;
-				setSelectedCellNumber(cellLocation.a);
-			}
-		} else if (e.code === "KeyA" || e.code === "ArrowLeft") {
-			if (cellLocation.a % 9 === 0) {
-				console.log('flip')
-				cellLocation.a+=8;
-				setSelectedCellNumber(cellLocation.a);
-			} else {
-				console.log('regular left')
-				cellLocation.a--;
-				setSelectedCellNumber(cellLocation.a);
-			}
-		} else if (e.code === "KeyD" || e.code === "ArrowRight") {
-			if ((cellLocation.a - 8) % 9 === 0) {
-				console.log('flip')
-				cellLocation.a-=8;
-				setSelectedCellNumber(cellLocation.a);
-			} else {
-				cellLocation.a++;
-				setSelectedCellNumber(cellLocation.a);
-			}
-		}
-		// console.log('setting updated to false')
-		// setUpdated(false);
-		// console.log({updated})
-	}
-
-	// useEffect(()=>{
-	// 	console.log({updated})
-	// },[updated])
+function CellSelector({
+  setSelectedCellNumber,
+}) {
+  const handleKeyDown = (e) => {
+    if (e.code === "KeyS" || e.code === "ArrowDown") {
+      setSelectedCellNumber((currentLocation) => { return currentLocation > 71 ? currentLocation-72 : currentLocation+9 });
+    } else if (e.code === "KeyW" || e.code === "ArrowUp") {
+			setSelectedCellNumber((currentLocation) => { return currentLocation < 9 ? currentLocation+72 : currentLocation-9 });
+    } else if (e.code === "KeyA" || e.code === "ArrowLeft") {
+			setSelectedCellNumber((currentLocation) => { return currentLocation % 9 === 0 ? currentLocation+8 : currentLocation-1 });
+    } else if (e.code === "KeyD" || e.code === "ArrowRight") {
+			setSelectedCellNumber((currentLocation) => { return (currentLocation -8) % 9 === 0 ? currentLocation-8 : currentLocation+1 });
+    }
+  };
 
   useEffect(() => {
-    window.addEventListener("keydown", keyDownFunction);
+    window.addEventListener("keydown", handleKeyDown);
   }, []);
-
-	// useEffect(()=>{
-	// 	console.log('selectedCellNumber change triggered useEffect:', selectedCellNumber);
-	// 	console.log({updated})
-	// 	if (updated) return;
-	// 	window.removeEventListener("keydown", keyDownFunction);
-	// 	setUpdated(true);
-	// 	keyDownFunction = (e) => {
-	// 		if (e.code === "KeyS" || e.code === "ArrowDown") {
-	// 			if (selectedCellNumber > 71) {
-	// 				setSelectedCellNumber(selectedCellNumber-72);
-	// 			} else {
-	// 				setSelectedCellNumber(selectedCellNumber+9);
-	// 			}
-	// 		} else if (e.code === "KeyW" || e.code === "ArrowUp") {
-	// 			if (selectedCellNumber < 9) {
-	// 				setSelectedCellNumber(selectedCellNumber+72);
-	// 			} else {
-	// 				setSelectedCellNumber(selectedCellNumber-9);
-	// 			}
-	// 		} else if (e.code === "KeyA" || e.code === "ArrowLeft") {
-	// 			if (selectedCellNumber % 9 === 0) {
-	// 				setSelectedCellNumber(selectedCellNumber+8);
-	// 			} else {
-	// 				setSelectedCellNumber(selectedCellNumber-1);
-	// 			}
-	// 		} else if (e.code === "KeyD" || e.code === "ArrowRight") {
-	// 			if ((selectedCellNumber - 8) % 9 === 0) {
-	// 				setSelectedCellNumber(selectedCellNumber-8);
-	// 			} else {
-	// 				setSelectedCellNumber(selectedCellNumber+1);
-	// 			}
-	// 		}
-	// 		setUpdated(false);
-	// 	}
-	// 	window.addEventListener("keydown", keyDownFunction);
-	// },[selectedCellNumber])
 
   return null;
 }

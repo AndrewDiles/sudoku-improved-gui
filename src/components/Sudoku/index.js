@@ -16,12 +16,10 @@ function Sudoku({ themeNumber }) {
   const [currentPotentials, setCurrentPotentials] = useState(
     createInitialCurrentPotentials
   );
-  let cellLocation = {a:0};
 
   return (
     <Container>
       <CellSelector
-        cellLocation={cellLocation}
         selectedCellNumber={selectedCellNumber}
         setSelectedCellNumber={setSelectedCellNumber}
       />
@@ -48,12 +46,10 @@ function Sudoku({ themeNumber }) {
                       )
                     }
                     onClick={() => {
-                      cellLocation.a =
-                        resolveSelectedCellNumberFromBlockNumberAndCellNumber(
-                          1 + blockNumber,
-                          1 + cellNumber
-                        );
-                      setSelectedCellNumber(cellLocation.a);
+                      setSelectedCellNumber(resolveSelectedCellNumberFromBlockNumberAndCellNumber(
+												1 + blockNumber,
+												1 + cellNumber
+											));
                     }}
                   ></Cell>
                 );
