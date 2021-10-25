@@ -1,6 +1,7 @@
 import {useState} from "react";
 import styled from "styled-components";
 import ColorThemeSelection from "./components/ColorThemeSelection";
+import Header from "./components/Header";
 import Sudoku from "./components/Sudoku";
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
   return (
     <MasterContainer className="App" themeNumber = {themeNumber}>
 			<ColorThemeSelection setThemeNumber = {setThemeNumber}/>
+			<Header/>
 			<Sudoku themeNumber = {themeNumber}/>
     </MasterContainer>
   );

@@ -1,13 +1,30 @@
+import {useEffect} from "react";
 import styled from "styled-components";
 
 function ColorThemeSelection({ setThemeNumber }) {
   const colorNames = ["violet", "classic", "green"];
-	
+	useEffect(()=>{
+		const potentialStoredColorPref = JSON.parse(window.localStorage.getItem('colorPref'));
+		if (potentialStoredColorPref) {
+			setThemeNumber(potentialStoredColorPref.n)
+		}
+	},[])
+
   return (
     <ButtonsContainer className="App">
       {Array.from(Array(colorNames.length).keys()).map((n, index) => {
         return (
-          <SetColorButton key={index} n={n} onClick = {()=>{setThemeNumber(n)}}>
+          <SetColorButton
+            key={index}
+            n={n}
+            onClick={() => {
+              setThemeNumber(n);
+              const colorPref = {
+                n,
+              };
+              window.localStorage.setItem("colorPref", JSON.stringify(colorPref));
+            }}
+          >
             {colorNames[n]}
           </SetColorButton>
         );
@@ -27,7 +44,7 @@ const ButtonsContainer = styled.section`
   justify-content: center;
 `;
 const SetColorButton = styled.button`
-font-size: 0.7rem;
+  font-size: 0.7rem;
   margin: 0 5px 10px;
   background: ${(p) => `var(--bg-${p.n})`};
   border: ${(p) => `2px solid var(--border-${p.n})`};
@@ -45,22 +62,22 @@ font-size: 0.7rem;
 	var(--no-${p.n}) 2%
 ),
 linear-gradient(90deg, transparent 75%, var(--bg2-${p.n}) 25%)`};
-transform: scale(1);
-:hover {
-	outline: 2px solid ${p => `var(--hover-${p.n})`};
-	cursor: pointer;
-}
-:focus {
-	outline: 2px solid ${p => `var(--focus-${p.n})`};
-}
-:active {
-	outline: 2px solid ${p => `var(--focus-${p.n})`};
-	transform: scale(0.95);
-}
-transition: transform 0.3s ease-in-out;
-padding: 5px 10px;
-@media screen and (min-width: 500px) {
-	padding: 8px 15px;
-	font-size: 1rem;
+  transform: scale(1);
+  :hover {
+    outline: 2px solid ${(p) => `var(--hover-${p.n})`};
+    cursor: pointer;
+  }
+  :focus {
+    outline: 2px solid ${(p) => `var(--focus-${p.n})`};
+  }
+  :active {
+    outline: 2px solid ${(p) => `var(--focus-${p.n})`};
+    transform: scale(0.95);
+  }
+  transition: transform 0.3s ease-in-out;
+  padding: 5px 10px;
+  @media screen and (min-width: 500px) {
+    padding: 8px 15px;
+    font-size: 1rem;
   }
 `;

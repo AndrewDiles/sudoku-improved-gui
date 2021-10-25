@@ -69,11 +69,11 @@ const Container = styled.section`
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  padding: 20px;
+  padding: 0 20px 20px;
   justify-content: center;
 	/* flex-direction: column; */
   @media screen and (min-width: 500px) {
-    padding: 8px 15px;
+    padding: 0px 15px 8px;
     font-size: 1rem;
   }
 	/* @media screen and (min-width: 1000px) {
