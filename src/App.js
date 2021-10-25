@@ -7,7 +7,7 @@ function App() {
 	const [themeNumber, setThemeNumber] = useState(0);
   return (
     <MasterContainer className="App" themeNumber = {themeNumber}>
-			<ColorThemeSelection themeNumber = {themeNumber} setThemeNumber = {setThemeNumber}/>
+			<ColorThemeSelection setThemeNumber = {setThemeNumber}/>
 			<Sudoku themeNumber = {themeNumber}/>
     </MasterContainer>
   );

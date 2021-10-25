@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-function ColorThemeSelection({ themeNumber, setThemeNumber }) {
-  const colorNames = ["violet", "classic"];
+function ColorThemeSelection({ setThemeNumber }) {
+  const colorNames = ["violet", "classic", "green"];
 	
   return (
     <ButtonsContainer className="App">
-      {Array.from(Array(2).keys()).map((n, index) => {
+      {Array.from(Array(colorNames.length).keys()).map((n, index) => {
         return (
           <SetColorButton key={index} n={n} onClick = {()=>{setThemeNumber(n)}}>
             {colorNames[n]}

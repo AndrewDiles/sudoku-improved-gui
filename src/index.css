@@ -31,6 +31,15 @@ code {
 	--yes-1: lime;
 	--hover-1: skyblue;
 	--focus-1: blue;
+
+	--bg-2: hsl(125, 33%, 46%);
+	--bg2-2: hsl(125, 33%, 56%);
+	--text-2: hsl(341, 63%, 26%);
+	--border-2: hsl(125, 80%, 46%);;
+	--no-2: hsl(283, 100%, 50%);
+	--yes-2: hsl(68, 100%, 50%);
+	--hover-2: hsl(300, 80%, 50%);
+	--focus-2: hsl(320, 100%, 50%);;
 	
 }
 .centered {

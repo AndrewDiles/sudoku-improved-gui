@@ -71,10 +71,14 @@ const Container = styled.section`
   width: 100%;
   padding: 20px;
   justify-content: center;
+	/* flex-direction: column; */
   @media screen and (min-width: 500px) {
     padding: 8px 15px;
     font-size: 1rem;
   }
+	/* @media screen and (min-width: 1000px) {
+    flex-direction: row;
+  } */
 `;
 const GridContainer = styled.div`
   display: grid;
