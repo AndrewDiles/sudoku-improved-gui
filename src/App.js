@@ -8,9 +8,12 @@ function App() {
 	const [themeNumber, setThemeNumber] = useState(0);
   return (
     <MasterContainer className="App" themeNumber = {themeNumber}>
-			<ColorThemeSelection setThemeNumber = {setThemeNumber}/>
 			<Header/>
-			<Sudoku themeNumber = {themeNumber}/>
+			<ColorThemeSelection setThemeNumber = {setThemeNumber}/>
+			
+			<SudokuAndOptionsContainer>
+				<Sudoku themeNumber = {themeNumber}/>
+			</SudokuAndOptionsContainer>
     </MasterContainer>
   );
 }
@@ -23,4 +26,14 @@ const MasterContainer = styled.main`
 	min-width: 100vw;
 	background: ${p=>`var(--bg-${p.themeNumber})`};
 	color: ${p=>`var(--text-${p.themeNumber})`};
+`
+const SudokuAndOptionsContainer = styled.section`
+	text-align: center;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+	flex-direction: column;
+	@media screen and (min-width: 1000px) {
+    flex-direction: row;
+  }
 `

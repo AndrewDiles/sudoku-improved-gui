@@ -5,6 +5,7 @@ import {
   createInitialCurrentPotentials,
   resolveSelectedCellNumberFromBlockNumberAndCellNumber,
 } from "../../helpers/functions";
+import NumberSelection from "./NumberSelection";
 import CellSelector from "./CellSelector";
 
 function Sudoku({ themeNumber }) {
@@ -19,6 +20,7 @@ function Sudoku({ themeNumber }) {
 
   return (
     <Container>
+      <NumberSelection selectedCellNumber={selectedCellNumber} />
       <CellSelector
         selectedCellNumber={selectedCellNumber}
         setSelectedCellNumber={setSelectedCellNumber}
@@ -35,7 +37,7 @@ function Sudoku({ themeNumber }) {
                 return (
                   <Cell
                     key={cellNumber}
-										className="centered"
+                    className="centered"
                     themeNumber={themeNumber}
                     cellNumber={1 + cellNumber}
                     isSelected={
@@ -46,10 +48,12 @@ function Sudoku({ themeNumber }) {
                       )
                     }
                     onClick={() => {
-                      setSelectedCellNumber(resolveSelectedCellNumberFromBlockNumberAndCellNumber(
-												1 + blockNumber,
-												1 + cellNumber
-											));
+                      setSelectedCellNumber(
+                        resolveSelectedCellNumberFromBlockNumberAndCellNumber(
+                          1 + blockNumber,
+                          1 + cellNumber
+                        )
+                      );
                     }}
                   ></Cell>
                 );
@@ -63,22 +67,18 @@ function Sudoku({ themeNumber }) {
 }
 
 export default Sudoku;
-const Container = styled.section`
+const Container = styled.div`
   padding-bottom: 20px;
   text-align: center;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   display: flex;
   width: 100%;
-  padding: 0 20px 20px;
+  padding-bottom: 20px;
   justify-content: center;
-	/* flex-direction: column; */
+	position: relative;
   @media screen and (min-width: 500px) {
-    padding: 0px 15px 8px;
     font-size: 1rem;
   }
-	/* @media screen and (min-width: 1000px) {
-    flex-direction: row;
-  } */
 `;
 const GridContainer = styled.div`
   display: grid;
@@ -106,6 +106,6 @@ const Cell = styled.div`
   outline-offset: -2px;
   :hover {
     cursor: pointer;
-		outline: ${(p) => `1px solid var(--hover-${p.themeNumber})`};
+    outline: ${(p) => `1px solid var(--hover-${p.themeNumber})`};
   }
 `;
