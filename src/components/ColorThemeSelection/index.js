@@ -1,14 +1,16 @@
-import {useEffect} from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 
 function ColorThemeSelection({ setThemeNumber }) {
   const colorNames = ["violet", "classic", "green"];
-	useEffect(()=>{
-		const potentialStoredColorPref = JSON.parse(window.localStorage.getItem('colorPref'));
-		if (potentialStoredColorPref) {
-			setThemeNumber(potentialStoredColorPref.n)
-		}
-	},[])
+  useEffect(() => {
+    const potentialStoredColorPref = JSON.parse(
+      window.localStorage.getItem("colorPref")
+    );
+    if (potentialStoredColorPref) {
+      setThemeNumber(potentialStoredColorPref.n);
+    }
+  }, []);
 
   return (
     <ButtonsContainer className="App">
@@ -17,12 +19,17 @@ function ColorThemeSelection({ setThemeNumber }) {
           <SetColorButton
             key={index}
             n={n}
+            aria-label={`Set color to ${colorNames[n]} button`}
+            title={`Set color to ${colorNames[n]} button`}
             onClick={() => {
               setThemeNumber(n);
               const colorPref = {
                 n,
               };
-              window.localStorage.setItem("colorPref", JSON.stringify(colorPref));
+              window.localStorage.setItem(
+                "colorPref",
+                JSON.stringify(colorPref)
+              );
             }}
           >
             {colorNames[n]}
