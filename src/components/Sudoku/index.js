@@ -20,7 +20,10 @@ function Sudoku({ themeNumber }) {
 
   return (
     <Container>
-      <NumberSelection selectedCellNumber={selectedCellNumber} />
+      <NumberSelection
+        themeNumber={themeNumber}
+        selectedCellNumber={selectedCellNumber}
+      />
       <CellSelector
         selectedCellNumber={selectedCellNumber}
         setSelectedCellNumber={setSelectedCellNumber}
@@ -75,7 +78,7 @@ const Container = styled.div`
   width: 100%;
   padding-bottom: 20px;
   justify-content: center;
-	position: relative;
+  position: relative;
   @media screen and (min-width: 500px) {
     font-size: 1rem;
   }
