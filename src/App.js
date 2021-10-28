@@ -2,7 +2,6 @@ import {useState} from "react";
 import styled from "styled-components";
 import ColorThemeSelection from "./components/ColorThemeSelection";
 import Header from "./components/Header";
-// import Options from "./components/Options";
 import Sudoku from "./components/Sudoku";
 
 function App() {
@@ -11,11 +10,7 @@ function App() {
     <MasterContainer className="App" themeNumber = {themeNumber}>
 			<Header/>
 			<ColorThemeSelection setThemeNumber = {setThemeNumber}/>
-			
-			<SudokuAndOptionsContainer>
-				{/* <Options themeNumber = {themeNumber}/> */}
-				<Sudoku themeNumber = {themeNumber}/>
-			</SudokuAndOptionsContainer>
+			<Sudoku themeNumber = {themeNumber}/>
     </MasterContainer>
   );
 }
@@ -28,14 +23,4 @@ const MasterContainer = styled.main`
 	min-width: 100vw;
 	background: ${p=>`var(--bg-${p.themeNumber})`};
 	color: ${p=>`var(--text-${p.themeNumber})`};
-`
-const SudokuAndOptionsContainer = styled.section`
-	text-align: center;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-	flex-direction: column;
-	@media screen and (min-width: 1000px) {
-    flex-direction: row;
-  }
 `

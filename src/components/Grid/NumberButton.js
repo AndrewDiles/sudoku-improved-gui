@@ -1,7 +1,15 @@
 import styled from "styled-components";
 
 function NumberButton({ themeNumber, selectedCellNumber, number }) {
-  return <Button themeNumber={themeNumber}>{number + 1}</Button>;
+  return (
+    <Button
+      aria-label={`Set selected cell to ${number+1} button`}
+      title={`Set selected cell to ${number+1} button`}
+      themeNumber={themeNumber}
+    >
+      {number + 1}
+    </Button>
+  );
 }
 
 export default NumberButton;
@@ -29,6 +37,7 @@ const Button = styled.button`
   }
   outline-offset: -2px;
   :hover {
+		background: ${(p) => `var(--bg2-${p.themeNumber})`};
     outline: 2px solid ${(p) => `var(--hover-${p.themeNumber})`};
     cursor: pointer;
   }

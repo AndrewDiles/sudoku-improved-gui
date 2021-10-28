@@ -7,6 +7,7 @@ function NumberSelection({ themeNumber, selectedCellNumber }) {
       {Array.from(Array(9).keys()).map((n) => {
         return (
           <NumberButton
+            key={n}
             themeNumber={themeNumber}
             selectedCellNumber={selectedCellNumber}
             number={n}
@@ -23,10 +24,14 @@ const Container = styled.span`
   overflow-x: scroll;
   white-space: nowrap;
   bottom: -10px;
+  /* right: auto; */
   @media screen and (min-width: 300px) {
     bottom: -20px;
   }
   @media screen and (min-width: 500px) {
     bottom: -40px;
+  }
+  @media screen and (min-width: 1000px) {
+    right: -16px;
   }
 `;
