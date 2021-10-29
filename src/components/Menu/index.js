@@ -3,9 +3,11 @@ import styled from "styled-components";
 function Menu({ themeNumber }) {
   return (
     <Container>
-      <p>Some information</p>
-      <button>useless</button>
-      <button>buttons</button>
+      <Label>Some information</Label>
+      <ButtonsContainer>
+        <button>useless</button>
+        <button>buttons</button>
+      </ButtonsContainer>
     </Container>
   );
 }
@@ -16,16 +18,20 @@ const Container = styled.div`
   display: flex;
   text-align: center;
   display: flex;
-  width: 100%;
   padding: 0 0 20px;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: row;
   @media screen and (min-width: 500px) {
-		padding: 0 20px 20px;
+    padding: 0 20px 20px;
     font-size: 1rem;
   }
   @media screen and (min-width: 1000px) {
-		justify-content: flex-start;
     flex-direction: column;
   }
 `;
+const Label = styled.p`
+padding: 0 10px;
+width: fit-content;
+`;
+const ButtonsContainer = styled.div`
+`
