@@ -47,5 +47,6 @@ const Button = styled.button`
   :active {
     outline: 2px solid ${(p) => `var(--focus-${p.themeNumber})`};
     font-weight: 900;
+		background: ${(p) => `var(--bg3-${p.themeNumber})`};
   }
 `;

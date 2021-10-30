@@ -23,15 +23,25 @@ const Container = styled.div`
   flex-direction: row;
   @media screen and (min-width: 500px) {
     padding: 0 20px 20px;
+		padding-left: calc(50vw - 230px);
     font-size: 1rem;
   }
   @media screen and (min-width: 1000px) {
     flex-direction: column;
+		width: calc(100vw - 460px);
+		padding-left: 20px;
   }
 `;
 const Label = styled.p`
-padding: 0 10px;
 width: fit-content;
+margin: 0;
+padding: 0 20px;
+@media screen and (min-width: 500px) {
+		padding-left: 0;
+  }
+@media screen and (min-width: 1000px) {
+	padding: 0 0 0 20px;
+  }
 `;
 const ButtonsContainer = styled.div`
 `

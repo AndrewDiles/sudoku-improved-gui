@@ -115,8 +115,14 @@ const Cell = styled.div`
     cursor: pointer;
     outline: ${(p) => `1px solid var(--hover-${p.themeNumber})`};
     transform: scale(1.05);
+    background: ${(p) =>
+      p.isSelected
+        ? `radial-gradient(var(--bg3-${p.themeNumber}), var(--bg-${p.themeNumber}))`
+        : `radial-gradient(var(--bg2-${p.themeNumber}), var(--bg-${p.themeNumber}))`};
   }
   :active {
-    background: ${(p) => `var(--bg2-${p.themeNumber})`};
+    background: ${(p) =>
+      `radial-gradient(var(--bg3-${p.themeNumber}), var(--bg-${p.themeNumber}))`};
+    outline: ${(p) => `1px solid var(--focus-${p.themeNumber})`};
   }
 `;
