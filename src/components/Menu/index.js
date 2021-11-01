@@ -1,18 +1,39 @@
 import styled from "styled-components";
+import OptionButton from "./OptionButton";
 
-function Menu({ themeNumber }) {
+function Menu({ themeNumber, difficulty, setDifficulty }) {
+  const difficulties = [
+    "custom",
+    "easy",
+    "medium",
+    "hard",
+    "very hard",
+    "challenge",
+    "extreme",
+    "epic",
+  ];
   return (
     <Container>
       <Label>Select New Puzzle Type</Label>
       <ButtonsContainer>
-        <button>custom</button>
-        <button>easy</button>
-        <button>medium</button>
-        <button>hard</button>
-        <button>very hard</button>
-        <button>challenge</button>
-        <button>extreme</button>
-        <button>epic</button>
+        {difficulties.map((difficultyName, index) => {
+          let label = `Set difficulty to ${difficultyName} button`;
+          if (difficultyName === "custom") {
+            label = `Enter custom puzzle button`;
+          }
+          return (
+            <OptionButton
+              key={index}
+              themeNumber={themeNumber}
+              label={label}
+              title={label}
+							isSelected = {difficulty===difficultyName}
+              handleClick={() => setDifficulty(difficultyName)}
+            >
+              {difficultyName}
+            </OptionButton>
+          );
+        })}
       </ButtonsContainer>
     </Container>
   );
@@ -47,18 +68,18 @@ const Label = styled.p`
   }
   @media screen and (min-width: 1000px) {
     padding: 0 0 0 20px;
-		font-size: 1.5rem;
+    font-size: 1.5rem;
   }
 `;
 const ButtonsContainer = styled.div`
   display: flex;
-	flex-wrap: wrap;
+  flex-wrap: wrap;
   margin-right: 10px;
   @media screen and (min-width: 500px) {
     margin-right: 20px;
   }
   @media screen and (min-width: 1000px) {
     margin-right: 0px;
-		margin-top: 22px;
+    margin-top: 22px;
   }
 `;

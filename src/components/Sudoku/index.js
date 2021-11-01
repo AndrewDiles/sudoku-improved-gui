@@ -1,26 +1,31 @@
-import {useState} from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Grid from "../Grid";
 import Menu from "../Menu";
 
-function Sudoku({themeNumber}) {
+function Sudoku({ themeNumber }) {
+  const [difficulty, setDifficulty] = useState(null);
   return (
-			<GridAndMenuContainer>
-				<Menu themeNumber = {themeNumber}/>
-				<Grid themeNumber = {themeNumber}/>
-			</GridAndMenuContainer>
+    <GridAndMenuContainer>
+      <Menu
+        themeNumber={themeNumber}
+        difficulty={difficulty}
+        setDifficulty={setDifficulty}
+      />
+      <Grid themeNumber={themeNumber} />
+    </GridAndMenuContainer>
   );
 }
 
 export default Sudoku;
 
 const GridAndMenuContainer = styled.section`
-	text-align: center;
+  text-align: center;
   display: flex;
   width: 100%;
   justify-content: center;
-	flex-direction: column;
-	@media screen and (min-width: 1000px) {
+  flex-direction: column;
+  @media screen and (min-width: 1000px) {
     flex-direction: row-reverse;
   }
-`
+`;

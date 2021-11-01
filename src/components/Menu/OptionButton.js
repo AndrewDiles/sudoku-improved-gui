@@ -1,26 +1,30 @@
 import styled from "styled-components";
 
-function ColorThemeSelection({ n, colorName, isSelected, setThemeNumber }) {
+function OptionButton({
+  themeNumber,
+  label,
+  title,
+  isSelected,
+  handleClick,
+  children,
+}) {
   return (
     <Button
-      n={n}
-			isSelected = {isSelected}
-      aria-label={`Set color to ${colorName} button`}
-      title={`Set color to ${colorName} button`}
+      n={themeNumber}
+      aria-label={label}
+      title={title}
+      isSelected={isSelected}
       onClick={() => {
-        setThemeNumber(n);
-        const colorPref = {
-          n,
-        };
-        window.localStorage.setItem("colorPref", JSON.stringify(colorPref));
+        handleClick ? handleClick() : console.log("no handleClick function");
       }}
     >
-      {colorName}
+      {children}
     </Button>
   );
 }
 
-export default ColorThemeSelection;
+export default OptionButton;
+
 const Button = styled.button`
   font-size: 0.7rem;
   margin: 0 5px 10px;
@@ -40,13 +44,8 @@ const Button = styled.button`
 	var(--no-${p.n}) 2%
 ),
 linear-gradient(90deg, transparent 75%, var(--bg2-${p.n}) 25%)`};
+  outline: ${(p) => p.isSelected && `3px solid var(--text-${p.n})`};
   transform: scale(1);
-	outline: ${p=>p.isSelected && `3px solid var(--text-${p.n})`};
-	padding: 5px 10px;
-  @media screen and (min-width: 500px) {
-    padding: 8px 15px;
-    font-size: 1rem;
-  }
   :hover {
     outline: 2px solid ${(p) => `var(--hover-${p.n})`};
     cursor: pointer;
@@ -59,5 +58,9 @@ linear-gradient(90deg, transparent 75%, var(--bg2-${p.n}) 25%)`};
     transform: scale(0.95);
   }
   transition: transform 0.3s ease-in-out;
-  
+  padding: 5px 10px;
+  @media screen and (min-width: 500px) {
+    padding: 8px 15px;
+    font-size: 1rem;
+  }
 `;

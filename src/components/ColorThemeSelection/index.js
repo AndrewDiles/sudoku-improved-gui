@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import SetColorButton from "./SetColorButton";
 
-function ColorThemeSelection({ setThemeNumber }) {
+function ColorThemeSelection({ themeNumber, setThemeNumber }) {
   const colorNames = ["violet", "classic", "green"];
   useEffect(() => {
     const potentialStoredColorPref = JSON.parse(
@@ -19,6 +19,7 @@ function ColorThemeSelection({ setThemeNumber }) {
         return (
           <SetColorButton
             n={n}
+						isSelected={n===themeNumber}
             colorName={colorNames[n]}
             setThemeNumber={setThemeNumber}
           />

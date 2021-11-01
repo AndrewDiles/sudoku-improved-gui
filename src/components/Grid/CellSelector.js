@@ -17,7 +17,7 @@ function CellSelector({ setSelectedCellNumber }) {
         return (currentLocation - 8) % 9 === 0
           ? currentLocation - 8
           : currentLocation + 1;
-      }
+      } else {return(currentLocation)}
     });
   };
 
