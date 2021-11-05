@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import OptionButton from "./OptionButton";
 
-function Menu({ themeNumber, difficulty, setDifficulty }) {
+function Menu({
+  themeNumber,
+  difficulty,
+  setDifficulty,
+  hasStarted,
+  setHasStarted,
+}) {
   const difficulties = [
     "custom",
     "easy",
@@ -14,27 +20,41 @@ function Menu({ themeNumber, difficulty, setDifficulty }) {
   ];
   return (
     <Container>
-      <Label>Select New Puzzle Type</Label>
-      <ButtonsContainer>
-        {difficulties.map((difficultyName, index) => {
-          let label = `Set difficulty to ${difficultyName} button`;
-          if (difficultyName === "custom") {
-            label = `Enter custom puzzle button`;
-          }
-          return (
-            <OptionButton
-              key={index}
-              themeNumber={themeNumber}
-              label={label}
-              title={label}
-							isSelected = {difficulty===difficultyName}
-              handleClick={() => setDifficulty(difficultyName)}
-            >
-              {difficultyName}
-            </OptionButton>
-          );
-        })}
-      </ButtonsContainer>
+      {!hasStarted && (
+        <>
+          <Label>Select New Puzzle Type</Label>
+          <ButtonsContainer>
+            {difficulties.map((difficultyName, index) => {
+              let label = `Set difficulty to ${difficultyName} button`;
+              if (difficultyName === "custom") {
+                label = "Enter custom puzzle button";
+              }
+              return (
+                <OptionButton
+                  key={index}
+                  themeNumber={themeNumber}
+                  label={label}
+                  title={label}
+                  isSelected={difficulty === difficultyName}
+                  handleClick={() => setDifficulty(difficultyName)}
+                >
+                  {difficultyName}
+                </OptionButton>
+              );
+            })}
+          </ButtonsContainer>
+        </>
+      )}
+      {difficulty && !hasStarted && (
+        <OptionButton
+          themeNumber={themeNumber}
+          label={"Begin solving puzzle button"}
+          title={"Begin solving puzzle button"}
+          handleClick={() => setHasStarted(true)}
+        >
+          Begin
+        </OptionButton>
+      )}
     </Container>
   );
 }

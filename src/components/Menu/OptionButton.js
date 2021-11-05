@@ -36,6 +36,8 @@ const Button = styled.button`
   transform: scale(1);
 	outline-offset: -2px;
 	text-decoration: ${(p) => p.isSelected && "underline"};
+	max-height: ${p => p.maxHeight && p.maxHeight};
+	flex: 0;
   :hover {
     outline: 2px solid ${(p) => `var(--hover-${p.n})`};
     background: ${(p) => `var(--bg2-${p.n})`};

@@ -5,12 +5,15 @@ import Menu from "../Menu";
 
 function Sudoku({ themeNumber }) {
   const [difficulty, setDifficulty] = useState(null);
+	const [hasStarted, setHasStarted] = useState(false);
   return (
     <GridAndMenuContainer>
       <Menu
         themeNumber={themeNumber}
         difficulty={difficulty}
         setDifficulty={setDifficulty}
+				hasStarted = {hasStarted}
+				setHasStarted = {setHasStarted}
       />
       <Grid themeNumber={themeNumber} />
     </GridAndMenuContainer>
