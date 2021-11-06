@@ -46,15 +46,42 @@ function Menu({
         </>
       )}
       {difficulty && !hasStarted && (
+				<ButtonsContainer>
         <OptionButton
           themeNumber={themeNumber}
           label={"Begin solving puzzle button"}
           title={"Begin solving puzzle button"}
           handleClick={() => setHasStarted(true)}
+					height = "fit-content"
         >
           Begin
         </OptionButton>
+				{difficulty === "custom" &&
+				<OptionButton
+				themeNumber={themeNumber}
+				label={"Clear cell button"}
+				title={"Clear cell button"}
+				// handleClick={() => setHasStarted(true)}
+				handleClick = {()=>{}}
+				height = "fit-content"
+			>
+				Clear Cell
+			</OptionButton>
+				}
+				</ButtonsContainer>
       )}
+			{/* {difficulty === "custom" && !hasStarted && (
+        <OptionButton
+          themeNumber={themeNumber}
+          label={"Clear cell button"}
+          title={"Clear cell button"}
+          // handleClick={() => setHasStarted(true)}
+					handleClick = {()=>{}}
+					height = "fit-content"
+        >
+          Clear Cell
+        </OptionButton>
+      )} */}
     </Container>
   );
 }

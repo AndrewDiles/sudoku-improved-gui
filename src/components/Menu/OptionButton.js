@@ -6,6 +6,7 @@ function OptionButton({
   title,
   isSelected,
   handleClick,
+  height,
   children,
 }) {
   return (
@@ -14,6 +15,7 @@ function OptionButton({
       aria-label={label}
       title={title}
       isSelected={isSelected}
+      height={height}
       onClick={() => {
         handleClick ? handleClick() : console.log("no handleClick function");
       }}
@@ -34,10 +36,10 @@ const Button = styled.button`
   color: ${(p) => `var(--text-${p.n})`};
   outline: ${(p) => p.isSelected && `3px solid var(--text-${p.n})`};
   transform: scale(1);
-	outline-offset: -2px;
-	text-decoration: ${(p) => p.isSelected && "underline"};
-	max-height: ${p => p.maxHeight && p.maxHeight};
-	flex: 0;
+  outline-offset: -2px;
+  text-decoration: ${(p) => p.isSelected && "underline"};
+  height: ${(p) => p.height && p.height};
+  flex: 0;
   :hover {
     outline: 2px solid ${(p) => `var(--hover-${p.n})`};
     background: ${(p) => `var(--bg2-${p.n})`};
