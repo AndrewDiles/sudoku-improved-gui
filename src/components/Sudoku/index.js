@@ -1,19 +1,29 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Grid from "../Grid";
-import Menu from "../Menu";
+import SetupMenu from "../SetupMenu";
+import GeneralMenu from "../GeneralMenu";
 
 function Sudoku({ themeNumber }) {
   const [difficulty, setDifficulty] = useState(null);
-	const [hasStarted, setHasStarted] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
   return (
     <GridAndMenuContainer>
-      <Menu
+      {!hasStarted && (
+        <SetupMenu
+          themeNumber={themeNumber}
+          difficulty={difficulty}
+          setDifficulty={setDifficulty}
+          hasStarted={hasStarted}
+          setHasStarted={setHasStarted}
+        />
+      )}
+      <GeneralMenu
         themeNumber={themeNumber}
         difficulty={difficulty}
         setDifficulty={setDifficulty}
-				hasStarted = {hasStarted}
-				setHasStarted = {setHasStarted}
+        hasStarted={hasStarted}
+        setHasStarted={setHasStarted}
       />
       <Grid themeNumber={themeNumber} />
     </GridAndMenuContainer>

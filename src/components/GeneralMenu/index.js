@@ -1,50 +1,15 @@
 import styled from "styled-components";
-import OptionButton from "./OptionButton";
+import OptionButton from "../shared/OptionButton";
 
-function Menu({
+function SetupMenu({
   themeNumber,
   difficulty,
   setDifficulty,
   hasStarted,
   setHasStarted,
 }) {
-  const difficulties = [
-    "custom",
-    "easy",
-    "medium",
-    "hard",
-    "very hard",
-    "challenge",
-    "extreme",
-    "epic",
-  ];
   return (
     <Container>
-      {!hasStarted && (
-        <>
-          <Label>Select New Puzzle Type</Label>
-          <ButtonsContainer>
-            {difficulties.map((difficultyName, index) => {
-              let label = `Set difficulty to ${difficultyName} button`;
-              if (difficultyName === "custom") {
-                label = "Enter custom puzzle button";
-              }
-              return (
-                <OptionButton
-                  key={index}
-                  themeNumber={themeNumber}
-                  label={label}
-                  title={label}
-                  isSelected={difficulty === difficultyName}
-                  handleClick={() => setDifficulty(difficultyName)}
-                >
-                  {difficultyName}
-                </OptionButton>
-              );
-            })}
-          </ButtonsContainer>
-        </>
-      )}
       <ButtonsContainer>
         {difficulty && hasStarted ? (
           <OptionButton
@@ -85,7 +50,7 @@ function Menu({
   );
 }
 
-export default Menu;
+export default SetupMenu;
 const Container = styled.div`
   padding-bottom: 20px;
   display: flex;
