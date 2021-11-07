@@ -7,6 +7,7 @@ function OptionButton({
   isSelected,
   handleClick,
   height,
+	isDisabled,
   children,
 }) {
   return (
@@ -16,6 +17,8 @@ function OptionButton({
       title={title}
       isSelected={isSelected}
       height={height}
+			isDisabled = {isDisabled}
+			disabled = {isDisabled}
       onClick={() => {
         handleClick ? handleClick() : console.log("no handleClick function");
       }}
@@ -38,12 +41,13 @@ const Button = styled.button`
   transform: scale(1);
   outline-offset: -2px;
   text-decoration: ${(p) => p.isSelected && "underline"};
+	opacity: ${p => p.isDisabled && "0.75"};
   height: ${(p) => p.height && p.height};
   flex: 0;
   :hover {
     outline: 2px solid ${(p) => `var(--hover-${p.n})`};
     background: ${(p) => `var(--bg2-${p.n})`};
-    cursor: pointer;
+    cursor: ${p => p.isDisabled ? "not-allowed" : "pointer"};
   }
   :focus {
     outline: 2px solid ${(p) => `var(--focus-${p.n})`};
