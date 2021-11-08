@@ -7,5 +7,8 @@ function Header() {
 export default Header;
 const H1 = styled.h1`
   margin: 0;
-	padding-top: 20px;
+  padding-top: 10px;
+  @media screen and (min-width: 500px) {
+    padding-top: 20px;
+  }
 `;

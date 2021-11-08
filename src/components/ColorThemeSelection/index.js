@@ -19,7 +19,7 @@ function ColorThemeSelection({ themeNumber, setThemeNumber }) {
         return (
           <SetColorButton
             n={n}
-						isSelected={n===themeNumber}
+            isSelected={n === themeNumber}
             colorName={colorNames[n]}
             setThemeNumber={setThemeNumber}
           />
@@ -31,11 +31,13 @@ function ColorThemeSelection({ themeNumber, setThemeNumber }) {
 
 export default ColorThemeSelection;
 const ButtonsContainer = styled.section`
-  padding-bottom: 20px;
   text-align: center;
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  padding: 20px;
   justify-content: center;
+  padding: 10px;
+  @media screen and (min-width: 500px) {
+    padding: 20px;
+  }
 `;

@@ -41,9 +41,10 @@ const Button = styled.button`
   transform: scale(1);
   outline-offset: -2px;
   text-decoration: ${(p) => p.isSelected && "underline"};
-	opacity: ${p => p.isDisabled && "0.75"};
+	opacity: ${p => p.isDisabled && "0.5"};
   height: ${(p) => p.height && p.height};
   flex: 0;
+	white-space: nowrap;
   :hover {
     outline: 2px solid ${(p) => `var(--hover-${p.n})`};
     background: ${(p) => `var(--bg2-${p.n})`};
