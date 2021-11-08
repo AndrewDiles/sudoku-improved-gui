@@ -4,9 +4,7 @@ import OptionButton from "../OptionButton";
 function SetupMenu({
   themeNumber,
   difficulty,
-  setDifficulty,
-  hasStarted,
-  setHasStarted,
+  setDifficulty
 }) {
   const difficulties = [
     "custom",
@@ -63,21 +61,14 @@ const Label = styled.p`
   padding-bottom: 10px;
   @media screen and (min-width: 500px) {
     padding-bottom: 20px;
-  }
-  @media screen and (min-width: 1000px) {
-    font-size: 1.5rem;
+		font-size: 1.5rem;
   }
 `;
 const ButtonsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
 	justify-content: center;
-  /* margin-right: 10px;
-  @media screen and (min-width: 500px) {
-    margin-right: 20px;
-  } */
   @media screen and (min-width: 1000px) {
-    /* margin-right: 0px; */
     margin-top: 22px;
   }
 `;

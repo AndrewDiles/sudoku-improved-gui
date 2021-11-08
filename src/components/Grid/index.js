@@ -8,10 +8,7 @@ import {
 import NumberSelection from "./NumberSelection";
 import CellSelector from "./CellSelector";
 
-function Grid({ themeNumber }) {
-  const [inputtingOwnPuzzle, setInputtingOwnPuzzle] = useState(null);
-  const [displaySelectedCellIndicator, setDisplaySelectedCellIndicator] =
-    useState(false);
+function Grid({ themeNumber, hasStarted, difficulty }) {
   const [selectedCellNumber, setSelectedCellNumber] = useState(0);
   const [valueHistory, setValueHistory] = useState(createInitialValueHistory);
   const [currentPotentials, setCurrentPotentials] = useState(
