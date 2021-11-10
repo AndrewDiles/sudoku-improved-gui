@@ -4,7 +4,7 @@ import OptionButton from "../OptionButton";
 function SetupMenu({
   themeNumber,
   difficulty,
-  setDifficulty
+  setDifficulty,
 }) {
   const difficulties = [
     "custom",

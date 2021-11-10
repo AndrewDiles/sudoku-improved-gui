@@ -118,57 +118,52 @@
   //   testContradiction(setfunctionOngoing, cells, setNoContradiction);
   // };
 
-  // function testEasy (setCells, cells, setInputted, setfunctionOngoing, setNoContradiction) {
-  //   cells[0][10] = 5;
-  //   cells[3][10] = 1;
-  //   cells[6][10] = 7;
-  //   cells[10][10] = 2;
-  //   cells[14][10] = 7;
-  //   cells[15][10] = 1;
-  //   cells[18][10] = 3;
-  //   cells[20][10] = 1;
-  //   cells[21][10] = 4;
-  //   cells[24][10] = 8;
-  //   cells[25][10] = 5;
-  //   cells[26][10] = 2
-  //   cells[27][10] = 6;
-  //   cells[28][10] = 1;
-  //   cells[30][10] = 5;
-  //   cells[31][10] = 7;
-  //   cells[32][10] = 2;
-  //   cells[33][10] = 4;
-  //   cells[35][10] = 8;
-  //   cells[38][10] = 2;
-  //   cells[39][10] = 9;
-  //   cells[40][10] = 6;
-  //   cells[46][10] = 4;
-  //   cells[49][10] = 3;
-  //   cells[51][10] = 6;
-  //   cells[52][10] = 2;
-  //   cells[53][10] = 7;
-  //   cells[54][10] = 4;
-  //   cells[55][10] = 5;
-  //   cells[56][10] = 9;
-  //   cells[58][10] = 8;
-  //   cells[61][10] = 7;
-  //   cells[63][10] = 1;
-  //   cells[64][10] = 3;
-  //   cells[69][10] = 9;
-  //   cells[70][10] = 8;
-  //   cells[71][10] = 6;
-  //   cells[72][10] = 2;
-  //   cells[76][10] = 1;
-  //   cells[79][10] = 4;
-  //   cells[80][10] = 3;
-  //   setCells([
-  //     ...cells,
-  //   ]
-  //   )
-  //   setInputted(true);
-  //   setArrayForGivens(setfunctionOngoing, cells, setCells);
-  //   refreshNulls(setfunctionOngoing, cells, setCells);
-  //   testContradiction(setfunctionOngoing, cells, setNoContradiction);
-  // };
+  function initiateEasyPuzzle () {
+		let result = [];
+		let cellArray = [];
+    cellArray[0] = 5;
+    cellArray[3] = 1;
+    cellArray[6] = 7;
+    cellArray[10] = 2;
+    cellArray[14] = 7;
+    cellArray[15] = 1;
+    cellArray[18] = 3;
+    cellArray[20] = 1;
+    cellArray[21] = 4;
+    cellArray[24] = 8;
+    cellArray[25] = 5;
+    cellArray[26] = 2
+    cellArray[27] = 6;
+    cellArray[28] = 1;
+    cellArray[30] = 5;
+    cellArray[31] = 7;
+    cellArray[32] = 2;
+    cellArray[33] = 4;
+    cellArray[35] = 8;
+    cellArray[38] = 2;
+    cellArray[39] = 9;
+    cellArray[40] = 6;
+    cellArray[46] = 4;
+    cellArray[49] = 3;
+    cellArray[51] = 6;
+    cellArray[52] = 2;
+    cellArray[53] = 7;
+    cellArray[54] = 4;
+    cellArray[55] = 5;
+    cellArray[56] = 9;
+    cellArray[58] = 8;
+    cellArray[61] = 7;
+    cellArray[63] = 1;
+    cellArray[64] = 3;
+    cellArray[69] = 9;
+    cellArray[70] = 8;
+    cellArray[71] = 6;
+    cellArray[72] = 2;
+    cellArray[76] = 1;
+    cellArray[79] = 4;
+    cellArray[80] = 3;
+    return result.push(cellArray);
+  };
 
   // function testMedium (setCells, cells, setInputted, setfunctionOngoing, setNoContradiction) {
   //   cells[1][10] = 4;
@@ -1267,7 +1262,7 @@ export {
 	createInitialCurrentPotentials,
 	resolveSelectedCellNumberFromBlockNumberAndCellNumber,
   // confirmInputs,
-  // testEasy,
+  initiateEasyPuzzle,
   // testMedium,
   // testHard,
   // testVeryHard,

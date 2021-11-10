@@ -8,9 +8,8 @@ import {
 import NumberSelection from "./NumberSelection";
 import CellSelector from "./CellSelector";
 
-function Grid({ themeNumber, hasStarted, difficulty }) {
+function Grid({ themeNumber, hasStarted, difficulty, valueHistory, setValueHistory }) {
   const [selectedCellNumber, setSelectedCellNumber] = useState(0);
-  const [valueHistory, setValueHistory] = useState(createInitialValueHistory);
   const [currentPotentials, setCurrentPotentials] = useState(
     createInitialCurrentPotentials
   );
