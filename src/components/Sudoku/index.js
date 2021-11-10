@@ -8,7 +8,9 @@ import {createInitialValueHistory} from "../../helpers/functions";
 function Sudoku({ themeNumber }) {
   const [difficulty, setDifficulty] = useState(null);
   const [hasStarted, setHasStarted] = useState(false);
-  const [valueHistory, setValueHistory] = useState(createInitialValueHistory);
+  const [valueHistory, setValueHistory] = useState(createInitialValueHistory());
+	console.log(valueHistory);
+	const [placeInHistory, setPlaceInHistory] = useState(0);
   return (
     <GridAndMenuContainer>
       <Menu
@@ -22,6 +24,8 @@ function Sudoku({ themeNumber }) {
         themeNumber={themeNumber}
         hasStarted={hasStarted}
         difficulty={difficulty}
+				valueHistory={valueHistory}
+				placeInHistory = {placeInHistory}
       />
       <LogicListeners
         difficulty={difficulty}

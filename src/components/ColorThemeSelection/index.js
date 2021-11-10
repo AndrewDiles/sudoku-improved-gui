@@ -19,6 +19,7 @@ function ColorThemeSelection({ themeNumber, setThemeNumber }) {
         return (
           <SetColorButton
             n={n}
+						key = {index}
             isSelected={n === themeNumber}
             colorName={colorNames[n]}
             setThemeNumber={setThemeNumber}

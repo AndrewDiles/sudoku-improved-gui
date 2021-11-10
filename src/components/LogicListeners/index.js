@@ -15,11 +15,13 @@ function LogicListeners({ difficulty, hasStarted, setHasStarted, valueHistory, s
   useEffect(() => {
     switch (difficulty) {
 			case "custom" : {
-				setValueHistory(createInitialValueHistory())
+				setValueHistory(createInitialValueHistory());
+				console.log('custom difficulty')
 				break;
 			};
 			case "easy" : {
 				setValueHistory(initiateEasyPuzzle())
+				console.log('easy difficulty')
 				break;
 			}
 			default : {

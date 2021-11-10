@@ -23,7 +23,8 @@
 		for (let i = 0; i < 81; i ++) {
 			cellArray[i] = 0;
 		}
-		return result.push(cellArray);
+		result.push(cellArray);
+		return result
 	}
 
 	function createInitialCurrentPotentials () {
@@ -162,7 +163,8 @@
     cellArray[76] = 1;
     cellArray[79] = 4;
     cellArray[80] = 3;
-    return result.push(cellArray);
+		result.push(cellArray);
+    return result
   };
 
   // function testMedium (setCells, cells, setInputted, setfunctionOngoing, setNoContradiction) {

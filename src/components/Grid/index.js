@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import {
   createInitialValueHistory,
@@ -8,7 +8,14 @@ import {
 import NumberSelection from "./NumberSelection";
 import CellSelector from "./CellSelector";
 
-function Grid({ themeNumber, hasStarted, difficulty, valueHistory, setValueHistory }) {
+function Grid({
+  themeNumber,
+  hasStarted,
+  difficulty,
+  valueHistory,
+  setValueHistory,
+  placeInHistory,
+}) {
   const [selectedCellNumber, setSelectedCellNumber] = useState(0);
   const [currentPotentials, setCurrentPotentials] = useState(
     createInitialCurrentPotentials
@@ -33,6 +40,17 @@ function Grid({ themeNumber, hasStarted, difficulty, valueHistory, setValueHisto
               blockNumber={1 + blockNumber}
             >
               {Array.from(Array(9).keys()).map((cellNumber) => {
+                let innerContent = "";
+                let testValue =
+                  valueHistory[placeInHistory][
+                    resolveSelectedCellNumberFromBlockNumberAndCellNumber(
+                      1 + blockNumber,
+                      1 + cellNumber
+                    )
+                  ];
+                if (testValue) {
+                  innerContent = testValue;
+                }
                 return (
                   <Cell
                     key={cellNumber}
@@ -54,7 +72,9 @@ function Grid({ themeNumber, hasStarted, difficulty, valueHistory, setValueHisto
                         )
                       );
                     }}
-                  ></Cell>
+                  >
+                    {innerContent}
+                  </Cell>
                 );
               })}
             </Block>
@@ -67,7 +87,7 @@ function Grid({ themeNumber, hasStarted, difficulty, valueHistory, setValueHisto
 
 export default Grid;
 const Container = styled.div`
-  padding-bottom: 20px;
+  margin-bottom: 60px;
   text-align: center;
   /* box-sizing: border-box; */
   display: flex;
