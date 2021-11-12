@@ -15,6 +15,7 @@ function Grid({
   valueHistory,
   setValueHistory,
   placeInHistory,
+	setPlaceInHistory,
 }) {
   const [selectedCellNumber, setSelectedCellNumber] = useState(0);
   const [currentPotentials, setCurrentPotentials] = useState(
@@ -28,6 +29,10 @@ function Grid({
         difficulty={difficulty}
         themeNumber={themeNumber}
         selectedCellNumber={selectedCellNumber}
+				valueHistory = {valueHistory}
+				setValueHistory = {setValueHistory}
+				placeInHistory = {placeInHistory}
+				setPlaceInHistory = {setPlaceInHistory}
       />
       <CellSelector
         selectedCellNumber={selectedCellNumber}
@@ -50,6 +55,7 @@ function Grid({
                       1 + cellNumber
                     )
                   ];
+									console.log('test value obtained')
                 if (testValue) {
                   innerContent = testValue;
                 }

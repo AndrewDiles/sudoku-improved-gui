@@ -3,14 +3,14 @@ import styled from "styled-components";
 import Grid from "../Grid";
 import Menu from "../Menu";
 import LogicListeners from "../LogicListeners";
-import {createInitialValueHistory} from "../../helpers/functions";
+import { createInitialValueHistory } from "../../helpers/functions";
 
 function Sudoku({ themeNumber }) {
   const [difficulty, setDifficulty] = useState(null);
   const [hasStarted, setHasStarted] = useState(false);
   const [valueHistory, setValueHistory] = useState(createInitialValueHistory());
-	console.log(valueHistory);
-	const [placeInHistory, setPlaceInHistory] = useState(0);
+  console.log(valueHistory);
+  const [placeInHistory, setPlaceInHistory] = useState(0);
   return (
     <GridAndMenuContainer>
       <Menu
@@ -24,15 +24,17 @@ function Sudoku({ themeNumber }) {
         themeNumber={themeNumber}
         hasStarted={hasStarted}
         difficulty={difficulty}
-				valueHistory={valueHistory}
-				placeInHistory = {placeInHistory}
+        valueHistory={valueHistory}
+        placeInHistory={placeInHistory}
+        setPlaceInHistory={setPlaceInHistory}
+        setValueHistory={setValueHistory}
       />
       <LogicListeners
         difficulty={difficulty}
         hasStarted={hasStarted}
         setHasStarted={setHasStarted}
-				valueHistory = {valueHistory}
-				setValueHistory = {setValueHistory}
+        valueHistory={valueHistory}
+        setValueHistory={setValueHistory}
       />
     </GridAndMenuContainer>
   );

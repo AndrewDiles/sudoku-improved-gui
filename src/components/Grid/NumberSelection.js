@@ -6,6 +6,10 @@ function NumberSelection({
   difficulty,
   themeNumber,
   selectedCellNumber,
+	valueHistory,
+	setValueHistory,
+	placeInHistory,
+	setPlaceInHistory,
 }) {
   return (
     <Container>
@@ -15,8 +19,14 @@ function NumberSelection({
             key={n}
             themeNumber={themeNumber}
             selectedCellNumber={selectedCellNumber}
-            number={n}
+            number={n+1}
 						isDisabled = {!hasStarted && difficulty !== "custom"}
+						hasStarted = {hasStarted}
+						difficulty = {difficulty}
+						valueHistory = {valueHistory}
+						setValueHistory = {setValueHistory}
+						placeInHistory = {placeInHistory}
+						setPlaceInHistory={setPlaceInHistory}
           />
         );
       })}

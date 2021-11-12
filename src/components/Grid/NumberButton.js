@@ -1,15 +1,41 @@
 import styled from "styled-components";
+import { makeNextStepInInitialCustomGame } from "../../helpers/functions";
 
-function NumberButton({ themeNumber, selectedCellNumber, number, isDisabled }) {
+function NumberButton({
+  themeNumber,
+  selectedCellNumber,
+  number,
+  difficulty,
+  hasStarted,
+  isDisabled,
+  valueHistory,
+  setValueHistory,
+  placeInHistory,
+  setPlaceInHistory,
+}) {
   return (
     <Button
-      aria-label={`Set selected cell to ${number+1} button`}
-      title={`Set selected cell to ${number+1} button`}
+      aria-label={`Set selected cell to ${number} button`}
+      title={`Set selected cell to ${number} button`}
       themeNumber={themeNumber}
-			disabled = {isDisabled}
-			isDisabled={isDisabled}
+      disabled={isDisabled}
+      isDisabled={isDisabled}
+      onClick={() => {
+        if (isDisabled) return;
+        if (!hasStarted && difficulty === "custom") {
+          setValueHistory(
+            makeNextStepInInitialCustomGame(
+              valueHistory,
+              number,
+              selectedCellNumber,
+              placeInHistory
+            )
+          );
+					setPlaceInHistory(placeInHistory+1)
+        }
+      }}
     >
-      {number + 1}
+      {number}
     </Button>
   );
 }
@@ -38,11 +64,11 @@ const Button = styled.button`
     font-size: 26px;
   }
   outline-offset: -2px;
-	opacity: ${p => p.isDisabled && "0.5"};
+  opacity: ${(p) => p.isDisabled && "0.5"};
   :hover {
-		background: ${(p) => `var(--bg2-${p.themeNumber})`};
+    background: ${(p) => `var(--bg2-${p.themeNumber})`};
     outline: 2px solid ${(p) => `var(--hover-${p.themeNumber})`};
-    cursor: ${p => p.isDisabled ? "not-allowed" : "pointer"};
+    cursor: ${(p) => (p.isDisabled ? "not-allowed" : "pointer")};
   }
   :focus {
     outline: 2px solid ${(p) => `var(--focus-${p.themeNumber})`};
@@ -50,6 +76,6 @@ const Button = styled.button`
   :active {
     outline: 2px solid ${(p) => `var(--focus-${p.themeNumber})`};
     font-weight: 900;
-		background: ${(p) => `var(--bg3-${p.themeNumber})`};
+    background: ${(p) => `var(--bg3-${p.themeNumber})`};
   }
 `;

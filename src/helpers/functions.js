@@ -363,6 +363,16 @@
 		result.push(cellArray);
     return result
   };
+	function makeNextStepInInitialCustomGame (valueHistory, number, selectedCellNumber, placeInHistory) {
+		let result = []
+		for (let i = 0; i<=placeInHistory; i++) {
+			result.push([...valueHistory[i]])
+		}
+		let nextStepEntry = [...valueHistory[placeInHistory]];
+		nextStepEntry[selectedCellNumber] = number;
+		result.push(nextStepEntry);
+		return result
+	}
 
   // function resetInputValues () {
   //   for (let r = 1; r < 10; r++) {
@@ -1246,6 +1256,7 @@ export {
   initiateChallengePuzzle,
 	initiateExtremePuzzle,
   initiateEpicPuzzle,
+	makeNextStepInInitialCustomGame,
   // addKnowns,
   // testForKnowns,
   // testCols,
