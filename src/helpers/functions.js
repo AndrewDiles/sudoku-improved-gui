@@ -167,46 +167,42 @@
     return result
   };
 
-  // function testMedium (setCells, cells, setInputted, setfunctionOngoing, setNoContradiction) {
-  //   cells[1][10] = 4;
-  //   cells[2][10] = 1;
-  //   cells[5][10] = 8;
-  //   cells[9][10] = 3;
-  //   cells[11][10] = 6;
-  //   cells[12][10] = 2;
-  //   cells[13][10] = 4;
-  //   cells[14][10] = 9;
-  //   cells[16][10] = 8;
-  //   cells[25][10] = 7;
-  //   cells[30][10] = 4;
-  //   cells[31][10] = 7;
-  //   cells[33][10] = 2;
-  //   cells[34][10] = 1;
-  //   cells[36][10] = 7;
-  //   cells[39][10] = 3;
-  //   cells[42][10] = 4;
-  //   cells[44][10] = 6;
-  //   cells[46][10] = 2;
-  //   cells[52][10] = 5;
-  //   cells[53][10] = 3;
-  //   cells[56][10] = 7;
-  //   cells[58][10] = 9;
-  //   cells[60][10] = 5;
-  //   cells[65][10] = 3;
-  //   cells[67][10] = 2;
-  //   cells[73][10] = 5;
-  //   cells[74][10] = 4;
-  //   cells[76][10] = 6;
-  //   cells[77][10] = 3;
-  //   setCells([
-  //     ...cells,
-  //   ]
-  //   )
-  //   setInputted(true);
-  //   setArrayForGivens(setfunctionOngoing, cells, setCells);
-  //   refreshNulls(setfunctionOngoing, cells, setCells);
-  //   testContradiction(setfunctionOngoing, cells, setNoContradiction);
-  // };
+  function initiateMediumPuzzle () {
+		let result = [];
+		let cellArray = [];
+    cellArray[1] = 4;
+    cellArray[2] = 1;
+    cellArray[5] = 8;
+    cellArray[9] = 3;
+    cellArray[11] = 6;
+    cellArray[12] = 2;
+    cellArray[13] = 4;
+    cellArray[14] = 9;
+    cellArray[16] = 8;
+    cellArray[25] = 7;
+    cellArray[30] = 4;
+    cellArray[31] = 7;
+    cellArray[33] = 2;
+    cellArray[34] = 1;
+    cellArray[36] = 7;
+    cellArray[39] = 3;
+    cellArray[42] = 4;
+    cellArray[44] = 6;
+    cellArray[46] = 2;
+    cellArray[52] = 5;
+    cellArray[53] = 3;
+    cellArray[56] = 7;
+    cellArray[58] = 9;
+    cellArray[60] = 5;
+    cellArray[65] = 3;
+    cellArray[67] = 2;
+    cellArray[73] = 5;
+    cellArray[74] = 4;
+    cellArray[76] = 6;
+    cellArray[77] = 3;
+    result.push(cellArray);
+    return result
+  };
 
   // function testHard (setCells, cells, setInputted, setfunctionOngoing, setNoContradiction) {
   //   cells[1][10] = 6;
@@ -1265,7 +1261,7 @@ export {
 	resolveSelectedCellNumberFromBlockNumberAndCellNumber,
   // confirmInputs,
   initiateEasyPuzzle,
-  // testMedium,
+  initiateMediumPuzzle,
   // testHard,
   // testVeryHard,
   // testChallenge,

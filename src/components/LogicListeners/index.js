@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import {createInitialValueHistory, initiateEasyPuzzle} from "../../helpers/functions";
+import {createInitialValueHistory, initiateEasyPuzzle, initiateMediumPuzzle} from "../../helpers/functions";
 
 function LogicListeners({ difficulty, hasStarted, setHasStarted, valueHistory, setValueHistory }) {
 	// const difficulties = [
@@ -16,12 +16,14 @@ function LogicListeners({ difficulty, hasStarted, setHasStarted, valueHistory, s
     switch (difficulty) {
 			case "custom" : {
 				setValueHistory(createInitialValueHistory());
-				console.log('custom difficulty')
 				break;
 			};
 			case "easy" : {
 				setValueHistory(initiateEasyPuzzle())
-				console.log('easy difficulty')
+				break;
+			}
+			case "medium" : {
+				setValueHistory(initiateMediumPuzzle())
 				break;
 			}
 			default : {

@@ -24,6 +24,8 @@ function Grid({
   return (
     <Container>
       <NumberSelection
+        hasStarted={hasStarted}
+        difficulty={difficulty}
         themeNumber={themeNumber}
         selectedCellNumber={selectedCellNumber}
       />

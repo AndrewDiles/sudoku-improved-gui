@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
-function NumberButton({ themeNumber, selectedCellNumber, number }) {
+function NumberButton({ themeNumber, selectedCellNumber, number, isDisabled }) {
   return (
     <Button
       aria-label={`Set selected cell to ${number+1} button`}
       title={`Set selected cell to ${number+1} button`}
       themeNumber={themeNumber}
+			disabled = {isDisabled}
+			isDisabled={isDisabled}
     >
       {number + 1}
     </Button>
@@ -36,10 +38,11 @@ const Button = styled.button`
     font-size: 26px;
   }
   outline-offset: -2px;
+	opacity: ${p => p.isDisabled && "0.5"};
   :hover {
 		background: ${(p) => `var(--bg2-${p.themeNumber})`};
     outline: 2px solid ${(p) => `var(--hover-${p.themeNumber})`};
-    cursor: pointer;
+    cursor: ${p => p.isDisabled ? "not-allowed" : "pointer"};
   }
   :focus {
     outline: 2px solid ${(p) => `var(--focus-${p.themeNumber})`};

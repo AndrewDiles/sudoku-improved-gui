@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import NumberButton from "./NumberButton";
 
-function NumberSelection({ themeNumber, selectedCellNumber }) {
+function NumberSelection({
+  hasStarted,
+  difficulty,
+  themeNumber,
+  selectedCellNumber,
+}) {
   return (
     <Container>
       {Array.from(Array(9).keys()).map((n) => {
@@ -11,6 +16,7 @@ function NumberSelection({ themeNumber, selectedCellNumber }) {
             themeNumber={themeNumber}
             selectedCellNumber={selectedCellNumber}
             number={n}
+						isDisabled = {!hasStarted && difficulty !== "custom"}
           />
         );
       })}
@@ -24,7 +30,6 @@ const Container = styled.span`
   overflow-x: scroll;
   white-space: nowrap;
   bottom: -10px;
-  /* right: auto; */
   @media screen and (min-width: 300px) {
     bottom: -20px;
   }
