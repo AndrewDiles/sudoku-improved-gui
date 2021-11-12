@@ -204,186 +204,165 @@
     return result
   };
 
-  // function testHard (setCells, cells, setInputted, setfunctionOngoing, setNoContradiction) {
-  //   cells[1][10] = 6;
-  //   cells[4][10] = 1;
-  //   cells[6][10] = 4;
-  //   cells[11][10] = 3;
-  //   cells[14][10] = 2;
-  //   cells[18][10] = 5;
-  //   cells[19][10] = 8;
-  //   cells[20][10] = 1;
-  //   cells[21][10] = 6;
-  //   cells[27][10] = 9;
-  //   cells[29][10] = 2;
-  //   cells[38][10] = 6;
-  //   cells[39][10] = 9;
-  //   cells[41][10] = 7;
-  //   cells[42][10] = 8;
-  //   cells[51][10] = 6;
-  //   cells[53][10] = 1;
-  //   cells[59][10] = 6;
-  //   cells[60][10] = 7;
-  //   cells[61][10] = 5;
-  //   cells[62][10] = 4;
-  //   cells[66][10] = 2;
-  //   cells[69][10] = 1;
-  //   cells[74][10] = 4;
-  //   cells[76][10] = 9;
-  //   cells[79][10] = 3;
-  //   setCells([
-  //     ...cells,
-  //   ]
-  //   )
-  //   setInputted(true);
-  //   setArrayForGivens(setfunctionOngoing, cells, setCells);
-  //   refreshNulls(setfunctionOngoing, cells, setCells);
-  //   testContradiction(setfunctionOngoing, cells, setNoContradiction);
-  // };
+  function initiateHardPuzzle () {
+		let result = [];
+		let cellArray = [];
+    cellArray[1] = 6;
+    cellArray[4] = 1;
+    cellArray[6] = 4;
+    cellArray[11] = 3;
+    cellArray[14] = 2;
+    cellArray[18] = 5;
+    cellArray[19] = 8;
+    cellArray[20] = 1;
+    cellArray[21] = 6;
+    cellArray[27] = 9;
+    cellArray[29] = 2;
+    cellArray[38] = 6;
+    cellArray[39] = 9;
+    cellArray[41] = 7;
+    cellArray[42] = 8;
+    cellArray[51] = 6;
+    cellArray[53] = 1;
+    cellArray[59] = 6;
+    cellArray[60] = 7;
+    cellArray[61] = 5;
+    cellArray[62] = 4;
+    cellArray[66] = 2;
+    cellArray[69] = 1;
+    cellArray[74] = 4;
+    cellArray[76] = 9;
+    cellArray[79] = 3;
+    result.push(cellArray);
+    return result
+  };
 
-  // function testVeryHard (setCells, cells, setInputted, setfunctionOngoing, setNoContradiction) {
-  //   cells[0][10] = 7;
-  //   cells[2][10] = 2;
-  //   cells[4][10] = 4;
-  //   cells[5][10] = 3;
-  //   cells[10][10] = 6;
-  //   cells[15][10] = 3;
-  //   cells[18][10] = 3;
-  //   cells[21][10] = 1;
-  //   cells[29][10] = 1;
-  //   cells[30][10] = 8;
-  //   cells[31][10] = 3;
-  //   cells[33][10] = 9;
-  //   cells[35][10] = 7;
-  //   cells[36][10] = 4;
-  //   cells[39][10] = 7;
-  //   cells[41][10] = 6;
-  //   cells[44][10] = 2;
-  //   cells[45][10] = 5;
-  //   cells[47][10] = 7;
-  //   cells[49][10] = 1;
-  //   cells[50][10] = 9;
-  //   cells[51][10] = 6;
-  //   cells[59][10] = 2;
-  //   cells[62][10] = 9;
-  //   cells[65][10] = 4;
-  //   cells[70][10] = 1;
-  //   cells[75][10] = 3;
-  //   cells[76][10] = 9;
-  //   cells[78][10] = 4;
-  //   cells[80][10] = 5;
-  //   setCells([
-  //     ...cells,
-  //   ]
-  //   )
-  //   setInputted(true);
-  //   setArrayForGivens(setfunctionOngoing, cells, setCells);
-  //   refreshNulls(setfunctionOngoing, cells, setCells);
-  //   testContradiction(setfunctionOngoing, cells, setNoContradiction);
-  // };
+  function initiateVeryHardPuzzle () {
+		let result = [];
+		let cellArray = [];
+    cellArray[0] = 7;
+    cellArray[2] = 2;
+    cellArray[4] = 4;
+    cellArray[5] = 3;
+    cellArray[10] = 6;
+    cellArray[15] = 3;
+    cellArray[18] = 3;
+    cellArray[21] = 1;
+    cellArray[29] = 1;
+    cellArray[30] = 8;
+    cellArray[31] = 3;
+    cellArray[33] = 9;
+    cellArray[35] = 7;
+    cellArray[36] = 4;
+    cellArray[39] = 7;
+    cellArray[41] = 6;
+    cellArray[44] = 2;
+    cellArray[45] = 5;
+    cellArray[47] = 7;
+    cellArray[49] = 1;
+    cellArray[50] = 9;
+    cellArray[51] = 6;
+    cellArray[59] = 2;
+    cellArray[62] = 9;
+    cellArray[65] = 4;
+    cellArray[70] = 1;
+    cellArray[75] = 3;
+    cellArray[76] = 9;
+    cellArray[78] = 4;
+    cellArray[80] = 5;
+    result.push(cellArray);
+    return result
+  };
 
-  // function testChallenge (setCells, cells, setInputted, setfunctionOngoing, setNoContradiction) {
-  //   cells[2][10] = 2;
-  //   cells[8][10] = 6;
-  //   cells[10][10] = 4;
-  //   cells[11][10] = 5;
-  //   cells[14][10] = 9;
-  //   cells[19][10] = 1;
-  //   cells[21][10] = 2;
-  //   cells[22][10] = 8;
-  //   cells[26][10] = 3;
-  //   cells[27][10] = 6;
-  //   cells[34][10] = 7;
-  //   cells[39][10] = 5;
-  //   cells[40][10] = 6;
-  //   cells[41][10] = 7;
-  //   cells[46][10] = 5;
-  //   cells[53][10] = 8;
-  //   cells[54][10] = 7;
-  //   cells[58][10] = 5;
-  //   cells[59][10] = 2;
-  //   cells[61][10] = 4;
-  //   cells[66][10] = 3;
-  //   cells[69][10] = 8;
-  //   cells[70][10] = 2;
-  //   cells[72][10] = 4;
-  //   cells[78][10] = 5;
-  //   setCells([
-  //     ...cells,
-  //   ]
-  //   )
-  //   setInputted(true);
-  //   setArrayForGivens(setfunctionOngoing, cells, setCells);
-  //   refreshNulls(setfunctionOngoing, cells, setCells);
-  //   testContradiction(setfunctionOngoing, cells, setNoContradiction);
-  // };
+  function initiateChallengePuzzle () {
+		let result = [];
+		let cellArray = [];
+    cellArray[2] = 2;
+    cellArray[8] = 6;
+    cellArray[10] = 4;
+    cellArray[11] = 5;
+    cellArray[14] = 9;
+    cellArray[19] = 1;
+    cellArray[21] = 2;
+    cellArray[22] = 8;
+    cellArray[26] = 3;
+    cellArray[27] = 6;
+    cellArray[34] = 7;
+    cellArray[39] = 5;
+    cellArray[40] = 6;
+    cellArray[41] = 7;
+    cellArray[46] = 5;
+    cellArray[53] = 8;
+    cellArray[54] = 7;
+    cellArray[58] = 5;
+    cellArray[59] = 2;
+    cellArray[61] = 4;
+    cellArray[66] = 3;
+    cellArray[69] = 8;
+    cellArray[70] = 2;
+    cellArray[72] = 4;
+    cellArray[78] = 5;
+    result.push(cellArray);
+    return result
+  };
 
-  // function testExtreme (setCells, cells, setInputted, setfunctionOngoing, setNoContradiction) {
-  //   cells[1][10] = 5;
-  //   cells[8][10] = 9;
-  //   cells[9][10] = 3;
-  //   cells[10][10] = 4;
-  //   cells[16][10] = 6;
-  //   cells[18][10] = 8;
-  //   cells[22][10] = 2;
-  //   cells[30][10] = 6;
-  //   cells[37][10] = 9;
-  //   cells[40][10] = 3;
-  //   cells[42][10] = 1;
-  //   cells[50][10] = 9;
-  //   cells[51][10] = 5;
-  //   cells[53][10] = 3;
-  //   cells[54][10] = 4;
-  //   cells[59][10] = 8;
-  //   cells[62][10] = 1;
-  //   cells[66][10] = 3;
-  //   cells[68][10] = 2;
-  //   cells[70][10] = 7;
-  //   cells[71][10] = 8;
-  //   cells[72][10] = 6;
-  //   cells[79][10] = 4;
-  //   setCells([
-  //     ...cells,
-  //   ]
-  //   )
-  //   setInputted(true);
-  //   setArrayForGivens(setfunctionOngoing, cells, setCells);
-  //   refreshNulls(setfunctionOngoing, cells, setCells);
-  //   testContradiction(setfunctionOngoing, cells, setNoContradiction);
-  // };
+  function initiateExtremePuzzle () {
+		let result = [];
+		let cellArray = [];
+    cellArray[1] = 5;
+    cellArray[8] = 9;
+    cellArray[9] = 3;
+    cellArray[10] = 4;
+    cellArray[16] = 6;
+    cellArray[18] = 8;
+    cellArray[22] = 2;
+    cellArray[30] = 6;
+    cellArray[37] = 9;
+    cellArray[40] = 3;
+    cellArray[42] = 1;
+    cellArray[50] = 9;
+    cellArray[51] = 5;
+    cellArray[53] = 3;
+    cellArray[54] = 4;
+    cellArray[59] = 8;
+    cellArray[62] = 1;
+    cellArray[66] = 3;
+    cellArray[68] = 2;
+    cellArray[70] = 7;
+    cellArray[71] = 8;
+    cellArray[72] = 6;
+    cellArray[79] = 4;
+    result.push(cellArray);
+    return result
+  };
 
-  // function testEpic (setCells, cells, setInputted, setfunctionOngoing, setNoContradiction) {
-  //   cells[0][10] = 8;
-  //   cells[11][10] = 3;
-  //   cells[12][10] = 6;
-  //   cells[19][10] = 7;
-  //   cells[22][10] = 9;
-  //   cells[24][10] = 2;
-  //   cells[28][10] = 5;
-  //   cells[32][10] = 7;
-  //   cells[40][10] = 4;
-  //   cells[41][10] = 5;
-  //   cells[42][10] = 7;
-  //   cells[48][10] = 1;
-  //   cells[52][10] = 3;
-  //   cells[56][10] = 1;
-  //   cells[61][10] = 6;
-  //   cells[62][10] = 8;
-  //   cells[65][10] = 8;
-  //   cells[66][10] = 5;
-  //   cells[70][10] = 1;
-  //   cells[73][10] = 9;
-  //   cells[78][10] = 4;
-
-  //   setCells([
-  //     ...cells,
-  //   ]
-  //   )
-  //   setInputted(true);
-  //   setArrayForGivens(setfunctionOngoing, cells, setCells);
-  //   refreshNulls(setfunctionOngoing, cells, setCells);
-  //   testContradiction(setfunctionOngoing, cells, setNoContradiction);
-  // };
+  function initiateEpicPuzzle () {
+		let result = [];
+		let cellArray = [];
+    cellArray[0] = 8;
+    cellArray[11] = 3;
+    cellArray[12] = 6;
+    cellArray[19] = 7;
+    cellArray[22] = 9;
+    cellArray[24] = 2;
+    cellArray[28] = 5;
+    cellArray[32] = 7;
+    cellArray[40] = 4;
+    cellArray[41] = 5;
+    cellArray[42] = 7;
+    cellArray[48] = 1;
+    cellArray[52] = 3;
+    cellArray[56] = 1;
+    cellArray[61] = 6;
+    cellArray[62] = 8;
+    cellArray[65] = 8;
+    cellArray[66] = 5;
+    cellArray[70] = 1;
+    cellArray[73] = 9;
+    cellArray[78] = 4;
+		result.push(cellArray);
+    return result
+  };
 
   // function resetInputValues () {
   //   for (let r = 1; r < 10; r++) {
@@ -1262,11 +1241,11 @@ export {
   // confirmInputs,
   initiateEasyPuzzle,
   initiateMediumPuzzle,
-  // testHard,
-  // testVeryHard,
-  // testChallenge,
-  // testExtreme,
-  // testEpic,
+  initiateHardPuzzle,
+  initiateVeryHardPuzzle,
+  initiateChallengePuzzle,
+	initiateExtremePuzzle,
+  initiateEpicPuzzle,
   // addKnowns,
   // testForKnowns,
   // testCols,
