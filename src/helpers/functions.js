@@ -425,6 +425,140 @@ function makeNextStepInInitialCustomGame(
 function condenseInitialValueHistoryForCustomGame(valueHistory) {
   return [[...valueHistory[valueHistory.length - 1]]];
 }
+function testIfCellsContainAContradiction(cellArray) {
+  let contradictionFound = false;
+  for (let i = 0; i < 81; i++) {
+    if (cellArray[i]) {
+      contradictionFound = testRowForContradiction(cellArray, i);
+      if (contradictionFound) {
+        return contradictionFound;
+      }
+      contradictionFound = testColumnForContradiction(cellArray, i);
+      if (contradictionFound) {
+        return contradictionFound;
+      }
+      contradictionFound = testBlockForContradiction(cellArray, i);
+      if (contradictionFound) {
+        return contradictionFound;
+      }
+    }
+  }
+  return contradictionFound;
+}
+function testRowForContradiction(cellArray, cellNumber) {
+  let rowNumber = Math.ceil((cellNumber + 1) / 9);
+  let startingCellNumber = (rowNumber - 1) * 9;
+  for (let i = startingCellNumber; i < startingCellNumber + 9; i++) {
+    if (cellNumber !== i) {
+      if (cellArray[cellNumber] === cellArray[i]) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+function testColumnForContradiction(cellArray, cellNumber) {
+  let colNumber = (cellNumber % 9) + 1;
+  let startingCellNumber = colNumber - 1;
+  for (let i = startingCellNumber; i < startingCellNumber + 72; i += 9) {
+    if (cellNumber !== i) {
+      if (cellArray[cellNumber] === cellArray[i]) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+function testBlockForContradiction(cellArray, cellNumber) {
+  let blockNumber = extractBlockNumberFromCellNumber(cellNumber);
+  let blockCellNumbers = [];
+	function createCellNumbersForBlockArray(startingCell) {
+		let result = [];
+		let row = 1;
+		let col = 1;
+		for (let i = 1; i < 10; i++) {
+			result.push(startingCell+(col-1)+(9*(row-1)));
+			if (col < 3) {
+				col ++
+			} else {
+				row ++;
+				col = 1;
+			}
+		}
+		return result
+	}
+	switch (blockNumber) {
+		case 1 :
+			{
+				blockCellNumbers.push(...createCellNumbersForBlockArray(0))
+				break;
+			}
+			case 2 : {
+				blockCellNumbers.push(...createCellNumbersForBlockArray(3))
+				break;
+			}
+			case 3 : {
+				blockCellNumbers.push(...createCellNumbersForBlockArray(6))
+				break;
+			}
+			case 4 : {
+				blockCellNumbers.push(...createCellNumbersForBlockArray(27))
+				break;
+			}
+			case 5 : {
+				blockCellNumbers.push(...createCellNumbersForBlockArray(30))
+				break;
+			}
+			case 6 : {
+				blockCellNumbers.push(...createCellNumbersForBlockArray(33))
+				break;
+			}
+			case 7 : {
+				blockCellNumbers.push(...createCellNumbersForBlockArray(54))
+				break;
+			}
+			case 8 : {
+				blockCellNumbers.push(...createCellNumbersForBlockArray(57))
+				break;
+			}
+			case 9 : {
+				blockCellNumbers.push(...createCellNumbersForBlockArray(60))
+				break;
+			} default : {
+				console.log("ERROR - block number not an int 1-9")
+				return
+			}
+	}
+	console.log({blockCellNumbers})
+  for (let i = 0; i < blockCellNumbers.length; i ++) {
+
+    if (cellNumber !== blockCellNumbers[i]) {
+      if (cellArray[cellNumber] === cellArray[blockCellNumbers[i]]) {
+				console.log("match between cells numbers: ",cellNumber, " and ", blockCellNumbers[i], " with value of ", cellArray[i] )
+        return true;
+      }
+    }
+  }
+  return false;
+}
+function extractBlockNumberFromCellNumber(cellNumber) {
+	let incrementedTripletBatchNumber = 1;
+	let rowNumber = 1;
+	for (let maxCellNumber = 3; maxCellNumber <= 81; maxCellNumber +=3) {
+		if (cellNumber < maxCellNumber) {
+			return incrementedTripletBatchNumber+3*Math.floor((rowNumber-1)/3)
+		} else {
+			if (incrementedTripletBatchNumber < 3) {
+				incrementedTripletBatchNumber++
+			} else {
+				incrementedTripletBatchNumber = 1;
+				rowNumber++;
+			}
+		}
+	}
+	return 9
+}
+
 // function resetInputValues () {
 //   for (let r = 1; r < 10; r++) {
 //     for (let c = 1; c < 10; c++) {
@@ -1307,6 +1441,7 @@ export {
   initiateEpicPuzzle,
   makeNextStepInInitialCustomGame,
   condenseInitialValueHistoryForCustomGame,
+  testIfCellsContainAContradiction,
   // addKnowns,
   // testForKnowns,
   // testCols,

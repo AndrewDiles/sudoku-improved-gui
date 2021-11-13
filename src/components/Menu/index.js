@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import SetupMenu from "./SetupMenu";
 import GeneralMenu from "./GeneralMenu";
+import Indicators from "./Indicators";
 
 function Menu({
   themeNumber,
@@ -8,11 +9,12 @@ function Menu({
   setDifficulty,
   hasStarted,
   setHasStarted,
-	placeInHistory,
-	setPlaceInHistory,
-	valueHistory,
-	setValueHistory,
-	selectedCellNumber,
+  placeInHistory,
+  setPlaceInHistory,
+  valueHistory,
+  setValueHistory,
+  selectedCellNumber,
+  contradictionExists,
 }) {
   return (
     <Container>
@@ -21,8 +23,8 @@ function Menu({
           themeNumber={themeNumber}
           difficulty={difficulty}
           setDifficulty={setDifficulty}
-					placeInHistory = {placeInHistory}
-					setPlaceInHistory = {setPlaceInHistory}
+          placeInHistory={placeInHistory}
+          setPlaceInHistory={setPlaceInHistory}
         />
       )}
       <GeneralMenu
@@ -31,11 +33,15 @@ function Menu({
         setDifficulty={setDifficulty}
         hasStarted={hasStarted}
         setHasStarted={setHasStarted}
-				valueHistory = {valueHistory}
-				setValueHistory = {setValueHistory}
-				placeInHistory = {placeInHistory}
-					setPlaceInHistory = {setPlaceInHistory}
-					selectedCellNumber = {selectedCellNumber}
+        valueHistory={valueHistory}
+        setValueHistory={setValueHistory}
+        placeInHistory={placeInHistory}
+        setPlaceInHistory={setPlaceInHistory}
+        selectedCellNumber={selectedCellNumber}
+      />
+      <Indicators
+        themeNumber={themeNumber}
+        contradictionExists={contradictionExists}
       />
     </Container>
   );
@@ -50,17 +56,17 @@ const Container = styled.div`
   /* padding: 0 0 20px; */
   justify-content: flex-start;
   /* flex-direction: row; */
-	flex-direction: column;
+  flex-direction: column;
   @media screen and (min-width: 500px) {
     padding: 0 20px 20px;
     padding-left: calc(50vw - 230px);
-		padding-right: calc(50vw - 230px);
+    padding-right: calc(50vw - 230px);
     font-size: 1rem;
   }
   @media screen and (min-width: 1000px) {
     /* flex-direction: column; */
     width: calc(100vw - 460px);
     padding-left: 20px;
-		padding-right: 20px;
+    padding-right: 20px;
   }
 `;

@@ -9,6 +9,7 @@ import {
   initiateExtremePuzzle,
   initiateEpicPuzzle,
 	condenseInitialValueHistoryForCustomGame,
+	testIfCellsContainAContradiction,
 } from "../../helpers/functions";
 
 function LogicListeners({
@@ -17,7 +18,9 @@ function LogicListeners({
   setHasStarted,
   valueHistory,
   setValueHistory,
+	placeInHistory,
 	setPlaceInHistory,
+	setContradictionExists,
 }) {
   // const difficulties = [
   //   "very hard",
@@ -71,6 +74,10 @@ function LogicListeners({
 			console.log(valueHistory);
 		}
 	},[hasStarted])
+
+	useEffect(()=>{
+		setContradictionExists(testIfCellsContainAContradiction(valueHistory[placeInHistory]))
+	},[valueHistory, placeInHistory])
 
   return null;
 }

@@ -11,6 +11,8 @@ function Sudoku({ themeNumber }) {
   const [valueHistory, setValueHistory] = useState(createInitialValueHistory());
   const [placeInHistory, setPlaceInHistory] = useState(0);
 	const [selectedCellNumber, setSelectedCellNumber] = useState(0);
+	const [contradictionExists, setContradictionExists] = useState(false);
+	const [isSolved, setIsSolved] = useState(false);
   return (
     <GridAndMenuContainer>
       <Menu
@@ -24,6 +26,7 @@ function Sudoku({ themeNumber }) {
 				valueHistory = {valueHistory}
 				setValueHistory = {setValueHistory}
 				selectedCellNumber = {selectedCellNumber}
+				contradictionExists = {contradictionExists}
       />
       <Grid
         themeNumber={themeNumber}
@@ -42,7 +45,9 @@ function Sudoku({ themeNumber }) {
         setHasStarted={setHasStarted}
         valueHistory={valueHistory}
         setValueHistory={setValueHistory}
+				placeInHistory = {placeInHistory}
 				setPlaceInHistory = {setPlaceInHistory}
+				setContradictionExists={setContradictionExists}
       />
     </GridAndMenuContainer>
   );
