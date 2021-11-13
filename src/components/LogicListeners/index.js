@@ -8,6 +8,7 @@ import {
   initiateChallengePuzzle,
   initiateExtremePuzzle,
   initiateEpicPuzzle,
+	condenseInitialValueHistoryForCustomGame,
 } from "../../helpers/functions";
 
 function LogicListeners({
@@ -16,6 +17,7 @@ function LogicListeners({
   setHasStarted,
   valueHistory,
   setValueHistory,
+	setPlaceInHistory,
 }) {
   // const difficulties = [
   //   "very hard",
@@ -62,6 +64,13 @@ function LogicListeners({
       }
     }
   }, [difficulty]);
+	useEffect(()=>{
+		if (hasStarted && difficulty === "custom") {
+			setValueHistory(condenseInitialValueHistoryForCustomGame(valueHistory));
+			setPlaceInHistory(0);
+			console.log(valueHistory);
+		}
+	},[hasStarted])
 
   return null;
 }

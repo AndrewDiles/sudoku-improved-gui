@@ -5,6 +5,8 @@ function SetupMenu({
   themeNumber,
   difficulty,
   setDifficulty,
+	placeInHistory,
+  setPlaceInHistory,
 }) {
   const difficulties = [
     "custom",
@@ -32,7 +34,12 @@ function SetupMenu({
               label={label}
               title={label}
               isSelected={difficulty === difficultyName}
-              handleClick={() => setDifficulty(difficultyName)}
+              handleClick={() => {
+                if (difficultyName !== difficulty) {
+                  setPlaceInHistory(0);
+                  setDifficulty(difficultyName);
+                }
+              }}
             >
               {difficultyName}
             </OptionButton>
@@ -51,7 +58,7 @@ const Container = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-	@media screen and (min-width: 500px) {
+  @media screen and (min-width: 500px) {
     padding-bottom: 20px;
   }
 `;
@@ -61,13 +68,13 @@ const Label = styled.p`
   padding-bottom: 10px;
   @media screen and (min-width: 500px) {
     padding-bottom: 20px;
-		font-size: 1.5rem;
+    font-size: 1.5rem;
   }
 `;
 const ButtonsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-	justify-content: center;
+  justify-content: center;
   @media screen and (min-width: 1000px) {
     margin-top: 22px;
   }

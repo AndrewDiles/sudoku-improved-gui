@@ -7,6 +7,11 @@ function SetupMenu({
   setDifficulty,
   hasStarted,
   setHasStarted,
+  valueHistory,
+  setValueHistory,
+  placeInHistory,
+  setPlaceInHistory,
+  selectedCellNumber,
 }) {
   return (
     <Container>
@@ -33,18 +38,60 @@ function SetupMenu({
             Begin
           </OptionButton>
         )}
-        {difficulty === "custom" && (
+        {difficulty === "custom" && !hasStarted && (
           <OptionButton
             themeNumber={themeNumber}
             label={"Clear cell button"}
             title={"Clear cell button"}
-            // handleClick={() => setHasStarted(true)}
-            handleClick={() => {}}
+						id = "clear cell button"
+            isDisabled={!valueHistory[placeInHistory][selectedCellNumber]}
+            handleClick={() => {
+              if (valueHistory[placeInHistory][selectedCellNumber]) {
+                let nextStep = [...valueHistory[placeInHistory]];
+                nextStep[selectedCellNumber] = null;
+                setValueHistory([...valueHistory, nextStep]);
+                setPlaceInHistory(placeInHistory + 1);
+              }
+            }}
             height="fit-content"
           >
             Clear Cell
           </OptionButton>
         )}
+        <OptionButton
+          themeNumber={themeNumber}
+          label={"Previous step button"}
+          title={"Previous step button"}
+          isDisabled={placeInHistory === 0}
+          handleClick={() => {
+            if (placeInHistory > 0) {
+              setPlaceInHistory(placeInHistory - 1);
+            }
+          }}
+          height="fit-content"
+        >
+          Previous
+        </OptionButton>
+				{/* {placeInHistory+1}/{valueHistory.length} */}
+        <OptionButton
+          themeNumber={themeNumber}
+          label={"Next step button"}
+          title={"Next step button"}
+          isDisabled={placeInHistory === valueHistory.length-1}
+          handleClick={() => {
+            if (placeInHistory !== valueHistory.length) {
+              setPlaceInHistory(placeInHistory + 1);
+            }
+          }}
+          height="fit-content"
+        >
+          Next
+        </OptionButton>
+				{/* ⤺ */}
+        {/* ⇽ ⇾ */}
+        {/* ⇦ ⇨ */}
+        {/* ⬅ ⮕ */}
+				{/* ⤑ ⤅  ➝*/}
       </ButtonsContainer>
     </Container>
   );
@@ -56,7 +103,7 @@ const Container = styled.div`
   text-align: center;
   display: flex;
   /* justify-content: flex-start; */
-	justify-content: center;
+  justify-content: center;
   flex-direction: row;
 `;
 const Label = styled.p`
@@ -75,7 +122,7 @@ const ButtonsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   /* margin-right: 10px; */
-	justify-content: center;
+  justify-content: center;
   /* @media screen and (min-width: 500px) {
     margin-right: 20px;
   } */

@@ -16,8 +16,9 @@ function Grid({
   setValueHistory,
   placeInHistory,
 	setPlaceInHistory,
+	selectedCellNumber,
+	setSelectedCellNumber,
 }) {
-  const [selectedCellNumber, setSelectedCellNumber] = useState(0);
   const [currentPotentials, setCurrentPotentials] = useState(
     createInitialCurrentPotentials
   );
@@ -55,7 +56,6 @@ function Grid({
                       1 + cellNumber
                     )
                   ];
-									console.log('test value obtained')
                 if (testValue) {
                   innerContent = testValue;
                 }

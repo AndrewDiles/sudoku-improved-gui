@@ -5,6 +5,7 @@ function OptionButton({
   label,
   title,
   isSelected,
+	id,
   handleClick,
   height,
 	isDisabled,
@@ -15,6 +16,7 @@ function OptionButton({
       n={themeNumber}
       aria-label={label}
       title={title}
+			id = {id && id}
       isSelected={isSelected}
       height={height}
 			isDisabled = {isDisabled}

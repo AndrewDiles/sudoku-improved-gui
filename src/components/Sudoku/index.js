@@ -9,8 +9,8 @@ function Sudoku({ themeNumber }) {
   const [difficulty, setDifficulty] = useState(null);
   const [hasStarted, setHasStarted] = useState(false);
   const [valueHistory, setValueHistory] = useState(createInitialValueHistory());
-  console.log(valueHistory);
   const [placeInHistory, setPlaceInHistory] = useState(0);
+	const [selectedCellNumber, setSelectedCellNumber] = useState(0);
   return (
     <GridAndMenuContainer>
       <Menu
@@ -19,6 +19,11 @@ function Sudoku({ themeNumber }) {
         setDifficulty={setDifficulty}
         hasStarted={hasStarted}
         setHasStarted={setHasStarted}
+				placeInHistory = {placeInHistory}
+				setPlaceInHistory = {setPlaceInHistory}
+				valueHistory = {valueHistory}
+				setValueHistory = {setValueHistory}
+				selectedCellNumber = {selectedCellNumber}
       />
       <Grid
         themeNumber={themeNumber}
@@ -28,6 +33,8 @@ function Sudoku({ themeNumber }) {
         placeInHistory={placeInHistory}
         setPlaceInHistory={setPlaceInHistory}
         setValueHistory={setValueHistory}
+				selectedCellNumber = {selectedCellNumber}
+				setSelectedCellNumber = {setSelectedCellNumber}
       />
       <LogicListeners
         difficulty={difficulty}
@@ -35,6 +42,7 @@ function Sudoku({ themeNumber }) {
         setHasStarted={setHasStarted}
         valueHistory={valueHistory}
         setValueHistory={setValueHistory}
+				setPlaceInHistory = {setPlaceInHistory}
       />
     </GridAndMenuContainer>
   );

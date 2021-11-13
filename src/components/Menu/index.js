@@ -8,6 +8,11 @@ function Menu({
   setDifficulty,
   hasStarted,
   setHasStarted,
+	placeInHistory,
+	setPlaceInHistory,
+	valueHistory,
+	setValueHistory,
+	selectedCellNumber,
 }) {
   return (
     <Container>
@@ -16,6 +21,8 @@ function Menu({
           themeNumber={themeNumber}
           difficulty={difficulty}
           setDifficulty={setDifficulty}
+					placeInHistory = {placeInHistory}
+					setPlaceInHistory = {setPlaceInHistory}
         />
       )}
       <GeneralMenu
@@ -24,6 +31,11 @@ function Menu({
         setDifficulty={setDifficulty}
         hasStarted={hasStarted}
         setHasStarted={setHasStarted}
+				valueHistory = {valueHistory}
+				setValueHistory = {setValueHistory}
+				placeInHistory = {placeInHistory}
+					setPlaceInHistory = {setPlaceInHistory}
+					selectedCellNumber = {selectedCellNumber}
       />
     </Container>
   );

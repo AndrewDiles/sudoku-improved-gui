@@ -18,6 +18,7 @@ function NumberButton({
       aria-label={`Set selected cell to ${number} button`}
       title={`Set selected cell to ${number} button`}
       themeNumber={themeNumber}
+			id = {`Button Number ${number}`}
       disabled={isDisabled}
       isDisabled={isDisabled}
       onClick={() => {
