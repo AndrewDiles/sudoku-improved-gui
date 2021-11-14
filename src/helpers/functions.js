@@ -407,6 +407,95 @@ function initiateEpicPuzzle() {
   result.push(cellArray);
   return result;
 }
+
+// function initiateSolvedPuzzle() {
+//   let result = [];
+//   let cellArray = [];
+//   cellArray[0] = 1;
+//   cellArray[1] = 2;
+//   cellArray[2] = 3;
+//   cellArray[3] = 4;
+//   cellArray[4] = 5;
+//   cellArray[5] = 6;
+//   cellArray[6] = 7;
+//   cellArray[7] = 8;
+//   cellArray[8] = 9;
+//   cellArray[9] = 4;
+//   cellArray[10] = 5;
+//   cellArray[11] = 6;
+//   cellArray[12] = 7;
+//   cellArray[13] = 8;
+//   cellArray[14] = 9;
+//   cellArray[15] = 1;
+//   cellArray[16] = 2;
+//   cellArray[17] = 3;
+//   cellArray[18] = 7;
+//   cellArray[19] = 8;
+//   cellArray[20] = 9;
+//   cellArray[21] = 1;
+//   cellArray[22] = 2;
+//   cellArray[23] = 3;
+//   cellArray[24] = 4;
+//   cellArray[25] = 5;
+//   cellArray[26] = 6;
+//   cellArray[27] = 9;
+//   cellArray[28] = 1;
+//   cellArray[29] = 2;
+//   cellArray[30] = 3;
+//   cellArray[31] = 4;
+//   cellArray[32] = 5;
+//   cellArray[33] = 6;
+//   cellArray[34] = 7;
+//   cellArray[35] = 8;
+//   cellArray[36] = 3;
+//   cellArray[37] = 4;
+//   cellArray[38] = 5;
+//   cellArray[39] = 6;
+//   cellArray[40] = 7;
+//   cellArray[41] = 8;
+//   cellArray[42] = 9;
+//   cellArray[43] = 1;
+//   cellArray[44] = 2;
+//   cellArray[45] = 6;
+//   cellArray[46] = 7;
+//   cellArray[47] = 8;
+//   cellArray[48] = 9;
+//   cellArray[49] = 1;
+//   cellArray[50] = 2;
+//   cellArray[51] = 3;
+//   cellArray[52] = 4;
+//   cellArray[53] = 5;
+//   cellArray[54] = 8;
+//   cellArray[55] = 9;
+//   cellArray[56] = 1;
+//   cellArray[57] = 2;
+//   cellArray[58] = 3;
+//   cellArray[59] = 4;
+//   cellArray[60] = 5;
+//   cellArray[61] = 6;
+//   cellArray[62] = 7;
+//   cellArray[63] = 2;
+//   cellArray[64] = 3;
+//   cellArray[65] = 4;
+//   cellArray[66] = 5;
+//   cellArray[67] = 6;
+//   cellArray[68] = 7;
+//   cellArray[69] = 8;
+//   cellArray[70] = 9;
+//   cellArray[71] = 1;
+//   cellArray[72] = 5;
+//   cellArray[73] = 6;
+//   cellArray[74] = 7;
+//   cellArray[75] = 8;
+//   cellArray[76] = 9;
+//   cellArray[77] = 1;
+//   cellArray[78] = 2;
+//   cellArray[79] = 3;
+// 	cellArray[80] = 4;
+
+//   result.push(cellArray);
+//   return result;
+// }
 function makeNextStepInInitialCustomGame(
   valueHistory,
   number,
@@ -472,69 +561,74 @@ function testColumnForContradiction(cellArray, cellNumber) {
 function testBlockForContradiction(cellArray, cellNumber) {
   let blockNumber = extractBlockNumberFromCellNumber(cellNumber);
   let blockCellNumbers = [];
-	function createCellNumbersForBlockArray(startingCell) {
-		let result = [];
-		let row = 1;
-		let col = 1;
-		for (let i = 1; i < 10; i++) {
-			result.push(startingCell+(col-1)+(9*(row-1)));
-			if (col < 3) {
-				col ++
-			} else {
-				row ++;
-				col = 1;
-			}
-		}
-		return result
-	}
-	switch (blockNumber) {
-		case 1 :
-			{
-				blockCellNumbers.push(...createCellNumbersForBlockArray(0))
-				break;
-			}
-			case 2 : {
-				blockCellNumbers.push(...createCellNumbersForBlockArray(3))
-				break;
-			}
-			case 3 : {
-				blockCellNumbers.push(...createCellNumbersForBlockArray(6))
-				break;
-			}
-			case 4 : {
-				blockCellNumbers.push(...createCellNumbersForBlockArray(27))
-				break;
-			}
-			case 5 : {
-				blockCellNumbers.push(...createCellNumbersForBlockArray(30))
-				break;
-			}
-			case 6 : {
-				blockCellNumbers.push(...createCellNumbersForBlockArray(33))
-				break;
-			}
-			case 7 : {
-				blockCellNumbers.push(...createCellNumbersForBlockArray(54))
-				break;
-			}
-			case 8 : {
-				blockCellNumbers.push(...createCellNumbersForBlockArray(57))
-				break;
-			}
-			case 9 : {
-				blockCellNumbers.push(...createCellNumbersForBlockArray(60))
-				break;
-			} default : {
-				console.log("ERROR - block number not an int 1-9")
-				return
-			}
-	}
-	console.log({blockCellNumbers})
-  for (let i = 0; i < blockCellNumbers.length; i ++) {
-
+  function createCellNumbersForBlockArray(startingCell) {
+    let result = [];
+    let row = 1;
+    let col = 1;
+    for (let i = 1; i < 10; i++) {
+      result.push(startingCell + (col - 1) + 9 * (row - 1));
+      if (col < 3) {
+        col++;
+      } else {
+        row++;
+        col = 1;
+      }
+    }
+    return result;
+  }
+  switch (blockNumber) {
+    case 1: {
+      blockCellNumbers.push(...createCellNumbersForBlockArray(0));
+      break;
+    }
+    case 2: {
+      blockCellNumbers.push(...createCellNumbersForBlockArray(3));
+      break;
+    }
+    case 3: {
+      blockCellNumbers.push(...createCellNumbersForBlockArray(6));
+      break;
+    }
+    case 4: {
+      blockCellNumbers.push(...createCellNumbersForBlockArray(27));
+      break;
+    }
+    case 5: {
+      blockCellNumbers.push(...createCellNumbersForBlockArray(30));
+      break;
+    }
+    case 6: {
+      blockCellNumbers.push(...createCellNumbersForBlockArray(33));
+      break;
+    }
+    case 7: {
+      blockCellNumbers.push(...createCellNumbersForBlockArray(54));
+      break;
+    }
+    case 8: {
+      blockCellNumbers.push(...createCellNumbersForBlockArray(57));
+      break;
+    }
+    case 9: {
+      blockCellNumbers.push(...createCellNumbersForBlockArray(60));
+      break;
+    }
+    default: {
+      console.log("ERROR - block number not an int 1-9");
+      return;
+    }
+  }
+  for (let i = 0; i < blockCellNumbers.length; i++) {
     if (cellNumber !== blockCellNumbers[i]) {
       if (cellArray[cellNumber] === cellArray[blockCellNumbers[i]]) {
-				console.log("match between cells numbers: ",cellNumber, " and ", blockCellNumbers[i], " with value of ", cellArray[i] )
+        // console.log(
+        //   "match between cells numbers: ",
+        //   cellNumber,
+        //   " and ",
+        //   blockCellNumbers[i],
+        //   " with value of ",
+        //   cellArray[i]
+        // );
         return true;
       }
     }
@@ -542,21 +636,32 @@ function testBlockForContradiction(cellArray, cellNumber) {
   return false;
 }
 function extractBlockNumberFromCellNumber(cellNumber) {
-	let incrementedTripletBatchNumber = 1;
-	let rowNumber = 1;
-	for (let maxCellNumber = 3; maxCellNumber <= 81; maxCellNumber +=3) {
-		if (cellNumber < maxCellNumber) {
-			return incrementedTripletBatchNumber+3*Math.floor((rowNumber-1)/3)
-		} else {
-			if (incrementedTripletBatchNumber < 3) {
-				incrementedTripletBatchNumber++
-			} else {
-				incrementedTripletBatchNumber = 1;
-				rowNumber++;
-			}
-		}
-	}
-	return 9
+  let incrementedTripletBatchNumber = 1;
+  let rowNumber = 1;
+  for (let maxCellNumber = 3; maxCellNumber <= 81; maxCellNumber += 3) {
+    if (cellNumber < maxCellNumber) {
+      return (
+        incrementedTripletBatchNumber + 3 * Math.floor((rowNumber - 1) / 3)
+      );
+    } else {
+      if (incrementedTripletBatchNumber < 3) {
+        incrementedTripletBatchNumber++;
+      } else {
+        incrementedTripletBatchNumber = 1;
+        rowNumber++;
+      }
+    }
+  }
+  return 9;
+}
+
+function testIfSolutionIsFound(cellArray) {
+  for (let i = 0; i < 81; i++) {
+    if (!cellArray[i]) {
+      return false;
+    }
+  }
+  return true;
 }
 
 // function resetInputValues () {
@@ -1439,9 +1544,11 @@ export {
   initiateChallengePuzzle,
   initiateExtremePuzzle,
   initiateEpicPuzzle,
+  // initiateSolvedPuzzle,
   makeNextStepInInitialCustomGame,
   condenseInitialValueHistoryForCustomGame,
   testIfCellsContainAContradiction,
+  testIfSolutionIsFound,
   // addKnowns,
   // testForKnowns,
   // testCols,

@@ -27,6 +27,7 @@ function Sudoku({ themeNumber }) {
 				setValueHistory = {setValueHistory}
 				selectedCellNumber = {selectedCellNumber}
 				contradictionExists = {contradictionExists}
+				isSolved = {isSolved}
       />
       <Grid
         themeNumber={themeNumber}
@@ -47,7 +48,9 @@ function Sudoku({ themeNumber }) {
         setValueHistory={setValueHistory}
 				placeInHistory = {placeInHistory}
 				setPlaceInHistory = {setPlaceInHistory}
+				contradictionExists = {contradictionExists}
 				setContradictionExists={setContradictionExists}
+				setIsSolved = {setIsSolved}
       />
     </GridAndMenuContainer>
   );

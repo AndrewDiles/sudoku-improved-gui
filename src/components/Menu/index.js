@@ -15,6 +15,7 @@ function Menu({
   setValueHistory,
   selectedCellNumber,
   contradictionExists,
+	isSolved,
 }) {
   return (
     <Container>
@@ -42,6 +43,7 @@ function Menu({
       <Indicators
         themeNumber={themeNumber}
         contradictionExists={contradictionExists}
+				isSolved = {isSolved}
       />
     </Container>
   );

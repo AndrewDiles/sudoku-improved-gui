@@ -4,10 +4,10 @@ import OptionButton from "../OptionButton";
 function Indicators({ themeNumber, contradictionExists, isSolved }) {
   return (
     <Container>
-      <ButtonsContainer>
+      {/* <ButtonsContainer> */}
         {contradictionExists ? <P themeNumber = {themeNumber} no={contradictionExists}>!!CONTRADICTION!!</P> : <P>NO ISSUES</P>}
 				{isSolved ? <P themeNumber = {themeNumber} yes={isSolved}>!PUZZLE SOLVED!</P> : <P>PUZZLE INCOMPLETE</P>}
-      </ButtonsContainer>
+      {/* </ButtonsContainer> */}
     </Container>
   );
 }
@@ -19,7 +19,7 @@ const Container = styled.div`
   display: flex;
   /* justify-content: flex-start; */
   justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
 `;
 const ButtonsContainer = styled.div`
   display: flex;
@@ -38,4 +38,5 @@ const P =styled.p`
 	font-weight: 900;
 	color: ${p => p.no && `var(--no-${p.themeNumber})`};
 	color: ${p => p.yes && `var(--yes-${p.themeNumber})`};
+	margin: 5px 0;
 `

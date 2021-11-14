@@ -17,6 +17,7 @@ function SetupMenu({
     "challenge",
     "extreme",
     "epic",
+		// "solved-test",
   ];
   return (
     <Container>

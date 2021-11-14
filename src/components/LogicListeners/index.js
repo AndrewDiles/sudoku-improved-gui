@@ -8,8 +8,10 @@ import {
   initiateChallengePuzzle,
   initiateExtremePuzzle,
   initiateEpicPuzzle,
-	condenseInitialValueHistoryForCustomGame,
-	testIfCellsContainAContradiction,
+  // initiateSolvedPuzzle,
+  condenseInitialValueHistoryForCustomGame,
+  testIfCellsContainAContradiction,
+  testIfSolutionIsFound,
 } from "../../helpers/functions";
 
 function LogicListeners({
@@ -18,16 +20,12 @@ function LogicListeners({
   setHasStarted,
   valueHistory,
   setValueHistory,
-	placeInHistory,
-	setPlaceInHistory,
-	setContradictionExists,
+  placeInHistory,
+  setPlaceInHistory,
+  contradictionExists,
+  setContradictionExists,
+  setIsSolved,
 }) {
-  // const difficulties = [
-  //   "very hard",
-  //   "challenge",
-  //   "extreme",
-  //   "epic",
-  // ];
   useEffect(() => {
     switch (difficulty) {
       case "custom": {
@@ -62,22 +60,33 @@ function LogicListeners({
         setValueHistory(initiateEpicPuzzle());
         break;
       }
+      // case "solved-test": {
+      //   setValueHistory(initiateSolvedPuzzle());
+      //   break;
+      // }
       default: {
         setValueHistory(createInitialValueHistory());
       }
     }
   }, [difficulty]);
-	useEffect(()=>{
-		if (hasStarted && difficulty === "custom") {
-			setValueHistory(condenseInitialValueHistoryForCustomGame(valueHistory));
-			setPlaceInHistory(0);
-			console.log(valueHistory);
-		}
-	},[hasStarted])
+  useEffect(() => {
+    if (hasStarted && difficulty === "custom") {
+      setValueHistory(condenseInitialValueHistoryForCustomGame(valueHistory));
+      setPlaceInHistory(0);
+      console.log(valueHistory);
+    }
+  }, [hasStarted]);
 
-	useEffect(()=>{
-		setContradictionExists(testIfCellsContainAContradiction(valueHistory[placeInHistory]))
-	},[valueHistory, placeInHistory])
+  useEffect(() => {
+    setContradictionExists(
+      testIfCellsContainAContradiction(valueHistory[placeInHistory])
+    );
+    if (contradictionExists) {
+      setIsSolved(false);
+    } else {
+      setIsSolved(testIfSolutionIsFound(valueHistory[placeInHistory]));
+    }
+  }, [valueHistory, placeInHistory]);
 
   return null;
 }
