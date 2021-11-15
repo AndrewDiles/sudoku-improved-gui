@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   createInitialValueHistory,
   initiateEasyPuzzle,
@@ -16,6 +16,7 @@ import {
 
 function LogicListeners({
   difficulty,
+	setDifficulty,
   hasStarted,
   setHasStarted,
   valueHistory,
@@ -25,7 +26,12 @@ function LogicListeners({
   contradictionExists,
   setContradictionExists,
   setIsSolved,
+	setSolverOptionsOpen,
 }) {
+	const [hasLoaded, setHasLoaded] = useState(false);
+	useEffect(()=>{
+		setHasLoaded(true)
+	},[])
   useEffect(() => {
     switch (difficulty) {
       case "custom": {
@@ -70,11 +76,18 @@ function LogicListeners({
     }
   }, [difficulty]);
   useEffect(() => {
+		if (!hasLoaded) return;
     if (hasStarted && difficulty === "custom") {
       setValueHistory(condenseInitialValueHistoryForCustomGame(valueHistory));
       setPlaceInHistory(0);
       console.log(valueHistory);
-    }
+    } else if (!hasStarted) {
+			setDifficulty(null);
+			setPlaceInHistory(0);
+			setContradictionExists(false);
+			setIsSolved(false);
+			setSolverOptionsOpen(false);
+		}
   }, [hasStarted]);
 
   useEffect(() => {

@@ -21,7 +21,7 @@ function SetupMenu({
             themeNumber={themeNumber}
             label={"Begin solving puzzle button"}
             title={"Begin solving puzzle button"}
-            handleClick={() => setHasStarted(true)}
+            handleClick={() => setHasStarted(false)}
             height="fit-content"
           >
             Restart

@@ -13,6 +13,7 @@ function Sudoku({ themeNumber }) {
 	const [selectedCellNumber, setSelectedCellNumber] = useState(0);
 	const [contradictionExists, setContradictionExists] = useState(false);
 	const [isSolved, setIsSolved] = useState(false);
+	const [solverOptionsOpen, setSolverOptionsOpen] = useState(false);
   return (
     <GridAndMenuContainer>
       <Menu
@@ -42,6 +43,7 @@ function Sudoku({ themeNumber }) {
       />
       <LogicListeners
         difficulty={difficulty}
+				setDifficulty = {setDifficulty}
         hasStarted={hasStarted}
         setHasStarted={setHasStarted}
         valueHistory={valueHistory}
@@ -51,6 +53,7 @@ function Sudoku({ themeNumber }) {
 				contradictionExists = {contradictionExists}
 				setContradictionExists={setContradictionExists}
 				setIsSolved = {setIsSolved}
+				setSolverOptionsOpen = {setSolverOptionsOpen}
       />
     </GridAndMenuContainer>
   );
