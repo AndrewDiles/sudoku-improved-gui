@@ -40,6 +40,7 @@ function Sudoku({ themeNumber }) {
         setValueHistory={setValueHistory}
 				selectedCellNumber = {selectedCellNumber}
 				setSelectedCellNumber = {setSelectedCellNumber}
+				isSolved = {isSolved}
       />
       <LogicListeners
         difficulty={difficulty}

@@ -11,8 +11,8 @@ function CellSelector({ setSelectedCellNumber }) {
       }
     } else if (
       e.code === "Backspace" ||
-      e.code === "Delete" ||
-      e.code === "Space"
+      e.code === "Delete"
+			// || e.code === "Space"  Actually space also fire off an onClick on focused element
     ) {
       let buttonElementToPress = document.getElementById("clear cell button");
       if (buttonElementToPress) {

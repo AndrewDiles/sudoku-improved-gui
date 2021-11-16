@@ -18,6 +18,7 @@ function Grid({
 	setPlaceInHistory,
 	selectedCellNumber,
 	setSelectedCellNumber,
+	isSolved,
 }) {
   const [currentPotentials, setCurrentPotentials] = useState(
     createInitialCurrentPotentials
@@ -39,7 +40,7 @@ function Grid({
         selectedCellNumber={selectedCellNumber}
         setSelectedCellNumber={setSelectedCellNumber}
       />
-      <GridContainer themeNumber={themeNumber}>
+      <GridContainer themeNumber={themeNumber} isSolved={isSolved}>
         {Array.from(Array(9).keys()).map((blockNumber) => {
           return (
             <Block
@@ -65,6 +66,10 @@ function Grid({
                     className="centered"
                     themeNumber={themeNumber}
                     cellNumber={1 + cellNumber}
+										originalNumber ={hasStarted && valueHistory[0][resolveSelectedCellNumberFromBlockNumberAndCellNumber(
+											1 + blockNumber,
+											1 + cellNumber
+										)]}
                     isSelected={
                       selectedCellNumber ===
                       resolveSelectedCellNumberFromBlockNumberAndCellNumber(
@@ -114,6 +119,7 @@ const GridContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   border: 1px solid;
+	border-color: ${p=>p.isSolved && `var(--yes-${p.themeNumber})`};
   grid-gap: 1px;
   background: ${(p) => `var(--text-${p.themeNumber})`};
 `;
@@ -121,13 +127,15 @@ const Block = styled.div`
   height: min(2px + 30vw, 152px);
   width: min(2px + 30vw, 152px);
   grid-gap: 1px;
-  background: ${(p) => `var(--border-${p.themeNumber})`};
+  /* background: ${(p) => p.blockIsSolved ? `var(--yes-${p.themeNumber})`:`var(--border-${p.themeNumber})`}; */
+	background: ${(p) => `var(--border-${p.themeNumber})`};
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 `;
 const Cell = styled.div`
   height: min(10vw, 50px);
   width: min(10vw, 50px);
+	font-weight: ${p=> p.originalNumber && "600"};
   background: ${(p) =>
     p.isSelected
       ? `radial-gradient(var(--bg2-${p.themeNumber}), var(--bg-${p.themeNumber}))`

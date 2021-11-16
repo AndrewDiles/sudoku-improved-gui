@@ -33,7 +33,19 @@ function NumberButton({
             )
           );
 					setPlaceInHistory(placeInHistory+1)
-        }
+        } else {
+					console.log({valueHistory})
+					let newValueHistory = []
+					for (let i = 0; i < placeInHistory+1; i++) {
+						newValueHistory.push(valueHistory[i])
+					}
+					let nextStep = [...valueHistory[placeInHistory]];
+					nextStep[selectedCellNumber] = number;
+					newValueHistory.push(nextStep);
+					console.log({newValueHistory})
+					setValueHistory(newValueHistory);
+					setPlaceInHistory(placeInHistory+1);
+				}
       }}
     >
       {number}

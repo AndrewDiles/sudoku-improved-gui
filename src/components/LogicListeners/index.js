@@ -8,7 +8,7 @@ import {
   initiateChallengePuzzle,
   initiateExtremePuzzle,
   initiateEpicPuzzle,
-  // initiateSolvedPuzzle,
+  initiateSolvedPuzzle,
   condenseInitialValueHistoryForCustomGame,
   testIfCellsContainAContradiction,
   testIfSolutionIsFound,
@@ -66,10 +66,10 @@ function LogicListeners({
         setValueHistory(initiateEpicPuzzle());
         break;
       }
-      // case "solved-test": {
-      //   setValueHistory(initiateSolvedPuzzle());
-      //   break;
-      // }
+      case "solved-test": {
+        setValueHistory(initiateSolvedPuzzle());
+        break;
+      }
       default: {
         setValueHistory(createInitialValueHistory());
       }

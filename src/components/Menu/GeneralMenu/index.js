@@ -38,13 +38,13 @@ function SetupMenu({
             Begin
           </OptionButton>
         )}
-        {difficulty === "custom" && !hasStarted && (
+        {((difficulty === "custom" && !hasStarted) || hasStarted) && (
           <OptionButton
             themeNumber={themeNumber}
             label={"Clear cell button"}
             title={"Clear cell button"}
-						id = "clear cell button"
-            isDisabled={!valueHistory[placeInHistory][selectedCellNumber]}
+            id="clear cell button"
+            isDisabled={!valueHistory[placeInHistory][selectedCellNumber]||(hasStarted && valueHistory[0][selectedCellNumber])}
             handleClick={() => {
               if (valueHistory[placeInHistory][selectedCellNumber]) {
                 let nextStep = [...valueHistory[placeInHistory]];
@@ -72,12 +72,12 @@ function SetupMenu({
         >
           Previous
         </OptionButton>
-				{/* {placeInHistory+1}/{valueHistory.length} */}
+        {/* {placeInHistory+1}/{valueHistory.length} */}
         <OptionButton
           themeNumber={themeNumber}
           label={"Next step button"}
           title={"Next step button"}
-          isDisabled={placeInHistory === valueHistory.length-1}
+          isDisabled={placeInHistory === valueHistory.length - 1}
           handleClick={() => {
             if (placeInHistory !== valueHistory.length) {
               setPlaceInHistory(placeInHistory + 1);
@@ -87,11 +87,11 @@ function SetupMenu({
         >
           Next
         </OptionButton>
-				{/* ⤺ */}
+        {/* ⤺ */}
         {/* ⇽ ⇾ */}
         {/* ⇦ ⇨ */}
         {/* ⬅ ⮕ */}
-				{/* ⤑ ⤅  ➝*/}
+        {/* ⤑ ⤅  ➝*/}
       </ButtonsContainer>
     </Container>
   );

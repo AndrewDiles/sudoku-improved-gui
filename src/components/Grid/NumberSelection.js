@@ -14,13 +14,16 @@ function NumberSelection({
   return (
     <Container>
       {Array.from(Array(9).keys()).map((n) => {
+				const isDisabledWhileNotCustomPreStart = !hasStarted && difficulty !== "custom";
+				const isDisabledBecauseSelectedKnownPostStart = hasStarted && valueHistory[0][selectedCellNumber];
         return (
           <NumberButton
             key={n}
             themeNumber={themeNumber}
             selectedCellNumber={selectedCellNumber}
             number={n+1}
-						isDisabled = {!hasStarted && difficulty !== "custom"}
+						// isDisabled = {!hasStarted && difficulty !== "custom"}
+						isDisabled = {isDisabledWhileNotCustomPreStart || isDisabledBecauseSelectedKnownPostStart}
 						hasStarted = {hasStarted}
 						difficulty = {difficulty}
 						valueHistory = {valueHistory}
