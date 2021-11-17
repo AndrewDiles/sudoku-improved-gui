@@ -27,6 +27,7 @@ const Button = styled.button`
   background: ${(p) => `var(--bg-${p.n})`};
   border: ${(p) => `2px solid var(--border-${p.n})`};
   color: ${(p) => `var(--text-${p.n})`};
+	text-decoration: ${p => p.isSelected && "underline"};
   /* background-image: linear-gradient(
       red 5px,
       transparent 0.1em

@@ -15,10 +15,10 @@ function Grid({
   valueHistory,
   setValueHistory,
   placeInHistory,
-	setPlaceInHistory,
-	selectedCellNumber,
-	setSelectedCellNumber,
-	isSolved,
+  setPlaceInHistory,
+  selectedCellNumber,
+  setSelectedCellNumber,
+  isSolved,
 }) {
   const [currentPotentials, setCurrentPotentials] = useState(
     createInitialCurrentPotentials
@@ -31,10 +31,10 @@ function Grid({
         difficulty={difficulty}
         themeNumber={themeNumber}
         selectedCellNumber={selectedCellNumber}
-				valueHistory = {valueHistory}
-				setValueHistory = {setValueHistory}
-				placeInHistory = {placeInHistory}
-				setPlaceInHistory = {setPlaceInHistory}
+        valueHistory={valueHistory}
+        setValueHistory={setValueHistory}
+        placeInHistory={placeInHistory}
+        setPlaceInHistory={setPlaceInHistory}
       />
       <CellSelector
         selectedCellNumber={selectedCellNumber}
@@ -66,10 +66,15 @@ function Grid({
                     className="centered"
                     themeNumber={themeNumber}
                     cellNumber={1 + cellNumber}
-										originalNumber ={hasStarted && valueHistory[0][resolveSelectedCellNumberFromBlockNumberAndCellNumber(
-											1 + blockNumber,
-											1 + cellNumber
-										)]}
+                    originalNumber={
+                      hasStarted &&
+                      valueHistory[0][
+                        resolveSelectedCellNumberFromBlockNumberAndCellNumber(
+                          1 + blockNumber,
+                          1 + cellNumber
+                        )
+                      ]
+                    }
                     isSelected={
                       selectedCellNumber ===
                       resolveSelectedCellNumberFromBlockNumberAndCellNumber(
@@ -116,26 +121,34 @@ const Container = styled.div`
   }
 `;
 const GridContainer = styled.div`
+  /* padding: 3px; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   border: 1px solid;
-	border-color: ${p=>p.isSolved && `var(--yes-${p.themeNumber})`};
+  border-color: ${(p) => p.isSolved && `var(--yes-${p.themeNumber})`};
   grid-gap: 1px;
   background: ${(p) => `var(--text-${p.themeNumber})`};
+  /* background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3); */
+  /* background-size: 1800% 1800%; */
 `;
 const Block = styled.div`
   height: min(2px + 30vw, 152px);
   width: min(2px + 30vw, 152px);
   grid-gap: 1px;
-  /* background: ${(p) => p.blockIsSolved ? `var(--yes-${p.themeNumber})`:`var(--border-${p.themeNumber})`}; */
-	background: ${(p) => `var(--border-${p.themeNumber})`};
+  /* background: ${(p) =>
+    p.blockIsSolved
+      ? `var(--yes-${p.themeNumber})`
+      : `var(--border-${p.themeNumber})`}; */
+  background: ${(p) => `var(--border-${p.themeNumber})`};
+  outline: 2px solid blue;
+  outline-offset: -2px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 `;
 const Cell = styled.div`
   height: min(10vw, 50px);
   width: min(10vw, 50px);
-	font-weight: ${p=> p.originalNumber && "600"};
+  font-weight: ${(p) => p.originalNumber && "600"};
   background: ${(p) =>
     p.isSelected
       ? `radial-gradient(var(--bg2-${p.themeNumber}), var(--bg-${p.themeNumber}))`
@@ -157,4 +170,5 @@ const Cell = styled.div`
       `radial-gradient(var(--bg3-${p.themeNumber}), var(--bg-${p.themeNumber}))`};
     outline: ${(p) => `1px solid var(--focus-${p.themeNumber})`};
   }
+  font-size: min(10px + 3vw, 40px);
 `;
