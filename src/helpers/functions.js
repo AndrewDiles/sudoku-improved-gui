@@ -6,6 +6,24 @@ function duplicate(object) {
   return JSON.parse(JSON.stringify(object));
 }
 
+function getFirstCellNumberOfBlock (blockNumber) {
+	switch (blockNumber) {
+		case 1: return 0;
+		case 2: return 3;
+		case 3: return 6;
+		case 4: return 27;
+		case 5: return 30;
+		case 6: return 33;
+		case 7: return 54;
+		case 8: return 57;
+		case 9: return 60;
+		default: {
+			console.log(`invalid block number: ${blockNumber}`)
+			return 0;
+		}
+	}
+}
+
 function testArrayEquivalence(arr1, arr2) {
   for (let i1 = 0; i1 < arr1.length; i1++) {
     for (let i2 = 0; i2 < arr2.length; i2++) {
@@ -90,26 +108,51 @@ function resolveSelectedCellNumberFromBlockNumberAndCellNumber(
   blockNumber,
   cellNumber
 ) {
-  switch (blockNumber) {
-    case 1:
-      return returnCellNumberGivenInitial(0, cellNumber);
-    case 2:
-      return returnCellNumberGivenInitial(3, cellNumber);
-    case 3:
-      return returnCellNumberGivenInitial(6, cellNumber);
-    case 4:
-      return returnCellNumberGivenInitial(27, cellNumber);
-    case 5:
-      return returnCellNumberGivenInitial(30, cellNumber);
-    case 6:
-      return returnCellNumberGivenInitial(33, cellNumber);
-    case 7:
-      return returnCellNumberGivenInitial(54, cellNumber);
-    case 8:
-      return returnCellNumberGivenInitial(57, cellNumber);
-    case 9:
-      return returnCellNumberGivenInitial(60, cellNumber);
-  }
+	return returnCellNumberGivenInitial(getFirstCellNumberOfBlock(blockNumber), cellNumber)
+}
+function returnIfAllCellsInBlockHaveValues (startingCellNumber, cellArray) {
+	let row = 1;
+	let col = 1;
+	let testCellNumber = startingCellNumber;
+
+	for (col = 1; col < 4; col++) {
+		for (row = 1; row <4; row ++) {
+			// console.log(`testing cellNumber ${testCellNumber}`)
+			if (!cellArray[testCellNumber]) {return false}
+			testCellNumber ++
+			
+		}
+		testCellNumber+=6
+	}
+	return true
+}
+function resolveIsRealtedToSelectedCellNumber (selectedCellNumber, blockNumber, cellNumber) {
+	if (resolveSelectedCellNumberFromBlockNumberAndCellNumber(blockNumber, cellNumber) === selectedCellNumber) return false;
+	// if ()
+}
+
+function calculateIfBlockIsSolved (blockNumber, cellArray){
+	return returnIfAllCellsInBlockHaveValues(getFirstCellNumberOfBlock(blockNumber), cellArray)
+	// switch (blockNumber) {
+  //   case 1:
+  //     return returnIfAllCellsInBlockHaveValues(0, cellArray);
+  //   case 2:
+  //     return returnIfAllCellsInBlockHaveValues(3, cellArray);
+  //   case 3:
+  //     return returnIfAllCellsInBlockHaveValues(6, cellArray);
+  //   case 4:
+  //     return returnIfAllCellsInBlockHaveValues(27, cellArray);
+  //   case 5:
+  //     return returnIfAllCellsInBlockHaveValues(30, cellArray);
+  //   case 6:
+  //     return returnIfAllCellsInBlockHaveValues(33, cellArray);
+  //   case 7:
+  //     return returnIfAllCellsInBlockHaveValues(54, cellArray);
+  //   case 8:
+  //     return returnIfAllCellsInBlockHaveValues(57, cellArray);
+  //   case 9:
+  //     return returnIfAllCellsInBlockHaveValues(60, cellArray);
+  // }
 }
 
 function setArrayForGivens(
@@ -133,35 +176,6 @@ function setArrayForGivens(
   setCurrentPotentials(replacementCurrentPotentials);
   setfunctionOngoing(false);
 }
-
-// function confirmInputs (setfunctionOngoing, setCells, cells, setInputted, setNoContradiction) {
-//   setfunctionOngoing(true);
-//   // console.log('cells pre function', cells);
-//   for (let r=1; r<10; r++) {
-//     for (let c=1; c<10; c++) {
-//       let temp = document.getElementById(`r${r}c${c}`).value;
-//       if (temp.length === 1 && temp>0 && temp <10) {
-//         let arrayindex = c + 9*(r-1) -1;
-//         cells[arrayindex][10] = parseInt(temp);
-//       }
-//       setCells([
-//         ...cells,
-//         // cells[arrayindex][10] = temp
-//         // `r${i}c${j}[10]`: {temp}
-//       ]
-//       )
-//       // console.log(`updated r${r}c${c} `);
-//     }
-//   }
-//   setInputted(true);
-//   // console.log('81', cells[81]);
-//   // console.log('cells post function', cells);
-//   // console.log(document.getElementById('r2c2').value);
-//   setfunctionOngoing(false);
-//   setArrayForGivens(setfunctionOngoing, cells, setCells);
-//   refreshNulls(setfunctionOngoing, cells, setCells);
-//   testContradiction(setfunctionOngoing, cells, setNoContradiction);
-// };
 
 function initiateEasyPuzzle() {
   let result = [];
@@ -558,6 +572,7 @@ function testColumnForContradiction(cellArray, cellNumber) {
   }
   return false;
 }
+
 function testBlockForContradiction(cellArray, cellNumber) {
   let blockNumber = extractBlockNumberFromCellNumber(cellNumber);
   let blockCellNumbers = [];
@@ -576,48 +591,49 @@ function testBlockForContradiction(cellArray, cellNumber) {
     }
     return result;
   }
-  switch (blockNumber) {
-    case 1: {
-      blockCellNumbers.push(...createCellNumbersForBlockArray(0));
-      break;
-    }
-    case 2: {
-      blockCellNumbers.push(...createCellNumbersForBlockArray(3));
-      break;
-    }
-    case 3: {
-      blockCellNumbers.push(...createCellNumbersForBlockArray(6));
-      break;
-    }
-    case 4: {
-      blockCellNumbers.push(...createCellNumbersForBlockArray(27));
-      break;
-    }
-    case 5: {
-      blockCellNumbers.push(...createCellNumbersForBlockArray(30));
-      break;
-    }
-    case 6: {
-      blockCellNumbers.push(...createCellNumbersForBlockArray(33));
-      break;
-    }
-    case 7: {
-      blockCellNumbers.push(...createCellNumbersForBlockArray(54));
-      break;
-    }
-    case 8: {
-      blockCellNumbers.push(...createCellNumbersForBlockArray(57));
-      break;
-    }
-    case 9: {
-      blockCellNumbers.push(...createCellNumbersForBlockArray(60));
-      break;
-    }
-    default: {
-      console.log("ERROR - block number not an int 1-9");
-      return;
-    }
-  }
+	blockCellNumbers.push(...createCellNumbersForBlockArray(getFirstCellNumberOfBlock(blockNumber)))
+  // switch (blockNumber) {
+  //   case 1: {
+  //     blockCellNumbers.push(...createCellNumbersForBlockArray(0));
+  //     break;
+  //   }
+  //   case 2: {
+  //     blockCellNumbers.push(...createCellNumbersForBlockArray(3));
+  //     break;
+  //   }
+  //   case 3: {
+  //     blockCellNumbers.push(...createCellNumbersForBlockArray(6));
+  //     break;
+  //   }
+  //   case 4: {
+  //     blockCellNumbers.push(...createCellNumbersForBlockArray(27));
+  //     break;
+  //   }
+  //   case 5: {
+  //     blockCellNumbers.push(...createCellNumbersForBlockArray(30));
+  //     break;
+  //   }
+  //   case 6: {
+  //     blockCellNumbers.push(...createCellNumbersForBlockArray(33));
+  //     break;
+  //   }
+  //   case 7: {
+  //     blockCellNumbers.push(...createCellNumbersForBlockArray(54));
+  //     break;
+  //   }
+  //   case 8: {
+  //     blockCellNumbers.push(...createCellNumbersForBlockArray(57));
+  //     break;
+  //   }
+  //   case 9: {
+  //     blockCellNumbers.push(...createCellNumbersForBlockArray(60));
+  //     break;
+  //   }
+  //   default: {
+  //     console.log("ERROR - block number not an int 1-9");
+  //     return;
+  //   }
+  // }
   for (let i = 0; i < blockCellNumbers.length; i++) {
     if (cellNumber !== blockCellNumbers[i]) {
       if (cellArray[cellNumber] === cellArray[blockCellNumbers[i]]) {
@@ -1536,7 +1552,8 @@ export {
   createInitialValueHistory,
   createInitialCurrentPotentials,
   resolveSelectedCellNumberFromBlockNumberAndCellNumber,
-  // confirmInputs,
+	resolveIsRealtedToSelectedCellNumber,
+	calculateIfBlockIsSolved,
   initiateEasyPuzzle,
   initiateMediumPuzzle,
   initiateHardPuzzle,

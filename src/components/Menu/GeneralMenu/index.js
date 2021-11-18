@@ -19,12 +19,12 @@ function SetupMenu({
         {difficulty && hasStarted ? (
           <OptionButton
             themeNumber={themeNumber}
-            label={"Begin solving puzzle button"}
-            title={"Begin solving puzzle button"}
+            label={"Return to puzzle selection button"}
+            title={"Return to puzzle selection button"}
             handleClick={() => setHasStarted(false)}
             height="fit-content"
           >
-            Restart
+            Clear Puzzle
           </OptionButton>
         ) : (
           <OptionButton

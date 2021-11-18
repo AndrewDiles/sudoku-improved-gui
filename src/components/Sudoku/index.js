@@ -41,6 +41,7 @@ function Sudoku({ themeNumber }) {
 				selectedCellNumber = {selectedCellNumber}
 				setSelectedCellNumber = {setSelectedCellNumber}
 				isSolved = {isSolved}
+				contradictionExists = {contradictionExists}
       />
       <LogicListeners
         difficulty={difficulty}

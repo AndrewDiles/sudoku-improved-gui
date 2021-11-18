@@ -4,6 +4,8 @@ import {
   createInitialValueHistory,
   createInitialCurrentPotentials,
   resolveSelectedCellNumberFromBlockNumberAndCellNumber,
+	resolveIsRealtedToSelectedCellNumber,
+	calculateIfBlockIsSolved,
 } from "../../helpers/functions";
 import NumberSelection from "./NumberSelection";
 import CellSelector from "./CellSelector";
@@ -19,6 +21,7 @@ function Grid({
   selectedCellNumber,
   setSelectedCellNumber,
   isSolved,
+	contradictionExists,
 }) {
   const [currentPotentials, setCurrentPotentials] = useState(
     createInitialCurrentPotentials
@@ -42,11 +45,18 @@ function Grid({
       />
       <GridContainer themeNumber={themeNumber} isSolved={isSolved}>
         {Array.from(Array(9).keys()).map((blockNumber) => {
+					let blockIsSolved;
+					if (contradictionExists) {
+						blockIsSolved = false
+					} else {
+						blockIsSolved = calculateIfBlockIsSolved(blockNumber+1, valueHistory[placeInHistory]);
+					}
           return (
             <Block
               key={blockNumber}
               themeNumber={themeNumber}
               blockNumber={1 + blockNumber}
+							blockIsSolved = {blockIsSolved}
             >
               {Array.from(Array(9).keys()).map((cellNumber) => {
                 let innerContent = "";
@@ -82,6 +92,7 @@ function Grid({
                         1 + cellNumber
                       )
                     }
+										isRelatedToSelectedCell = {resolveIsRealtedToSelectedCellNumber(selectedCellNumber, blockNumber+1, cellNumber+1)}
                     onClick={() => {
                       setSelectedCellNumber(
                         resolveSelectedCellNumberFromBlockNumberAndCellNumber(
@@ -140,8 +151,8 @@ const Block = styled.div`
       ? `var(--yes-${p.themeNumber})`
       : `var(--border-${p.themeNumber})`}; */
   background: ${(p) => `var(--border-${p.themeNumber})`};
-  outline: 2px solid blue;
-  outline-offset: -2px;
+  
+	border: ${p => p.blockIsSolved? `1px var(--yes-${p.themeNumber}) solid`:`1px var(--text-${p.themeNumber}) solid`};
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 `;
