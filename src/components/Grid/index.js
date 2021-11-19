@@ -4,8 +4,8 @@ import {
   createInitialValueHistory,
   createInitialCurrentPotentials,
   resolveSelectedCellNumberFromBlockNumberAndCellNumber,
-	resolveIsRealtedToSelectedCellNumber,
-	calculateIfBlockIsSolved,
+  resolveIsRealtedToSelectedCellNumber,
+  calculateIfBlockIsSolved,
 } from "../../helpers/functions";
 import NumberSelection from "./NumberSelection";
 import CellSelector from "./CellSelector";
@@ -21,7 +21,7 @@ function Grid({
   selectedCellNumber,
   setSelectedCellNumber,
   isSolved,
-	contradictionExists,
+  contradictionExists,
 }) {
   const [currentPotentials, setCurrentPotentials] = useState(
     createInitialCurrentPotentials
@@ -43,20 +43,28 @@ function Grid({
         selectedCellNumber={selectedCellNumber}
         setSelectedCellNumber={setSelectedCellNumber}
       />
-      <GridContainer themeNumber={themeNumber} isSolved={isSolved}>
+      <GridContainer
+        themeNumber={themeNumber}
+        isSolved={isSolved}
+        contradictionExists={contradictionExists}
+      >
         {Array.from(Array(9).keys()).map((blockNumber) => {
-					let blockIsSolved;
-					if (contradictionExists) {
-						blockIsSolved = false
-					} else {
-						blockIsSolved = calculateIfBlockIsSolved(blockNumber+1, valueHistory[placeInHistory]);
-					}
+          let blockIsSolved;
+          if (contradictionExists) {
+            blockIsSolved = false;
+          } else {
+            blockIsSolved = calculateIfBlockIsSolved(
+              blockNumber + 1,
+              valueHistory[placeInHistory]
+            );
+          }
           return (
             <Block
               key={blockNumber}
               themeNumber={themeNumber}
               blockNumber={1 + blockNumber}
-							blockIsSolved = {blockIsSolved}
+              blockIsSolved={blockIsSolved}
+              contradictionExists={contradictionExists}
             >
               {Array.from(Array(9).keys()).map((cellNumber) => {
                 let innerContent = "";
@@ -92,7 +100,11 @@ function Grid({
                         1 + cellNumber
                       )
                     }
-										isRelatedToSelectedCell = {resolveIsRealtedToSelectedCellNumber(selectedCellNumber, blockNumber+1, cellNumber+1)}
+                    isRelatedToSelectedCell={resolveIsRealtedToSelectedCellNumber(
+                      selectedCellNumber,
+                      blockNumber + 1,
+                      cellNumber + 1
+                    )}
                     onClick={() => {
                       setSelectedCellNumber(
                         resolveSelectedCellNumberFromBlockNumberAndCellNumber(
@@ -136,9 +148,15 @@ const GridContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   border: 1px solid;
-  border-color: ${(p) => p.isSolved && `var(--yes-${p.themeNumber})`};
-  grid-gap: 1px;
+  border-color: ${(p) =>
+    p.isSolved
+      ? `var(--yes-${p.themeNumber})`
+      : p.contradictionExists
+      ? `var(--no-${p.themeNumber})`
+      : "transparent"};
+  /* grid-gap: 1px; */
   background: ${(p) => `var(--text-${p.themeNumber})`};
+	/* background: ${(p) => p.isSolved ? "linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3)":`var(--text-${p.themeNumber})`}; */
   /* background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3); */
   /* background-size: 1800% 1800%; */
 `;
@@ -151,8 +169,13 @@ const Block = styled.div`
       ? `var(--yes-${p.themeNumber})`
       : `var(--border-${p.themeNumber})`}; */
   background: ${(p) => `var(--border-${p.themeNumber})`};
-  
-	border: ${p => p.blockIsSolved? `1px var(--yes-${p.themeNumber}) solid`:`1px var(--text-${p.themeNumber}) solid`};
+
+  border: ${(p) =>
+    p.contradictionExists
+      ? `1px var(--no-${p.themeNumber}) solid`
+      : p.blockIsSolved
+      ? `1px var(--yes-${p.themeNumber}) solid`
+      : `1px var(--text-${p.themeNumber}) solid`};
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 `;
@@ -162,23 +185,28 @@ const Cell = styled.div`
   font-weight: ${(p) => p.originalNumber && "600"};
   background: ${(p) =>
     p.isSelected
+      ? `radial-gradient(var(--bg2-${p.themeNumber}), var(--bg2-${p.themeNumber}), var(--bg-${p.themeNumber}))`
+      : p.isRelatedToSelectedCell
       ? `radial-gradient(var(--bg2-${p.themeNumber}), var(--bg-${p.themeNumber}))`
       : `var(--bg-${p.themeNumber})`};
-  outline: ${(p) => p.isSelected && `1px solid var(--hover-${p.themeNumber})`};
+  outline: ${(p) => p.isSelected && `2px solid var(--hover-${p.themeNumber})`};
   outline-offset: -2px;
   transform: scale(1);
   :hover {
     cursor: pointer;
-    outline: ${(p) => `1px solid var(--hover-${p.themeNumber})`};
+    outline: ${(p) =>
+      p.isSelected
+        ? `2px solid var(--hover-${p.themeNumber})`
+        : `1px solid var(--hover-${p.themeNumber})`};
     transform: scale(1.05);
     background: ${(p) =>
       p.isSelected
-        ? `radial-gradient(var(--bg3-${p.themeNumber}), var(--bg-${p.themeNumber}))`
-        : `radial-gradient(var(--bg2-${p.themeNumber}), var(--bg-${p.themeNumber}))`};
+        ? `radial-gradient(var(--bg3-${p.themeNumber}), var(--bg3-${p.themeNumber}), var(--bg-${p.themeNumber}))`
+        : `radial-gradient(var(--bg2-${p.themeNumber}), var(--bg2-${p.themeNumber}), var(--bg-${p.themeNumber}))`};
   }
   :active {
     background: ${(p) =>
-      `radial-gradient(var(--bg3-${p.themeNumber}), var(--bg-${p.themeNumber}))`};
+      `radial-gradient(var(--bg3-${p.themeNumber}), var(--bg3-${p.themeNumber}), var(--bg-${p.themeNumber}))`};
     outline: ${(p) => `1px solid var(--focus-${p.themeNumber})`};
   }
   font-size: min(10px + 3vw, 40px);

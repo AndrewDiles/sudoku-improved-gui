@@ -127,32 +127,19 @@ function returnIfAllCellsInBlockHaveValues (startingCellNumber, cellArray) {
 	return true
 }
 function resolveIsRealtedToSelectedCellNumber (selectedCellNumber, blockNumber, cellNumber) {
-	if (resolveSelectedCellNumberFromBlockNumberAndCellNumber(blockNumber, cellNumber) === selectedCellNumber) return false;
-	// if ()
+	const cellNumberBeingTested = resolveSelectedCellNumberFromBlockNumberAndCellNumber(blockNumber, cellNumber);
+	if (cellNumberBeingTested === selectedCellNumber) return false;
+	// Test if in same row:
+	if (Math.floor((cellNumberBeingTested)/9) === Math.floor((selectedCellNumber)/9)) return true;
+	// Test if in same column
+	if (cellNumberBeingTested%9 === selectedCellNumber %9) return true;
+	// Test if in same block
+	if (blockNumber === extractBlockNumberFromCellNumber(selectedCellNumber)) return true;
+	return false
 }
 
 function calculateIfBlockIsSolved (blockNumber, cellArray){
 	return returnIfAllCellsInBlockHaveValues(getFirstCellNumberOfBlock(blockNumber), cellArray)
-	// switch (blockNumber) {
-  //   case 1:
-  //     return returnIfAllCellsInBlockHaveValues(0, cellArray);
-  //   case 2:
-  //     return returnIfAllCellsInBlockHaveValues(3, cellArray);
-  //   case 3:
-  //     return returnIfAllCellsInBlockHaveValues(6, cellArray);
-  //   case 4:
-  //     return returnIfAllCellsInBlockHaveValues(27, cellArray);
-  //   case 5:
-  //     return returnIfAllCellsInBlockHaveValues(30, cellArray);
-  //   case 6:
-  //     return returnIfAllCellsInBlockHaveValues(33, cellArray);
-  //   case 7:
-  //     return returnIfAllCellsInBlockHaveValues(54, cellArray);
-  //   case 8:
-  //     return returnIfAllCellsInBlockHaveValues(57, cellArray);
-  //   case 9:
-  //     return returnIfAllCellsInBlockHaveValues(60, cellArray);
-  // }
 }
 
 function setArrayForGivens(
@@ -592,48 +579,6 @@ function testBlockForContradiction(cellArray, cellNumber) {
     return result;
   }
 	blockCellNumbers.push(...createCellNumbersForBlockArray(getFirstCellNumberOfBlock(blockNumber)))
-  // switch (blockNumber) {
-  //   case 1: {
-  //     blockCellNumbers.push(...createCellNumbersForBlockArray(0));
-  //     break;
-  //   }
-  //   case 2: {
-  //     blockCellNumbers.push(...createCellNumbersForBlockArray(3));
-  //     break;
-  //   }
-  //   case 3: {
-  //     blockCellNumbers.push(...createCellNumbersForBlockArray(6));
-  //     break;
-  //   }
-  //   case 4: {
-  //     blockCellNumbers.push(...createCellNumbersForBlockArray(27));
-  //     break;
-  //   }
-  //   case 5: {
-  //     blockCellNumbers.push(...createCellNumbersForBlockArray(30));
-  //     break;
-  //   }
-  //   case 6: {
-  //     blockCellNumbers.push(...createCellNumbersForBlockArray(33));
-  //     break;
-  //   }
-  //   case 7: {
-  //     blockCellNumbers.push(...createCellNumbersForBlockArray(54));
-  //     break;
-  //   }
-  //   case 8: {
-  //     blockCellNumbers.push(...createCellNumbersForBlockArray(57));
-  //     break;
-  //   }
-  //   case 9: {
-  //     blockCellNumbers.push(...createCellNumbersForBlockArray(60));
-  //     break;
-  //   }
-  //   default: {
-  //     console.log("ERROR - block number not an int 1-9");
-  //     return;
-  //   }
-  // }
   for (let i = 0; i < blockCellNumbers.length; i++) {
     if (cellNumber !== blockCellNumbers[i]) {
       if (cellArray[cellNumber] === cellArray[blockCellNumbers[i]]) {
@@ -678,6 +623,13 @@ function testIfSolutionIsFound(cellArray) {
     }
   }
   return true;
+}
+
+function calculateValuePotentials (cellArray) {
+	let basePotentials = createInitialCurrentPotentials();
+	// let potentialsWithRows = addPotentialInfoFromRows(basePotentials, cellArray);
+	// let potentialsWithColumns = addPotentialInfoFromRows(basePotentials, cellArray);
+	// let potentialsWithBlocks = addPotentialInfoFromRows(basePotentials, cellArray);
 }
 
 // function resetInputValues () {
@@ -1566,6 +1518,7 @@ export {
   condenseInitialValueHistoryForCustomGame,
   testIfCellsContainAContradiction,
   testIfSolutionIsFound,
+	calculateValuePotentials,
   // addKnowns,
   // testForKnowns,
   // testCols,

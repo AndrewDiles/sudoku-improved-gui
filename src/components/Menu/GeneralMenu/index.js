@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import OptionButton from "../OptionButton";
 
-function SetupMenu({
+function GeneralMenu({
   themeNumber,
   difficulty,
   setDifficulty,
@@ -12,6 +12,8 @@ function SetupMenu({
   placeInHistory,
   setPlaceInHistory,
   selectedCellNumber,
+  solverOptionsOpen,
+  setSolverOptionsOpen,
 }) {
   return (
     <Container>
@@ -44,7 +46,10 @@ function SetupMenu({
             label={"Clear cell button"}
             title={"Clear cell button"}
             id="clear cell button"
-            isDisabled={!valueHistory[placeInHistory][selectedCellNumber]||(hasStarted && valueHistory[0][selectedCellNumber])}
+            isDisabled={
+              !valueHistory[placeInHistory][selectedCellNumber] ||
+              (hasStarted && valueHistory[0][selectedCellNumber])
+            }
             handleClick={() => {
               if (valueHistory[placeInHistory][selectedCellNumber]) {
                 let nextStep = [...valueHistory[placeInHistory]];
@@ -58,6 +63,32 @@ function SetupMenu({
             Clear Cell
           </OptionButton>
         )}
+        {hasStarted ? solverOptionsOpen ? (
+          <OptionButton
+            themeNumber={themeNumber}
+            label={"Close solver button"}
+            title={"Close solver button"}
+            handleClick={() => {
+              setSolverOptionsOpen(false);
+            }}
+            height="fit-content"
+          >
+            Close Solver
+          </OptionButton>
+        ) : (
+          <OptionButton
+            themeNumber={themeNumber}
+            label={"Open solver button"}
+            title={"Open solver button"}
+            handleClick={() => {
+              setSolverOptionsOpen(true);
+            }}
+            height="fit-content"
+          >
+            Open  Solver
+          </OptionButton>
+        ):null}
+				<div>
         <OptionButton
           themeNumber={themeNumber}
           label={"Previous step button"}
@@ -87,6 +118,7 @@ function SetupMenu({
         >
           Next
         </OptionButton>
+				</div>
         {/* ⤺ */}
         {/* ⇽ ⇾ */}
         {/* ⇦ ⇨ */}
@@ -97,7 +129,7 @@ function SetupMenu({
   );
 }
 
-export default SetupMenu;
+export default GeneralMenu;
 const Container = styled.div`
   display: flex;
   text-align: center;

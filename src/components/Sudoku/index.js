@@ -3,17 +3,23 @@ import styled from "styled-components";
 import Grid from "../Grid";
 import Menu from "../Menu";
 import LogicListeners from "../LogicListeners";
-import { createInitialValueHistory } from "../../helpers/functions";
+import {
+  createInitialValueHistory,
+  createInitialCurrentPotentials,
+} from "../../helpers/functions";
 
 function Sudoku({ themeNumber }) {
   const [difficulty, setDifficulty] = useState(null);
   const [hasStarted, setHasStarted] = useState(false);
   const [valueHistory, setValueHistory] = useState(createInitialValueHistory());
   const [placeInHistory, setPlaceInHistory] = useState(0);
-	const [selectedCellNumber, setSelectedCellNumber] = useState(0);
-	const [contradictionExists, setContradictionExists] = useState(false);
-	const [isSolved, setIsSolved] = useState(false);
-	const [solverOptionsOpen, setSolverOptionsOpen] = useState(false);
+  const [selectedCellNumber, setSelectedCellNumber] = useState(0);
+  const [contradictionExists, setContradictionExists] = useState(false);
+  const [isSolved, setIsSolved] = useState(false);
+  const [solverOptionsOpen, setSolverOptionsOpen] = useState(false);
+  const [solverPotentials, setSolverPotentials] = useState(
+    createInitialCurrentPotentials()
+  );
   return (
     <GridAndMenuContainer>
       <Menu
@@ -22,13 +28,15 @@ function Sudoku({ themeNumber }) {
         setDifficulty={setDifficulty}
         hasStarted={hasStarted}
         setHasStarted={setHasStarted}
-				placeInHistory = {placeInHistory}
-				setPlaceInHistory = {setPlaceInHistory}
-				valueHistory = {valueHistory}
-				setValueHistory = {setValueHistory}
-				selectedCellNumber = {selectedCellNumber}
-				contradictionExists = {contradictionExists}
-				isSolved = {isSolved}
+        placeInHistory={placeInHistory}
+        setPlaceInHistory={setPlaceInHistory}
+        valueHistory={valueHistory}
+        setValueHistory={setValueHistory}
+        selectedCellNumber={selectedCellNumber}
+        contradictionExists={contradictionExists}
+        isSolved={isSolved}
+        solverOptionsOpen={solverOptionsOpen}
+        setSolverOptionsOpen={setSolverOptionsOpen}
       />
       <Grid
         themeNumber={themeNumber}
@@ -38,24 +46,26 @@ function Sudoku({ themeNumber }) {
         placeInHistory={placeInHistory}
         setPlaceInHistory={setPlaceInHistory}
         setValueHistory={setValueHistory}
-				selectedCellNumber = {selectedCellNumber}
-				setSelectedCellNumber = {setSelectedCellNumber}
-				isSolved = {isSolved}
-				contradictionExists = {contradictionExists}
+        selectedCellNumber={selectedCellNumber}
+        setSelectedCellNumber={setSelectedCellNumber}
+        isSolved={isSolved}
+        contradictionExists={contradictionExists}
       />
       <LogicListeners
         difficulty={difficulty}
-				setDifficulty = {setDifficulty}
+        setDifficulty={setDifficulty}
         hasStarted={hasStarted}
         setHasStarted={setHasStarted}
         valueHistory={valueHistory}
         setValueHistory={setValueHistory}
-				placeInHistory = {placeInHistory}
-				setPlaceInHistory = {setPlaceInHistory}
-				contradictionExists = {contradictionExists}
-				setContradictionExists={setContradictionExists}
-				setIsSolved = {setIsSolved}
-				setSolverOptionsOpen = {setSolverOptionsOpen}
+        placeInHistory={placeInHistory}
+        setPlaceInHistory={setPlaceInHistory}
+        contradictionExists={contradictionExists}
+        setContradictionExists={setContradictionExists}
+        setIsSolved={setIsSolved}
+        solverOptionsOpen={solverOptionsOpen}
+        setSolverOptionsOpen={setSolverOptionsOpen}
+        setSolverPotentials={setSolverPotentials}
       />
     </GridAndMenuContainer>
   );
