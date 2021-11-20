@@ -1,8 +1,5 @@
-import { useState, useEffect } from "react";
 import styled from "styled-components";
 import {
-  createInitialValueHistory,
-  createInitialCurrentPotentials,
   resolveSelectedCellNumberFromBlockNumberAndCellNumber,
   resolveIsRealtedToSelectedCellNumber,
   calculateIfBlockIsSolved,
@@ -22,11 +19,9 @@ function Grid({
   setSelectedCellNumber,
   isSolved,
   contradictionExists,
+	solverOptionsOpen,
+	solverPotentials,
 }) {
-  const [currentPotentials, setCurrentPotentials] = useState(
-    createInitialCurrentPotentials
-  );
-
   return (
     <Container>
       <NumberSelection
@@ -78,7 +73,7 @@ function Grid({
                 if (testValue) {
                   innerContent = testValue;
                 }
-                return (
+                return (innerContent || !solverOptionsOpen) ? (
                   <Cell
                     key={cellNumber}
                     className="centered"
@@ -116,7 +111,13 @@ function Grid({
                   >
                     {innerContent}
                   </Cell>
-                );
+                ) : (<Potentials>{solverPotentials[resolveSelectedCellNumberFromBlockNumberAndCellNumber(
+									1 + blockNumber,
+									1 + cellNumber
+								)].potentials.map((value, index)=>{
+									return index === 0 ? null : (<Potential>{index}</Potential>)
+
+								})}</Potentials>)
               })}
             </Block>
           );
@@ -211,3 +212,15 @@ const Cell = styled.div`
   }
   font-size: min(10px + 3vw, 40px);
 `;
+
+const Potentials = styled.div`
+	height: min(10vw, 50px);
+  width: min(10vw, 50px);
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+`
+const Potential = styled.p`
+	margin: 0;
+	font-size: min(4px + 1vw, 14px);
+`

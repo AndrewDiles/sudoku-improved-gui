@@ -6,22 +6,31 @@ function duplicate(object) {
   return JSON.parse(JSON.stringify(object));
 }
 
-function getFirstCellNumberOfBlock (blockNumber) {
-	switch (blockNumber) {
-		case 1: return 0;
-		case 2: return 3;
-		case 3: return 6;
-		case 4: return 27;
-		case 5: return 30;
-		case 6: return 33;
-		case 7: return 54;
-		case 8: return 57;
-		case 9: return 60;
-		default: {
-			console.log(`invalid block number: ${blockNumber}`)
-			return 0;
-		}
-	}
+function getFirstCellNumberOfBlock(blockNumber) {
+  switch (blockNumber) {
+    case 1:
+      return 0;
+    case 2:
+      return 3;
+    case 3:
+      return 6;
+    case 4:
+      return 27;
+    case 5:
+      return 30;
+    case 6:
+      return 33;
+    case 7:
+      return 54;
+    case 8:
+      return 57;
+    case 9:
+      return 60;
+    default: {
+      console.log(`invalid block number: ${blockNumber}`);
+      return 0;
+    }
+  }
 }
 
 function testArrayEquivalence(arr1, arr2) {
@@ -74,6 +83,7 @@ function createInitialCurrentPotentials() {
         col,
         block,
         solved: false,
+        containsNewInformation: false,
         potentials: ["", null, null, null, null, null, null, null, null, null],
       });
     }
@@ -108,38 +118,57 @@ function resolveSelectedCellNumberFromBlockNumberAndCellNumber(
   blockNumber,
   cellNumber
 ) {
-	return returnCellNumberGivenInitial(getFirstCellNumberOfBlock(blockNumber), cellNumber)
+  return returnCellNumberGivenInitial(
+    getFirstCellNumberOfBlock(blockNumber),
+    cellNumber
+  );
 }
-function returnIfAllCellsInBlockHaveValues (startingCellNumber, cellArray) {
-	let row = 1;
-	let col = 1;
-	let testCellNumber = startingCellNumber;
+function returnIfAllCellsInBlockHaveValues(startingCellNumber, cellArray) {
+  let row = 1;
+  let col = 1;
+  let testCellNumber = startingCellNumber;
 
-	for (col = 1; col < 4; col++) {
-		for (row = 1; row <4; row ++) {
-			// console.log(`testing cellNumber ${testCellNumber}`)
-			if (!cellArray[testCellNumber]) {return false}
-			testCellNumber ++
-			
-		}
-		testCellNumber+=6
-	}
-	return true
+  for (col = 1; col < 4; col++) {
+    for (row = 1; row < 4; row++) {
+      // console.log(`testing cellNumber ${testCellNumber}`)
+      if (!cellArray[testCellNumber]) {
+        return false;
+      }
+      testCellNumber++;
+    }
+    testCellNumber += 6;
+  }
+  return true;
 }
-function resolveIsRealtedToSelectedCellNumber (selectedCellNumber, blockNumber, cellNumber) {
-	const cellNumberBeingTested = resolveSelectedCellNumberFromBlockNumberAndCellNumber(blockNumber, cellNumber);
-	if (cellNumberBeingTested === selectedCellNumber) return false;
-	// Test if in same row:
-	if (Math.floor((cellNumberBeingTested)/9) === Math.floor((selectedCellNumber)/9)) return true;
-	// Test if in same column
-	if (cellNumberBeingTested%9 === selectedCellNumber %9) return true;
-	// Test if in same block
-	if (blockNumber === extractBlockNumberFromCellNumber(selectedCellNumber)) return true;
-	return false
+function resolveIsRealtedToSelectedCellNumber(
+  selectedCellNumber,
+  blockNumber,
+  cellNumber
+) {
+  const cellNumberBeingTested =
+    resolveSelectedCellNumberFromBlockNumberAndCellNumber(
+      blockNumber,
+      cellNumber
+    );
+  if (cellNumberBeingTested === selectedCellNumber) return false;
+  // Test if in same row:
+  if (
+    Math.floor(cellNumberBeingTested / 9) === Math.floor(selectedCellNumber / 9)
+  )
+    return true;
+  // Test if in same column
+  if (cellNumberBeingTested % 9 === selectedCellNumber % 9) return true;
+  // Test if in same block
+  if (blockNumber === extractBlockNumberFromCellNumber(selectedCellNumber))
+    return true;
+  return false;
 }
 
-function calculateIfBlockIsSolved (blockNumber, cellArray){
-	return returnIfAllCellsInBlockHaveValues(getFirstCellNumberOfBlock(blockNumber), cellArray)
+function calculateIfBlockIsSolved(blockNumber, cellArray) {
+  return returnIfAllCellsInBlockHaveValues(
+    getFirstCellNumberOfBlock(blockNumber),
+    cellArray
+  );
 }
 
 function setArrayForGivens(
@@ -578,7 +607,9 @@ function testBlockForContradiction(cellArray, cellNumber) {
     }
     return result;
   }
-	blockCellNumbers.push(...createCellNumbersForBlockArray(getFirstCellNumberOfBlock(blockNumber)))
+  blockCellNumbers.push(
+    ...createCellNumbersForBlockArray(getFirstCellNumberOfBlock(blockNumber))
+  );
   for (let i = 0; i < blockCellNumbers.length; i++) {
     if (cellNumber !== blockCellNumbers[i]) {
       if (cellArray[cellNumber] === cellArray[blockCellNumbers[i]]) {
@@ -624,12 +655,47 @@ function testIfSolutionIsFound(cellArray) {
   }
   return true;
 }
+function addPotentialInfoFromRows(potentialArray) {
+  // result.push({
+  // 	row,
+  // 	col,
+  // 	block,
+  // 	solved: false,
+  // 	containsNewInformation: false,
+  // 	potentials: ["",null, null, null, null, null, null, null, null, null],
+  // });
+  for (let i = 0; i < potentialArray.length; i++) {
+    if (!potentialArray[i].solved) {
+      let rowInQuestion = potentialArray[i].row;
+      for (let colNumber = 1; colNumber < 10; colNumber++) {
+        if (potentialArray[i].col !== colNumber) {
+					let testIndex;
+          potentialArray.find((elem, index) => {
+            if (elem.col === colNumber && elem.row === rowInQuestion) {
+              testIndex = index;
+            }
+          });
+					if (potentialArray[testIndex].solved) {
+						if (potentialArray[i].potentials[potentialArray[testIndex].solved]===null) {
+							potentialArray[i].potentials[potentialArray[testIndex].solved] = false;
+							potentialArray[i].containsNewInformation = true;
+						} else {
+							potentialArray[i].potentials[potentialArray[testIndex].solved] = false;
+						}
+					}
+        }
+      }
+    }
+  }
+	return potentialArray;
+}
 
-function calculateValuePotentials (cellArray) {
-	let basePotentials = createInitialCurrentPotentials();
-	// let potentialsWithRows = addPotentialInfoFromRows(basePotentials, cellArray);
-	// let potentialsWithColumns = addPotentialInfoFromRows(basePotentials, cellArray);
-	// let potentialsWithBlocks = addPotentialInfoFromRows(basePotentials, cellArray);
+function calculateValuePotentials(cellArray) {
+  let basePotentials = createInitialCurrentPotentials();
+  let potentialsWithRows = addPotentialInfoFromRows(basePotentials, cellArray);
+  // let potentialsWithColumns = addPotentialInfoFromColumns(basePotentials, cellArray);
+  // let potentialsWithBlocks = addPotentialInfoFromR(basePotentials, cellArray);
+	return potentialsWithRows
 }
 
 // function resetInputValues () {
@@ -1504,8 +1570,8 @@ export {
   createInitialValueHistory,
   createInitialCurrentPotentials,
   resolveSelectedCellNumberFromBlockNumberAndCellNumber,
-	resolveIsRealtedToSelectedCellNumber,
-	calculateIfBlockIsSolved,
+  resolveIsRealtedToSelectedCellNumber,
+  calculateIfBlockIsSolved,
   initiateEasyPuzzle,
   initiateMediumPuzzle,
   initiateHardPuzzle,
@@ -1518,7 +1584,7 @@ export {
   condenseInitialValueHistoryForCustomGame,
   testIfCellsContainAContradiction,
   testIfSolutionIsFound,
-	calculateValuePotentials,
+  calculateValuePotentials,
   // addKnowns,
   // testForKnowns,
   // testCols,
