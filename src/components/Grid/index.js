@@ -19,8 +19,8 @@ function Grid({
   setSelectedCellNumber,
   isSolved,
   contradictionExists,
-	solverOptionsOpen,
-	solverPotentials,
+  solverOptionsOpen,
+  solverPotentials,
 }) {
   return (
     <Container>
@@ -73,7 +73,7 @@ function Grid({
                 if (testValue) {
                   innerContent = testValue;
                 }
-                return (innerContent || !solverOptionsOpen) ? (
+                return innerContent || !solverOptionsOpen ? (
                   <Cell
                     key={cellNumber}
                     className="centered"
@@ -111,13 +111,26 @@ function Grid({
                   >
                     {innerContent}
                   </Cell>
-                ) : (<Potentials>{solverPotentials[resolveSelectedCellNumberFromBlockNumberAndCellNumber(
-									1 + blockNumber,
-									1 + cellNumber
-								)].potentials.map((value, index)=>{
-									return index === 0 ? null : (<Potential>{index}</Potential>)
-
-								})}</Potentials>)
+                ) : (
+                  <Potentials>
+                    {solverPotentials[
+                      resolveSelectedCellNumberFromBlockNumberAndCellNumber(
+                        1 + blockNumber,
+                        1 + cellNumber
+                      )
+                    ].potentials.map((value, index) => {
+											// console.log({value})
+                      return index === 0 ? null : (
+                        <Potential
+                          themeNumber={themeNumber}
+                          isImpossible={value === false}
+                        >
+                          {index}
+                        </Potential>
+                      );
+                    })}
+                  </Potentials>
+                );
               })}
             </Block>
           );
@@ -157,7 +170,10 @@ const GridContainer = styled.div`
       : "transparent"};
   /* grid-gap: 1px; */
   background: ${(p) => `var(--text-${p.themeNumber})`};
-	/* background: ${(p) => p.isSolved ? "linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3)":`var(--text-${p.themeNumber})`}; */
+  /* background: ${(p) =>
+    p.isSolved
+      ? "linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3)"
+      : `var(--text-${p.themeNumber})`}; */
   /* background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3); */
   /* background-size: 1800% 1800%; */
 `;
@@ -214,13 +230,17 @@ const Cell = styled.div`
 `;
 
 const Potentials = styled.div`
-	height: min(10vw, 50px);
+  height: min(10vw, 50px);
   width: min(10vw, 50px);
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: repeat(3, 1fr);
-`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+`;
 const Potential = styled.p`
-	margin: 0;
-	font-size: min(4px + 1vw, 14px);
-`
+  margin: 0;
+  font-size: min(4px + 1vw, 14px);
+  color: ${(p) =>
+    p.isImpossible
+      ? `var(--no-${p.themeNumber})`
+      : `var(--text-${p.themeNumber})`};
+`;

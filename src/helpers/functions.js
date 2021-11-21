@@ -655,6 +655,26 @@ function testIfSolutionIsFound(cellArray) {
   }
   return true;
 }
+function formPotentialsArrayForKnown (knownValue) {
+	let result = [""];
+	for (let i = 1; i < 10; i ++) {
+		if (i !== knownValue) {
+			result.push(false)
+		} else {
+			result.push(true);
+		}
+	}
+	return result
+}
+function applyKnownValues(potentialArray, cellArray) {
+	for (let i = 0; i < 81; i ++) {
+		if (cellArray[i]) {
+			potentialArray[i].solved = cellArray[i];
+			potentialArray[i].potentials = formPotentialsArrayForKnown(cellArray[i]);
+		}
+	}
+	return potentialArray
+}
 function addPotentialInfoFromRows(potentialArray) {
   // result.push({
   // 	row,
@@ -692,7 +712,8 @@ function addPotentialInfoFromRows(potentialArray) {
 
 function calculateValuePotentials(cellArray) {
   let basePotentials = createInitialCurrentPotentials();
-  let potentialsWithRows = addPotentialInfoFromRows(basePotentials, cellArray);
+	let potentialsWithKnowns = applyKnownValues(basePotentials, cellArray);
+  let potentialsWithRows = addPotentialInfoFromRows(potentialsWithKnowns, cellArray);
   // let potentialsWithColumns = addPotentialInfoFromColumns(basePotentials, cellArray);
   // let potentialsWithBlocks = addPotentialInfoFromR(basePotentials, cellArray);
 	return potentialsWithRows

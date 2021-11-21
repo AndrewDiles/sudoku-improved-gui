@@ -34,7 +34,7 @@ function NumberButton({
           );
 					setPlaceInHistory(placeInHistory+1)
         } else {
-					console.log({valueHistory})
+					// console.log({valueHistory})
 					let newValueHistory = []
 					for (let i = 0; i < placeInHistory+1; i++) {
 						newValueHistory.push(valueHistory[i])
