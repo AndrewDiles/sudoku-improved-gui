@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import OptionButton from "../OptionButton";
+import {testPotentialsForNakedSingles} from "../../../helpers/functions";
 
 function GeneralMenu({
   themeNumber,
@@ -14,6 +15,11 @@ function GeneralMenu({
   selectedCellNumber,
   solverOptionsOpen,
   setSolverOptionsOpen,
+	solverPotentials,
+	setSolverPotentials,
+	testsOngoing,
+	setTestsOngoing,
+	setNewInfoFound,
 }) {
   return (
     <Container>
@@ -88,7 +94,25 @@ function GeneralMenu({
             Open  Solver
           </OptionButton>
         ):null}
-				<div>
+				{solverOptionsOpen && solverPotentials && <span>
+					<OptionButton
+          themeNumber={themeNumber}
+          label={"Naked singles test button"}
+          title={"Naked singles test button"}
+          isDisabled={placeInHistory === 0}
+          handleClick={() => {
+						setTestsOngoing(true);
+            const testResults = testPotentialsForNakedSingles(solverPotentials);
+						setSolverPotentials(testResults.potentialsArray);
+						setNewInfoFound(testResults.newInfoFound);
+						setTestsOngoing(false);
+          }}
+          height="fit-content"
+        >
+          Naked Singles Test
+        </OptionButton>
+					</span>}
+				<span>
         <OptionButton
           themeNumber={themeNumber}
           label={"Previous step button"}
@@ -118,7 +142,7 @@ function GeneralMenu({
         >
           Next
         </OptionButton>
-				</div>
+				</span>
         {/* ⤺ */}
         {/* ⇽ ⇾ */}
         {/* ⇦ ⇨ */}

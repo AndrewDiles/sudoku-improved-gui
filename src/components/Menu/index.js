@@ -16,8 +16,14 @@ function Menu({
   selectedCellNumber,
   contradictionExists,
   isSolved,
-	solverOptionsOpen,
-	setSolverOptionsOpen,
+  solverOptionsOpen,
+  setSolverOptionsOpen,
+  solverPotentials,
+  setSolverPotentials,
+  testsOngoing,
+  setTestsOngoing,
+	newInfoFound,
+	setNewInfoFound,
 }) {
   return (
     <Container>
@@ -43,11 +49,18 @@ function Menu({
         selectedCellNumber={selectedCellNumber}
         solverOptionsOpen={solverOptionsOpen}
         setSolverOptionsOpen={setSolverOptionsOpen}
+        setSolverPotentials={setSolverPotentials}
+        solverPotentials={solverPotentials}
+        testsOngoing={testsOngoing}
+        setTestsOngoing={setTestsOngoing}
+				setNewInfoFound={setNewInfoFound}
       />
       <Indicators
         themeNumber={themeNumber}
         contradictionExists={contradictionExists}
         isSolved={isSolved}
+				solverOptionsOpen={solverOptionsOpen}
+				newInfoFound={newInfoFound}
       />
     </Container>
   );

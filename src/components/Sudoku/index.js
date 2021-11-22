@@ -20,9 +20,11 @@ function Sudoku({ themeNumber }) {
   const [solverPotentials, setSolverPotentials] = useState(
     createInitialCurrentPotentials()
   );
-	// useEffect(()=>{
-	// 	console.log({solverPotentials});
-	// },[solverPotentials])
+  const [testsOngoing, setTestsOngoing] = useState(false);
+  const [newInfoFound, setNewInfoFound] = useState(false);
+  // useEffect(()=>{
+  // 	console.log({solverPotentials});
+  // },[solverPotentials])
   return (
     <GridAndMenuContainer>
       <Menu
@@ -40,6 +42,12 @@ function Sudoku({ themeNumber }) {
         isSolved={isSolved}
         solverOptionsOpen={solverOptionsOpen}
         setSolverOptionsOpen={setSolverOptionsOpen}
+        solverPotentials={solverPotentials}
+        setSolverPotentials={setSolverPotentials}
+        testsOngoing={testsOngoing}
+        setTestsOngoing={setTestsOngoing}
+        newInfoFound={newInfoFound}
+        setNewInfoFound={setNewInfoFound}
       />
       <Grid
         themeNumber={themeNumber}
@@ -71,6 +79,7 @@ function Sudoku({ themeNumber }) {
         solverOptionsOpen={solverOptionsOpen}
         setSolverOptionsOpen={setSolverOptionsOpen}
         setSolverPotentials={setSolverPotentials}
+        setNewInfoFound={setNewInfoFound}
       />
     </GridAndMenuContainer>
   );

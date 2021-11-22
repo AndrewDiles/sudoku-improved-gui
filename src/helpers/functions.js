@@ -588,25 +588,25 @@ function testColumnForContradiction(cellArray, cellNumber) {
   }
   return false;
 }
+function createCellNumbersForBlockArray(startingCell) {
+  let result = [];
+  let row = 1;
+  let col = 1;
+  for (let i = 1; i < 10; i++) {
+    result.push(startingCell + (col - 1) + 9 * (row - 1));
+    if (col < 3) {
+      col++;
+    } else {
+      row++;
+      col = 1;
+    }
+  }
+  return result;
+}
 
 function testBlockForContradiction(cellArray, cellNumber) {
   let blockNumber = extractBlockNumberFromCellNumber(cellNumber);
   let blockCellNumbers = [];
-  function createCellNumbersForBlockArray(startingCell) {
-    let result = [];
-    let row = 1;
-    let col = 1;
-    for (let i = 1; i < 10; i++) {
-      result.push(startingCell + (col - 1) + 9 * (row - 1));
-      if (col < 3) {
-        col++;
-      } else {
-        row++;
-        col = 1;
-      }
-    }
-    return result;
-  }
   blockCellNumbers.push(
     ...createCellNumbersForBlockArray(getFirstCellNumberOfBlock(blockNumber))
   );
@@ -655,27 +655,93 @@ function testIfSolutionIsFound(cellArray) {
   }
   return true;
 }
-function formPotentialsArrayForKnown (knownValue) {
-	let result = [""];
-	for (let i = 1; i < 10; i ++) {
-		if (i !== knownValue) {
-			result.push(false)
-		} else {
-			result.push(true);
-		}
-	}
-	return result
+function formPotentialsArrayForKnown(knownValue) {
+  let result = [""];
+  for (let i = 1; i < 10; i++) {
+    if (i !== knownValue) {
+      result.push(false);
+    } else {
+      result.push(true);
+    }
+  }
+  return result;
 }
 function applyKnownValues(potentialArray, cellArray) {
-	for (let i = 0; i < 81; i ++) {
-		if (cellArray[i]) {
-			potentialArray[i].solved = cellArray[i];
-			potentialArray[i].potentials = formPotentialsArrayForKnown(cellArray[i]);
-		}
-	}
-	return potentialArray
+  for (let i = 0; i < 81; i++) {
+    if (cellArray[i]) {
+      potentialArray[i].solved = cellArray[i];
+      potentialArray[i].potentials = formPotentialsArrayForKnown(cellArray[i]);
+    }
+  }
+  return potentialArray;
 }
 function addPotentialInfoFromRows(potentialArray) {
+  for (let i = 0; i < potentialArray.length; i++) {
+    if (!potentialArray[i].solved) {
+      let rowInQuestion = potentialArray[i].row;
+      for (let colNumber = 1; colNumber < 10; colNumber++) {
+        if (potentialArray[i].col !== colNumber) {
+          let testIndex;
+          potentialArray.find((elem, index) => {
+            if (elem.col === colNumber && elem.row === rowInQuestion) {
+              testIndex = index;
+            }
+          });
+          if (potentialArray[testIndex].solved) {
+            if (
+              potentialArray[i].potentials[potentialArray[testIndex].solved] ===
+              null
+            ) {
+              potentialArray[i].potentials[
+                potentialArray[testIndex].solved
+              ] = false;
+              // potentialArray[i].containsNewInformation = true;
+            } else {
+              potentialArray[i].potentials[
+                potentialArray[testIndex].solved
+              ] = false;
+            }
+          }
+        }
+      }
+    }
+  }
+  return potentialArray;
+}
+function addPotentialInfoFromColumns(potentialArray) {
+  for (let i = 0; i < potentialArray.length; i++) {
+    if (!potentialArray[i].solved) {
+      let colInQuestion = potentialArray[i].col;
+      for (let rowNumber = 1; rowNumber < 10; rowNumber++) {
+        if (potentialArray[i].row !== rowNumber) {
+          let testIndex;
+          potentialArray.find((elem, index) => {
+            if (elem.row === rowNumber && elem.col === colInQuestion) {
+              testIndex = index;
+            }
+          });
+          if (potentialArray[testIndex].solved) {
+            if (
+              potentialArray[i].potentials[potentialArray[testIndex].solved] ===
+              null
+            ) {
+              potentialArray[i].potentials[
+                potentialArray[testIndex].solved
+              ] = false;
+              // potentialArray[i].containsNewInformation = true;
+            } else {
+              potentialArray[i].potentials[
+                potentialArray[testIndex].solved
+              ] = false;
+            }
+          }
+        }
+      }
+    }
+  }
+  return potentialArray;
+}
+function addPotentialInfoFromBlocks(potentialArray) {
   // result.push({
   // 	row,
   // 	col,
@@ -686,39 +752,89 @@ function addPotentialInfoFromRows(potentialArray) {
   // });
   for (let i = 0; i < potentialArray.length; i++) {
     if (!potentialArray[i].solved) {
-      let rowInQuestion = potentialArray[i].row;
-      for (let colNumber = 1; colNumber < 10; colNumber++) {
-        if (potentialArray[i].col !== colNumber) {
-					let testIndex;
-          potentialArray.find((elem, index) => {
-            if (elem.col === colNumber && elem.row === rowInQuestion) {
-              testIndex = index;
+      let blockInQuestion = potentialArray[i].block;
+      let arrayOfIndecesToTest = createCellNumbersForBlockArray(
+        getFirstCellNumberOfBlock(blockInQuestion)
+      );
+      console.log(`block array is ${arrayOfIndecesToTest} for cell ${i}`);
+      for (
+        let blockIndex = 0;
+        blockIndex < arrayOfIndecesToTest.length;
+        blockIndex++
+      ) {
+        if (
+          potentialArray[arrayOfIndecesToTest[blockIndex]].row !==
+            potentialArray[i].row &&
+          potentialArray[arrayOfIndecesToTest[blockIndex]].col !==
+            potentialArray[i].col
+        ) {
+          if (potentialArray[arrayOfIndecesToTest[blockIndex]].solved) {
+            console.log(
+              `cell number ${i} can not be a ${
+                potentialArray[arrayOfIndecesToTest[blockIndex]].solved
+              } due to cell ${blockIndex}`
+            );
+            if (
+              potentialArray[i].potentials[
+                potentialArray[arrayOfIndecesToTest[blockIndex]].solved
+              ] === null
+            ) {
+              potentialArray[i].potentials[
+                potentialArray[arrayOfIndecesToTest[blockIndex]].solved
+              ] = false;
+              // potentialArray[i].containsNewInformation = true;
+            } else {
+              potentialArray[i].potentials[
+                potentialArray[arrayOfIndecesToTest[blockIndex]].solved
+              ] = false;
             }
-          });
-					if (potentialArray[testIndex].solved) {
-						if (potentialArray[i].potentials[potentialArray[testIndex].solved]===null) {
-							potentialArray[i].potentials[potentialArray[testIndex].solved] = false;
-							potentialArray[i].containsNewInformation = true;
-						} else {
-							potentialArray[i].potentials[potentialArray[testIndex].solved] = false;
-						}
-					}
+          }
         }
       }
     }
   }
-	return potentialArray;
+  return potentialArray;
 }
-
 function calculateValuePotentials(cellArray) {
   let basePotentials = createInitialCurrentPotentials();
-	let potentialsWithKnowns = applyKnownValues(basePotentials, cellArray);
-  let potentialsWithRows = addPotentialInfoFromRows(potentialsWithKnowns, cellArray);
-  // let potentialsWithColumns = addPotentialInfoFromColumns(basePotentials, cellArray);
-  // let potentialsWithBlocks = addPotentialInfoFromR(basePotentials, cellArray);
-	return potentialsWithRows
+  let potentialsWithKnowns = applyKnownValues(basePotentials, cellArray);
+  let potentialsWithRows = addPotentialInfoFromRows(potentialsWithKnowns);
+  let potentialsWithColumns = addPotentialInfoFromColumns(potentialsWithRows);
+  let potentialsWithBlocks = addPotentialInfoFromBlocks(potentialsWithColumns);
+  return potentialsWithBlocks;
 }
 
+function testPotentialsForNakedSingles(potentialsArray) {
+  let newInfoFound = false;
+  for (let i = 0; i < potentialsArray.length; i++) {
+    if (!potentialsArray[i].solved) {
+      let numberOfPossibleValues = 0;
+      let correctCellNumber = 0;
+      for (let cellNumber = 1; cellNumber < 10; cellNumber++) {
+        if (potentialsArray[i].potentials[cellNumber] !== null) {
+          numberOfPossibleValues++;
+          correctCellNumber = cellNumber;
+        }
+        if (numberOfPossibleValues > 1) {
+          break;
+        }
+        // row,
+        // col,
+        // block,
+        // solved: false,
+        // containsNewInformation: false,
+        // potentials: ["", null, null, null, null, null, null, null, null, null],
+      }
+      if (numberOfPossibleValues === 1) {
+        potentialsArray[i].potentials[correctCellNumber] = true;
+        potentialsArray[i].solved = correctCellNumber;
+        potentialsArray[i].containsNewInformation = true;
+        newInfoFound = true;
+      }
+    }
+  }
+  return { potentialsArray, newInfoFound };
+}
 // function resetInputValues () {
 //   for (let r = 1; r < 10; r++) {
 //     for (let c = 1; c < 10; c++) {
@@ -1606,6 +1722,7 @@ export {
   testIfCellsContainAContradiction,
   testIfSolutionIsFound,
   calculateValuePotentials,
+	testPotentialsForNakedSingles,
   // addKnowns,
   // testForKnowns,
   // testCols,

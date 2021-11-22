@@ -112,16 +112,31 @@ function Grid({
                     {innerContent}
                   </Cell>
                 ) : (
-                  <Potentials>
+                  <Potentials
+                    themeNumber={themeNumber}
+                    isSelected={
+                      selectedCellNumber ===
+                      resolveSelectedCellNumberFromBlockNumberAndCellNumber(
+                        1 + blockNumber,
+                        1 + cellNumber
+                      )
+                    }
+                    isRelatedToSelectedCell={resolveIsRealtedToSelectedCellNumber(
+                      selectedCellNumber,
+                      blockNumber + 1,
+                      cellNumber + 1
+                    )}
+                  >
                     {solverPotentials[
                       resolveSelectedCellNumberFromBlockNumberAndCellNumber(
                         1 + blockNumber,
                         1 + cellNumber
                       )
                     ].potentials.map((value, index) => {
-											// console.log({value})
+                      // console.log({value})
                       return index === 0 ? null : (
                         <Potential
+                          key={index}
                           themeNumber={themeNumber}
                           isImpossible={value === false}
                         >
@@ -235,6 +250,32 @@ const Potentials = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
+  background: ${(p) =>
+    p.isSelected
+      ? `radial-gradient(var(--bg2-${p.themeNumber}), var(--bg2-${p.themeNumber}), var(--bg-${p.themeNumber}))`
+      : p.isRelatedToSelectedCell
+      ? `radial-gradient(var(--bg2-${p.themeNumber}), var(--bg-${p.themeNumber}))`
+      : `var(--bg-${p.themeNumber})`};
+  outline: ${(p) => p.isSelected && `2px solid var(--hover-${p.themeNumber})`};
+  outline-offset: -2px;
+  transform: scale(1);
+  :hover {
+    cursor: pointer;
+    outline: ${(p) =>
+      p.isSelected
+        ? `2px solid var(--hover-${p.themeNumber})`
+        : `1px solid var(--hover-${p.themeNumber})`};
+    transform: scale(1.05);
+    background: ${(p) =>
+      p.isSelected
+        ? `radial-gradient(var(--bg3-${p.themeNumber}), var(--bg3-${p.themeNumber}), var(--bg-${p.themeNumber}))`
+        : `radial-gradient(var(--bg2-${p.themeNumber}), var(--bg2-${p.themeNumber}), var(--bg-${p.themeNumber}))`};
+  }
+  :active {
+    background: ${(p) =>
+      `radial-gradient(var(--bg3-${p.themeNumber}), var(--bg3-${p.themeNumber}), var(--bg-${p.themeNumber}))`};
+    outline: ${(p) => `1px solid var(--focus-${p.themeNumber})`};
+  }
 `;
 const Potential = styled.p`
   margin: 0;

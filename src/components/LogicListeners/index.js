@@ -22,6 +22,7 @@ function LogicListeners({
 	solverOptionsOpen,
 	setSolverOptionsOpen,
 	setSolverPotentials,
+	setNewInfoFound,
 }) {
 	const [hasLoaded, setHasLoaded] = useState(false);
 	useEffect(()=>{
@@ -58,7 +59,8 @@ function LogicListeners({
   }, [valueHistory, placeInHistory]);
 	useEffect(()=>{
 		if (hasStarted && solverOptionsOpen) {
-			setSolverPotentials(calculateValuePotentials(valueHistory[placeInHistory]))
+			setSolverPotentials(calculateValuePotentials(valueHistory[placeInHistory]));
+			setNewInfoFound(false);
 		}
 	},[hasStarted, solverOptionsOpen, placeInHistory, valueHistory])
 
