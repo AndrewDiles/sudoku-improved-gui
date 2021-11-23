@@ -53,15 +53,15 @@ function SetupMenu({
 
 export default SetupMenu;
 const Container = styled.div`
-  padding-bottom: 10px;
+  /* padding-bottom: 10px; */
   display: flex;
   text-align: center;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  @media screen and (min-width: 500px) {
+  /* @media screen and (min-width: 500px) {
     padding-bottom: 20px;
-  }
+  } */
 `;
 const Label = styled.p`
   width: fit-content;

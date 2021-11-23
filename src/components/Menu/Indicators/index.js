@@ -18,7 +18,15 @@ function Indicators({
       ) : (
         <P>NO ISSUES</P>
       )}
-      {solverOptionsOpen && <>{newInfoFound ? <P yes={1}>NEW INFORMATION</P>:<P>NO NEW INFORMATION</P>}</>}
+      {solverOptionsOpen && (
+        <>
+          {newInfoFound ? (
+            <P themeNumber={themeNumber} yes={1}>NEW INFORMATION</P>
+          ) : (
+            <P>NO NEW INFORMATION</P>
+          )}
+        </>
+      )}
       {isSolved ? (
         <P themeNumber={themeNumber} yes={isSolved}>
           !PUZZLE SOLVED!
@@ -55,7 +63,11 @@ const ButtonsContainer = styled.div`
 `;
 const P = styled.p`
   font-weight: 900;
-  color: ${(p) => p.no && `var(--no-${p.themeNumber})`};
-  color: ${(p) => p.yes && `var(--yes-${p.themeNumber})`};
+  color: ${(p) =>
+    p.no
+      ? `var(--no-${p.themeNumber})`
+      : p.yes
+      ? `var(--yes-${p.themeNumber})`
+      : "inherit"};
   margin: 5px 0;
 `;

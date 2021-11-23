@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import OptionButton from "../OptionButton";
-import {testPotentialsForNakedSingles} from "../../../helpers/functions";
+import { testPotentialsForNakedSingles } from "../../../helpers/functions";
 
 function GeneralMenu({
   themeNumber,
@@ -15,12 +15,14 @@ function GeneralMenu({
   selectedCellNumber,
   solverOptionsOpen,
   setSolverOptionsOpen,
-	solverPotentials,
-	setSolverPotentials,
-	testsOngoing,
-	setTestsOngoing,
-	setNewInfoFound,
+  solverPotentials,
+  setSolverPotentials,
+  testsOngoing,
+  setTestsOngoing,
+	newInfoFound,
+  setNewInfoFound,
 }) {
+	console.log({solverPotentials})
   return (
     <Container>
       <ButtonsContainer>
@@ -69,80 +71,85 @@ function GeneralMenu({
             Clear Cell
           </OptionButton>
         )}
-        {hasStarted ? solverOptionsOpen ? (
+        {hasStarted ? (
+          solverOptionsOpen ? (
+            <OptionButton
+              themeNumber={themeNumber}
+              label={"Close solver button"}
+              title={"Close solver button"}
+              handleClick={() => {
+                setSolverOptionsOpen(false);
+              }}
+              height="fit-content"
+            >
+              Close Solver
+            </OptionButton>
+          ) : (
+            <OptionButton
+              themeNumber={themeNumber}
+              label={"Open solver button"}
+              title={"Open solver button"}
+              handleClick={() => {
+                setSolverOptionsOpen(true);
+              }}
+              height="fit-content"
+            >
+              Open Solver
+            </OptionButton>
+          )
+        ) : null}
+        {solverOptionsOpen && solverPotentials && !newInfoFound && (
+          <Span>
+            <OptionButton
+              themeNumber={themeNumber}
+              label={"Naked singles test button"}
+              title={"Naked singles test button"}
+              isDisabled={testsOngoing}
+              handleClick={() => {
+                setTestsOngoing(true);
+                const testResults =
+                  testPotentialsForNakedSingles(solverPotentials);
+                setSolverPotentials(testResults.potentialsArray);
+                setNewInfoFound(testResults.newInfoFound);
+                setTestsOngoing(false);
+              }}
+              height="fit-content"
+            >
+              Naked Singles Test
+            </OptionButton>
+          </Span>
+        )}
+        <Span>
           <OptionButton
             themeNumber={themeNumber}
-            label={"Close solver button"}
-            title={"Close solver button"}
+            label={"Previous step button"}
+            title={"Previous step button"}
+            isDisabled={placeInHistory === 0}
             handleClick={() => {
-              setSolverOptionsOpen(false);
+              if (placeInHistory > 0) {
+                setPlaceInHistory(placeInHistory - 1);
+              }
             }}
             height="fit-content"
           >
-            Close Solver
+            Previous
           </OptionButton>
-        ) : (
+          {/* {placeInHistory+1}/{valueHistory.length} */}
           <OptionButton
             themeNumber={themeNumber}
-            label={"Open solver button"}
-            title={"Open solver button"}
+            label={"Next step button"}
+            title={"Next step button"}
+            isDisabled={placeInHistory === valueHistory.length - 1}
             handleClick={() => {
-              setSolverOptionsOpen(true);
+              if (placeInHistory !== valueHistory.length) {
+                setPlaceInHistory(placeInHistory + 1);
+              }
             }}
             height="fit-content"
           >
-            Open  Solver
+            Next
           </OptionButton>
-        ):null}
-				{solverOptionsOpen && solverPotentials && <span>
-					<OptionButton
-          themeNumber={themeNumber}
-          label={"Naked singles test button"}
-          title={"Naked singles test button"}
-          isDisabled={placeInHistory === 0}
-          handleClick={() => {
-						setTestsOngoing(true);
-            const testResults = testPotentialsForNakedSingles(solverPotentials);
-						setSolverPotentials(testResults.potentialsArray);
-						setNewInfoFound(testResults.newInfoFound);
-						setTestsOngoing(false);
-          }}
-          height="fit-content"
-        >
-          Naked Singles Test
-        </OptionButton>
-					</span>}
-				<span>
-        <OptionButton
-          themeNumber={themeNumber}
-          label={"Previous step button"}
-          title={"Previous step button"}
-          isDisabled={placeInHistory === 0}
-          handleClick={() => {
-            if (placeInHistory > 0) {
-              setPlaceInHistory(placeInHistory - 1);
-            }
-          }}
-          height="fit-content"
-        >
-          Previous
-        </OptionButton>
-        {/* {placeInHistory+1}/{valueHistory.length} */}
-        <OptionButton
-          themeNumber={themeNumber}
-          label={"Next step button"}
-          title={"Next step button"}
-          isDisabled={placeInHistory === valueHistory.length - 1}
-          handleClick={() => {
-            if (placeInHistory !== valueHistory.length) {
-              setPlaceInHistory(placeInHistory + 1);
-            }
-          }}
-          height="fit-content"
-        >
-          Next
-        </OptionButton>
-				</span>
+        </Span>
         {/* ⤺ */}
         {/* ⇽ ⇾ */}
         {/* ⇦ ⇨ */}
@@ -186,4 +193,7 @@ const ButtonsContainer = styled.div`
     /* margin-right: 0px; */
     margin-top: 22px;
   }
+`;
+const Span = styled.span`
+  width: 100%;
 `;

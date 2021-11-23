@@ -113,7 +113,16 @@ function Grid({
                   </Cell>
                 ) : (
                   <Potentials
+                    key={cellNumber}
                     themeNumber={themeNumber}
+                    containsNewInfo={
+                      solverPotentials[
+                        resolveSelectedCellNumberFromBlockNumberAndCellNumber(
+                          1 + blockNumber,
+                          1 + cellNumber
+                        )
+                      ].containsNewInformation
+                    }
                     isSelected={
                       selectedCellNumber ===
                       resolveSelectedCellNumberFromBlockNumberAndCellNumber(
@@ -139,6 +148,7 @@ function Grid({
                           key={index}
                           themeNumber={themeNumber}
                           isImpossible={value === false}
+                          isFound={value === true}
                         >
                           {index}
                         </Potential>
@@ -256,7 +266,7 @@ const Potentials = styled.div`
       : p.isRelatedToSelectedCell
       ? `radial-gradient(var(--bg2-${p.themeNumber}), var(--bg-${p.themeNumber}))`
       : `var(--bg-${p.themeNumber})`};
-  outline: ${(p) => p.isSelected && `2px solid var(--hover-${p.themeNumber})`};
+  outline: ${(p) => p.containsNewInfo ? `2px solid var(--yes-${p.themeNumber})` : p.isSelected ? `2px solid var(--hover-${p.themeNumber})` : ""};
   outline-offset: -2px;
   transform: scale(1);
   :hover {
@@ -283,5 +293,7 @@ const Potential = styled.p`
   color: ${(p) =>
     p.isImpossible
       ? `var(--no-${p.themeNumber})`
+      : p.isFound
+      ? `var(--yes-${p.themeNumber})`
       : `var(--text-${p.themeNumber})`};
 `;

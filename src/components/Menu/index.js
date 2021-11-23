@@ -22,8 +22,8 @@ function Menu({
   setSolverPotentials,
   testsOngoing,
   setTestsOngoing,
-	newInfoFound,
-	setNewInfoFound,
+  newInfoFound,
+  setNewInfoFound,
 }) {
   return (
     <Container>
@@ -53,14 +53,15 @@ function Menu({
         solverPotentials={solverPotentials}
         testsOngoing={testsOngoing}
         setTestsOngoing={setTestsOngoing}
-				setNewInfoFound={setNewInfoFound}
+        newInfoFound={newInfoFound}
+        setNewInfoFound={setNewInfoFound}
       />
       <Indicators
         themeNumber={themeNumber}
         contradictionExists={contradictionExists}
         isSolved={isSolved}
-				solverOptionsOpen={solverOptionsOpen}
-				newInfoFound={newInfoFound}
+        solverOptionsOpen={solverOptionsOpen}
+        newInfoFound={newInfoFound}
       />
     </Container>
   );

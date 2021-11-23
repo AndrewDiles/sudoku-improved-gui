@@ -756,7 +756,7 @@ function addPotentialInfoFromBlocks(potentialArray) {
       let arrayOfIndecesToTest = createCellNumbersForBlockArray(
         getFirstCellNumberOfBlock(blockInQuestion)
       );
-      console.log(`block array is ${arrayOfIndecesToTest} for cell ${i}`);
+      // console.log(`block array is ${arrayOfIndecesToTest} for cell ${i}`);
       for (
         let blockIndex = 0;
         blockIndex < arrayOfIndecesToTest.length;
@@ -769,11 +769,11 @@ function addPotentialInfoFromBlocks(potentialArray) {
             potentialArray[i].col
         ) {
           if (potentialArray[arrayOfIndecesToTest[blockIndex]].solved) {
-            console.log(
-              `cell number ${i} can not be a ${
-                potentialArray[arrayOfIndecesToTest[blockIndex]].solved
-              } due to cell ${blockIndex}`
-            );
+            // console.log(
+            //   `cell number ${i} can not be a ${
+            //     potentialArray[arrayOfIndecesToTest[blockIndex]].solved
+            //   } due to cell ${blockIndex}`
+            // );
             if (
               potentialArray[i].potentials[
                 potentialArray[arrayOfIndecesToTest[blockIndex]].solved
@@ -808,16 +808,17 @@ function testPotentialsForNakedSingles(potentialsArray) {
   let newInfoFound = false;
   for (let i = 0; i < potentialsArray.length; i++) {
     if (!potentialsArray[i].solved) {
-      let numberOfPossibleValues = 0;
+      let numberOfPossibleValues = 9;
       let correctCellNumber = 0;
       for (let cellNumber = 1; cellNumber < 10; cellNumber++) {
-        if (potentialsArray[i].potentials[cellNumber] !== null) {
-          numberOfPossibleValues++;
+        if (potentialsArray[i].potentials[cellNumber] === null) {
+					if (correctCellNumber !== 0) {
+						break;
+					}
           correctCellNumber = cellNumber;
-        }
-        if (numberOfPossibleValues > 1) {
-          break;
-        }
+        } else if (potentialsArray[i].potentials[cellNumber] === false) {
+					numberOfPossibleValues--;
+				}
         // row,
         // col,
         // block,
