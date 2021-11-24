@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-function ColorThemeSelection({ n, colorName, isSelected, setThemeNumber }) {
+function SetColorButton({ n, colorName, isSelected, setThemeNumber }) {
   return (
     <Button
       n={n}
@@ -20,7 +20,7 @@ function ColorThemeSelection({ n, colorName, isSelected, setThemeNumber }) {
   );
 }
 
-export default ColorThemeSelection;
+export default SetColorButton;
 const Button = styled.button`
   font-size: 0.7rem;
   margin: 0 5px 10px;

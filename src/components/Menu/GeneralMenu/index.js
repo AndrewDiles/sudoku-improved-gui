@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import OptionButton from "../OptionButton";
-import { testPotentialsForNakedSingles } from "../../../helpers/functions";
+import {
+  testPotentialsForNakedSingles,
+  formNewValueHistoryWithNewKnowns,
+} from "../../../helpers/functions";
 
 function GeneralMenu({
   themeNumber,
@@ -19,10 +22,10 @@ function GeneralMenu({
   setSolverPotentials,
   testsOngoing,
   setTestsOngoing,
-	newInfoFound,
+  newInfoFound,
   setNewInfoFound,
 }) {
-	console.log({solverPotentials})
+  console.log({ solverPotentials });
   return (
     <Container>
       <ButtonsContainer>
@@ -116,6 +119,29 @@ function GeneralMenu({
               height="fit-content"
             >
               Naked Singles Test
+            </OptionButton>
+          </Span>
+        )}
+        {solverOptionsOpen && solverPotentials && newInfoFound && (
+          <Span>
+            <OptionButton
+              themeNumber={themeNumber}
+              label={"Insert new knowns button"}
+              title={"Insert new knowns button"}
+              handleClick={() => {
+                setValueHistory(
+                  formNewValueHistoryWithNewKnowns(
+                    valueHistory,
+                    placeInHistory,
+                    solverPotentials
+                  )
+                );
+                setPlaceInHistory(placeInHistory + 1);
+                setNewInfoFound(false);
+              }}
+              height="fit-content"
+            >
+              Insert New Knowns
             </OptionButton>
           </Span>
         )}

@@ -7,7 +7,7 @@ import Sudoku from "./components/Sudoku";
 function App() {
   const [themeNumber, setThemeNumber] = useState(0);
   return (
-    <MasterContainer className="App" themeNumber={themeNumber}>
+    <MasterContainer themeNumber={themeNumber}>
       <Header />
       <ColorThemeSelection
         themeNumber={themeNumber}

@@ -123,6 +123,9 @@ function resolveSelectedCellNumberFromBlockNumberAndCellNumber(
     cellNumber
   );
 }
+function resolveCellNumberFromRowAndColumnNumber (columnNumber, rowNumber){
+	return(((rowNumber-1)*9)+columnNumber-1)
+}
 function returnIfAllCellsInBlockHaveValues(startingCellNumber, cellArray) {
   let row = 1;
   let col = 1;
@@ -835,6 +838,22 @@ function testPotentialsForNakedSingles(potentialsArray) {
     }
   }
   return { potentialsArray, newInfoFound };
+}
+function formNewValueHistoryWithNewKnowns (valueHistory,
+	placeInHistory,
+	solverPotentials) {
+		// let result = [];
+		// for (let i = 0 ; i < placeInHistory+1;i++){
+		// 	result.push(valueHistory[i])
+		// }
+		// let newCellArray = [...valueHistory[placeInHistory]];
+		// solverPotentials.forEach((potentialsObject)=>{
+		// 	if (potentialsObject.containsNewInformation) {
+		// 		newCellArray[resolveCellNumberFromRowAndColumnNumber(potentialsObject.col, potentialsObject.row)]=potentialsObject.solved
+		// 	}
+		// })
+		// result.push(newCellArray);
+		// return result
 }
 // function resetInputValues () {
 //   for (let r = 1; r < 10; r++) {
@@ -1708,6 +1727,7 @@ export {
   createInitialValueHistory,
   createInitialCurrentPotentials,
   resolveSelectedCellNumberFromBlockNumberAndCellNumber,
+	resolveCellNumberFromRowAndColumnNumber,
   resolveIsRealtedToSelectedCellNumber,
   calculateIfBlockIsSolved,
   initiateEasyPuzzle,
@@ -1724,6 +1744,7 @@ export {
   testIfSolutionIsFound,
   calculateValuePotentials,
 	testPotentialsForNakedSingles,
+	formNewValueHistoryWithNewKnowns,
   // addKnowns,
   // testForKnowns,
   // testCols,

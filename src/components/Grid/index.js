@@ -100,6 +100,20 @@ function Grid({
                       blockNumber + 1,
                       cellNumber + 1
                     )}
+                    numberMatchesSelectedCellNumber={
+                      valueHistory[placeInHistory][
+                        resolveSelectedCellNumberFromBlockNumberAndCellNumber(
+                          1 + blockNumber,
+                          1 + cellNumber
+                        )
+                      ] &&
+                      valueHistory[placeInHistory][
+                        resolveSelectedCellNumberFromBlockNumberAndCellNumber(
+                          1 + blockNumber,
+                          1 + cellNumber
+                        )
+                      ] === valueHistory[placeInHistory][selectedCellNumber]
+                    }
                     onClick={() => {
                       setSelectedCellNumber(
                         resolveSelectedCellNumberFromBlockNumberAndCellNumber(
@@ -135,6 +149,14 @@ function Grid({
                       blockNumber + 1,
                       cellNumber + 1
                     )}
+										onClick={() => {
+                      setSelectedCellNumber(
+                        resolveSelectedCellNumberFromBlockNumberAndCellNumber(
+                          1 + blockNumber,
+                          1 + cellNumber
+                        )
+                      );
+                    }}
                   >
                     {solverPotentials[
                       resolveSelectedCellNumberFromBlockNumberAndCellNumber(
@@ -220,11 +242,27 @@ const Block = styled.div`
       : `1px var(--text-${p.themeNumber}) solid`};
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+	@media screen and (min-width: 500px) {
+    border: ${(p) =>
+    p.contradictionExists
+      ? `2px var(--no-${p.themeNumber}) solid`
+      : p.blockIsSolved
+      ? `2px var(--yes-${p.themeNumber}) solid`
+      : `2px var(--text-${p.themeNumber}) solid`};
+  }
 `;
 const Cell = styled.div`
   height: min(10vw, 50px);
   width: min(10vw, 50px);
-  font-weight: ${(p) => p.originalNumber && "600"};
+  font-weight: ${(p) =>
+    p.numberMatchesSelectedCellNumber
+      ? "800"
+      : p.originalNumber
+      ? "600"
+      : "inherit"};
+			/* -webkit-text-fill-color: ${p => p.numberMatchesSelectedCellNumber &&`var(--border-${p.themeNumber})`}; */
+    -webkit-text-stroke-width: medium;
+    -webkit-text-stroke-color: ${p => p.numberMatchesSelectedCellNumber &&`var(--yes-${p.themeNumber})`};
   background: ${(p) =>
     p.isSelected
       ? `radial-gradient(var(--bg2-${p.themeNumber}), var(--bg2-${p.themeNumber}), var(--bg-${p.themeNumber}))`
@@ -266,7 +304,12 @@ const Potentials = styled.div`
       : p.isRelatedToSelectedCell
       ? `radial-gradient(var(--bg2-${p.themeNumber}), var(--bg-${p.themeNumber}))`
       : `var(--bg-${p.themeNumber})`};
-  outline: ${(p) => p.containsNewInfo ? `2px solid var(--yes-${p.themeNumber})` : p.isSelected ? `2px solid var(--hover-${p.themeNumber})` : ""};
+  outline: ${(p) =>
+    p.containsNewInfo
+      ? `2px solid var(--yes-${p.themeNumber})`
+      : p.isSelected
+      ? `2px solid var(--hover-${p.themeNumber})`
+      : ""};
   outline-offset: -2px;
   transform: scale(1);
   :hover {

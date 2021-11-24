@@ -14,12 +14,12 @@ function ColorThemeSelection({ themeNumber, setThemeNumber }) {
   }, []);
 
   return (
-    <ButtonsContainer className="App">
+    <ButtonsContainer>
       {Array.from(Array(colorNames.length).keys()).map((n, index) => {
         return (
           <SetColorButton
             n={n}
-						key = {index}
+            key={index}
             isSelected={n === themeNumber}
             colorName={colorNames[n]}
             setThemeNumber={setThemeNumber}
