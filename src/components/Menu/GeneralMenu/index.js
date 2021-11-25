@@ -3,6 +3,7 @@ import OptionButton from "../OptionButton";
 import {
   testPotentialsForNakedSingles,
   formNewValueHistoryWithNewKnowns,
+	testPotentialsForColumnLones
 } from "../../../helpers/functions";
 
 function GeneralMenu({
@@ -119,6 +120,23 @@ function GeneralMenu({
               height="fit-content"
             >
               Naked Singles Test
+            </OptionButton>
+						<OptionButton
+              themeNumber={themeNumber}
+              label={"Test columns button"}
+              title={"Test columns button"}
+              isDisabled={testsOngoing}
+              handleClick={() => {
+                setTestsOngoing(true);
+                const testResults =
+								testPotentialsForColumnLones(solverPotentials);
+                setSolverPotentials(testResults.potentialsArray);
+                setNewInfoFound(testResults.newInfoFound);
+                setTestsOngoing(false);
+              }}
+              height="fit-content"
+            >
+              Test Columns
             </OptionButton>
           </Span>
         )}

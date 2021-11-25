@@ -123,8 +123,8 @@ function resolveSelectedCellNumberFromBlockNumberAndCellNumber(
     cellNumber
   );
 }
-function resolveCellNumberFromRowAndColumnNumber (columnNumber, rowNumber){
-	return(((rowNumber-1)*9)+columnNumber-1)
+function resolveCellNumberFromRowAndColumnNumber(columnNumber, rowNumber) {
+  return (rowNumber - 1) * 9 + columnNumber - 1;
 }
 function returnIfAllCellsInBlockHaveValues(startingCellNumber, cellArray) {
   let row = 1;
@@ -815,19 +815,13 @@ function testPotentialsForNakedSingles(potentialsArray) {
       let correctCellNumber = 0;
       for (let cellNumber = 1; cellNumber < 10; cellNumber++) {
         if (potentialsArray[i].potentials[cellNumber] === null) {
-					if (correctCellNumber !== 0) {
-						break;
-					}
+          if (correctCellNumber !== 0) {
+            break;
+          }
           correctCellNumber = cellNumber;
         } else if (potentialsArray[i].potentials[cellNumber] === false) {
-					numberOfPossibleValues--;
-				}
-        // row,
-        // col,
-        // block,
-        // solved: false,
-        // containsNewInformation: false,
-        // potentials: ["", null, null, null, null, null, null, null, null, null],
+          numberOfPossibleValues--;
+        }
       }
       if (numberOfPossibleValues === 1) {
         potentialsArray[i].potentials[correctCellNumber] = true;
@@ -839,21 +833,95 @@ function testPotentialsForNakedSingles(potentialsArray) {
   }
   return { potentialsArray, newInfoFound };
 }
-function formNewValueHistoryWithNewKnowns (valueHistory,
-	placeInHistory,
-	solverPotentials) {
-		// let result = [];
-		// for (let i = 0 ; i < placeInHistory+1;i++){
-		// 	result.push(valueHistory[i])
-		// }
-		// let newCellArray = [...valueHistory[placeInHistory]];
-		// solverPotentials.forEach((potentialsObject)=>{
-		// 	if (potentialsObject.containsNewInformation) {
-		// 		newCellArray[resolveCellNumberFromRowAndColumnNumber(potentialsObject.col, potentialsObject.row)]=potentialsObject.solved
-		// 	}
-		// })
-		// result.push(newCellArray);
-		// return result
+function createArrayOfColumnIndeces(columnNumber) {
+  let indecesToTest = [];
+  for (let i = 0; i < 9; i++) {
+    indecesToTest.push(9 * i + columnNumber - 1);
+  }
+  return indecesToTest;
+}
+function testIfColumnHasSolvedANumber(
+  columnNumber,
+  testNumber,
+  potentialsArray,
+  indecesToTest
+) {
+  for (let n = 0; n < indecesToTest.length; n++) {
+    if (potentialsArray[indecesToTest[n]].solved === testNumber) return true;
+  }
+  return false;
+}
+function testIfColumnHasOnePlaceForANumber(
+  columnNumber,
+  testNumber,
+  potentialsArray,
+  indecesToTest
+) {
+  let numberOfPlaces = 0;
+  let index = null;
+  for (let n = 0; n < indecesToTest.length; n++) {
+    if (potentialsArray[indecesToTest[n]].potentials[testNumber] === null) {
+      numberOfPlaces++;
+      index = indecesToTest[n];
+    }
+    if (numberOfPlaces > 1) return false;
+  }
+  if (numberOfPlaces === 1) return index;
+  return false;
+}
+function testPotentialsForColumnLones(potentialsArray) {
+  let newInfoFound = false;
+  for (let c = 1; c < 10; c++) {
+    for (let num = 1; num < 10; num++) {
+      let indecesToTest = createArrayOfColumnIndeces(c);
+      if (
+        !testIfColumnHasSolvedANumber(c, num, potentialsArray, indecesToTest)
+      ) {
+        let possibleResult = testIfColumnHasOnePlaceForANumber(
+          c,
+          num,
+          potentialsArray,
+          indecesToTest
+        );
+        if (possibleResult !== false) {
+          potentialsArray[possibleResult].potentials[num] = true;
+          potentialsArray[possibleResult].solved = num;
+          potentialsArray[possibleResult].containsNewInformation = true;
+          newInfoFound = true;
+        }
+      }
+      // row,
+      // col,
+      // block,
+      // solved: false,
+      // containsNewInformation: false,
+      // potentials: ["", null, null, null, null, null, null, null, null, null],
+    }
+  }
+  return { potentialsArray, newInfoFound };
+}
+function formNewValueHistoryWithNewKnowns(
+  valueHistory,
+  placeInHistory,
+  solverPotentials
+) {
+  let result = [];
+  for (let i = 0; i < placeInHistory + 1; i++) {
+    result.push(valueHistory[i]);
+  }
+  let newCellArray = [...valueHistory[placeInHistory]];
+  solverPotentials.forEach((potentialsObject) => {
+    if (potentialsObject.containsNewInformation) {
+      newCellArray[
+        resolveCellNumberFromRowAndColumnNumber(
+          potentialsObject.col,
+          potentialsObject.row
+        )
+      ] = potentialsObject.solved;
+    }
+  });
+  result.push(newCellArray);
+  return result;
 }
 // function resetInputValues () {
 //   for (let r = 1; r < 10; r++) {
@@ -1727,7 +1795,7 @@ export {
   createInitialValueHistory,
   createInitialCurrentPotentials,
   resolveSelectedCellNumberFromBlockNumberAndCellNumber,
-	resolveCellNumberFromRowAndColumnNumber,
+  resolveCellNumberFromRowAndColumnNumber,
   resolveIsRealtedToSelectedCellNumber,
   calculateIfBlockIsSolved,
   initiateEasyPuzzle,
@@ -1743,8 +1811,9 @@ export {
   testIfCellsContainAContradiction,
   testIfSolutionIsFound,
   calculateValuePotentials,
-	testPotentialsForNakedSingles,
-	formNewValueHistoryWithNewKnowns,
+  testPotentialsForNakedSingles,
+  testPotentialsForColumnLones,
+  formNewValueHistoryWithNewKnowns,
   // addKnowns,
   // testForKnowns,
   // testCols,
