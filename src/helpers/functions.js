@@ -840,8 +840,7 @@ function createArrayOfColumnIndeces(columnNumber) {
   }
   return indecesToTest;
 }
-function testIfColumnHasSolvedANumber(
-  columnNumber,
+function testIfIndecesHasSolvedANumber(
   testNumber,
   potentialsArray,
   indecesToTest
@@ -851,8 +850,7 @@ function testIfColumnHasSolvedANumber(
   }
   return false;
 }
-function testIfColumnHasOnePlaceForANumber(
-  columnNumber,
+function testIfIndecesHasOnePlaceForANumber(
   testNumber,
   potentialsArray,
   indecesToTest
@@ -875,10 +873,40 @@ function testPotentialsForColumnLones(potentialsArray) {
     for (let num = 1; num < 10; num++) {
       let indecesToTest = createArrayOfColumnIndeces(c);
       if (
-        !testIfColumnHasSolvedANumber(c, num, potentialsArray, indecesToTest)
+        !testIfIndecesHasSolvedANumber(num, potentialsArray, indecesToTest)
       ) {
-        let possibleResult = testIfColumnHasOnePlaceForANumber(
-          c,
+        let possibleResult = testIfIndecesHasOnePlaceForANumber(
+          num,
+          potentialsArray,
+          indecesToTest
+        );
+        if (possibleResult !== false) {
+          potentialsArray[possibleResult].potentials[num] = true;
+          potentialsArray[possibleResult].solved = num;
+          potentialsArray[possibleResult].containsNewInformation = true;
+          newInfoFound = true;
+        }
+      }
+    }
+  }
+  return { potentialsArray, newInfoFound };
+}
+function createArrayOfRowIndeces(rowNumber) {
+  let indecesToTest = [];
+  for (let i = 0; i < 9; i++) {
+    indecesToTest.push(9 * (rowNumber-1) + i );
+  }
+  return indecesToTest;
+}
+function testPotentialsForRowLones (potentialsArray){
+	let newInfoFound = false;
+  for (let r = 1; r < 10; r++) {
+    for (let num = 1; num < 10; num++) {
+      let indecesToTest = createArrayOfRowIndeces(r);
+      if (
+        !testIfIndecesHasSolvedANumber(num, potentialsArray, indecesToTest)
+      ) {
+        let possibleResult = testIfIndecesHasOnePlaceForANumber(
           num,
           potentialsArray,
           indecesToTest
@@ -1813,6 +1841,7 @@ export {
   calculateValuePotentials,
   testPotentialsForNakedSingles,
   testPotentialsForColumnLones,
+	testPotentialsForRowLones,
   formNewValueHistoryWithNewKnowns,
   // addKnowns,
   // testForKnowns,

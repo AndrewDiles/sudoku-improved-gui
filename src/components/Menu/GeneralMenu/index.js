@@ -3,7 +3,8 @@ import OptionButton from "../OptionButton";
 import {
   testPotentialsForNakedSingles,
   formNewValueHistoryWithNewKnowns,
-	testPotentialsForColumnLones
+  testPotentialsForColumnLones,
+  testPotentialsForRowLones,
 } from "../../../helpers/functions";
 
 function GeneralMenu({
@@ -121,7 +122,7 @@ function GeneralMenu({
             >
               Naked Singles Test
             </OptionButton>
-						<OptionButton
+            <OptionButton
               themeNumber={themeNumber}
               label={"Test columns button"}
               title={"Test columns button"}
@@ -129,7 +130,7 @@ function GeneralMenu({
               handleClick={() => {
                 setTestsOngoing(true);
                 const testResults =
-								testPotentialsForColumnLones(solverPotentials);
+                  testPotentialsForColumnLones(solverPotentials);
                 setSolverPotentials(testResults.potentialsArray);
                 setNewInfoFound(testResults.newInfoFound);
                 setTestsOngoing(false);
@@ -138,6 +139,24 @@ function GeneralMenu({
             >
               Test Columns
             </OptionButton>
+						<OptionButton
+              themeNumber={themeNumber}
+              label={"Test rows button"}
+              title={"Test rows button"}
+              isDisabled={testsOngoing}
+              handleClick={() => {
+                setTestsOngoing(true);
+                const testResults =
+								testPotentialsForRowLones(solverPotentials);
+                setSolverPotentials(testResults.potentialsArray);
+                setNewInfoFound(testResults.newInfoFound);
+                setTestsOngoing(false);
+              }}
+              height="fit-content"
+            >
+              Test Rows
+            </OptionButton>
+						
           </Span>
         )}
         {solverOptionsOpen && solverPotentials && newInfoFound && (
