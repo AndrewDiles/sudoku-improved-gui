@@ -6,6 +6,7 @@ import {
   testPotentialsForColumnLones,
   testPotentialsForRowLones,
 } from "../../../helpers/functions";
+import Loader from "../../Loader";
 
 function GeneralMenu({
   themeNumber,
@@ -27,7 +28,7 @@ function GeneralMenu({
   newInfoFound,
   setNewInfoFound,
 }) {
-  console.log({ solverPotentials });
+  // console.log({ solverPotentials });
   return (
     <Container>
       <ButtonsContainer>
@@ -103,62 +104,65 @@ function GeneralMenu({
             </OptionButton>
           )
         ) : null}
-        {solverOptionsOpen && solverPotentials && !newInfoFound && (
-          <Span>
-            <OptionButton
-              themeNumber={themeNumber}
-              label={"Naked singles test button"}
-              title={"Naked singles test button"}
-              isDisabled={testsOngoing}
-              handleClick={() => {
-                setTestsOngoing(true);
-                const testResults =
-                  testPotentialsForNakedSingles(solverPotentials);
-                setSolverPotentials(testResults.potentialsArray);
-                setNewInfoFound(testResults.newInfoFound);
-                setTestsOngoing(false);
-              }}
-              height="fit-content"
-            >
-              Naked Singles Test
-            </OptionButton>
-            <OptionButton
-              themeNumber={themeNumber}
-              label={"Test columns button"}
-              title={"Test columns button"}
-              isDisabled={testsOngoing}
-              handleClick={() => {
-                setTestsOngoing(true);
-                const testResults =
-                  testPotentialsForColumnLones(solverPotentials);
-                setSolverPotentials(testResults.potentialsArray);
-                setNewInfoFound(testResults.newInfoFound);
-                setTestsOngoing(false);
-              }}
-              height="fit-content"
-            >
-              Test Columns
-            </OptionButton>
-						<OptionButton
-              themeNumber={themeNumber}
-              label={"Test rows button"}
-              title={"Test rows button"}
-              isDisabled={testsOngoing}
-              handleClick={() => {
-                setTestsOngoing(true);
-                const testResults =
-								testPotentialsForRowLones(solverPotentials);
-                setSolverPotentials(testResults.potentialsArray);
-                setNewInfoFound(testResults.newInfoFound);
-                setTestsOngoing(false);
-              }}
-              height="fit-content"
-            >
-              Test Rows
-            </OptionButton>
-						
-          </Span>
-        )}
+        {testsOngoing && <Loader themeNumber={themeNumber} />}
+        {solverOptionsOpen &&
+          solverPotentials &&
+          !newInfoFound &&
+          !testsOngoing && (
+            <Span>
+              <OptionButton
+                themeNumber={themeNumber}
+                label={"Naked singles test button"}
+                title={"Naked singles test button"}
+                isDisabled={testsOngoing}
+                handleClick={() => {
+                  setTestsOngoing(true);
+                  const testResults =
+                    testPotentialsForNakedSingles(solverPotentials);
+                  setSolverPotentials(testResults.potentialsArray);
+                  setNewInfoFound(testResults.newInfoFound);
+                  setTestsOngoing(false);
+                }}
+                height="fit-content"
+              >
+                Naked Singles Test
+              </OptionButton>
+              <OptionButton
+                themeNumber={themeNumber}
+                label={"Test columns button"}
+                title={"Test columns button"}
+                isDisabled={testsOngoing}
+                handleClick={() => {
+                  setTestsOngoing(true);
+                  const testResults =
+                    testPotentialsForColumnLones(solverPotentials);
+                  setSolverPotentials(testResults.potentialsArray);
+                  setNewInfoFound(testResults.newInfoFound);
+                  setTestsOngoing(false);
+                }}
+                height="fit-content"
+              >
+                Test Columns
+              </OptionButton>
+              <OptionButton
+                themeNumber={themeNumber}
+                label={"Test rows button"}
+                title={"Test rows button"}
+                isDisabled={testsOngoing}
+                handleClick={() => {
+                  setTestsOngoing(true);
+                  const testResults =
+                    testPotentialsForRowLones(solverPotentials);
+                  setSolverPotentials(testResults.potentialsArray);
+                  setNewInfoFound(testResults.newInfoFound);
+                  setTestsOngoing(false);
+                }}
+                height="fit-content"
+              >
+                Test Rows
+              </OptionButton>
+            </Span>
+          )}
         {solverOptionsOpen && solverPotentials && newInfoFound && (
           <Span>
             <OptionButton

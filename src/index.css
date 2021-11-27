@@ -30,7 +30,7 @@ code {
 	--text-1: black;
 	--border-1: lightgray;
 	--no-1: red;
-	--yes-1: lime;
+	--yes-1: rgb(0, 187, 0);
 	--hover-1: skyblue;
 	--focus-1: blue;
 
