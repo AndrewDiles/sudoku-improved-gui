@@ -5,6 +5,7 @@ import {
   formNewValueHistoryWithNewKnowns,
   testPotentialsForColumnLones,
   testPotentialsForRowLones,
+	testPotentialsForBlockLones,
 } from "../../../helpers/functions";
 import Loader from "../../Loader";
 
@@ -160,6 +161,23 @@ function GeneralMenu({
                 height="fit-content"
               >
                 Test Rows
+              </OptionButton>
+							<OptionButton
+                themeNumber={themeNumber}
+                label={"Test columns button"}
+                title={"Test columns button"}
+                isDisabled={testsOngoing}
+                handleClick={() => {
+                  setTestsOngoing(true);
+                  const testResults =
+									testPotentialsForBlockLones(solverPotentials);
+                  setSolverPotentials(testResults.potentialsArray);
+                  setNewInfoFound(testResults.newInfoFound);
+                  setTestsOngoing(false);
+                }}
+                height="fit-content"
+              >
+                Test Blocks
               </OptionButton>
             </Span>
           )}

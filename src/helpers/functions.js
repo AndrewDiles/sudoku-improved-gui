@@ -870,8 +870,8 @@ function testIfIndecesHasOnePlaceForANumber(
 function testPotentialsForColumnLones(potentialsArray) {
   let newInfoFound = false;
   for (let c = 1; c < 10; c++) {
+		let indecesToTest = createArrayOfColumnIndeces(c);
     for (let num = 1; num < 10; num++) {
-      let indecesToTest = createArrayOfColumnIndeces(c);
       if (
         !testIfIndecesHasSolvedANumber(num, potentialsArray, indecesToTest)
       ) {
@@ -901,8 +901,33 @@ function createArrayOfRowIndeces(rowNumber) {
 function testPotentialsForRowLones (potentialsArray){
 	let newInfoFound = false;
   for (let r = 1; r < 10; r++) {
+		let indecesToTest = createArrayOfRowIndeces(r);
     for (let num = 1; num < 10; num++) {
-      let indecesToTest = createArrayOfRowIndeces(r);
+      if (
+        !testIfIndecesHasSolvedANumber(num, potentialsArray, indecesToTest)
+      ) {
+        let possibleResult = testIfIndecesHasOnePlaceForANumber(
+          num,
+          potentialsArray,
+          indecesToTest
+        );
+        if (possibleResult !== false) {
+          potentialsArray[possibleResult].potentials[num] = true;
+          potentialsArray[possibleResult].solved = num;
+          potentialsArray[possibleResult].containsNewInformation = true;
+          newInfoFound = true;
+        }
+      }
+    }
+  }
+  return { potentialsArray, newInfoFound };
+}
+
+function testPotentialsForBlockLones (potentialsArray){
+	let newInfoFound = false;
+  for (let b = 1; b < 10; b++) {
+		let indecesToTest = createCellNumbersForBlockArray(getFirstCellNumberOfBlock(b));
+    for (let num = 1; num < 10; num++) {
       if (
         !testIfIndecesHasSolvedANumber(num, potentialsArray, indecesToTest)
       ) {
@@ -1842,6 +1867,7 @@ export {
   testPotentialsForNakedSingles,
   testPotentialsForColumnLones,
 	testPotentialsForRowLones,
+	testPotentialsForBlockLones,
   formNewValueHistoryWithNewKnowns,
   // addKnowns,
   // testForKnowns,
