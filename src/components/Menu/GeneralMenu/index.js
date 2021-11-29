@@ -6,6 +6,7 @@ import {
   testPotentialsForColumnLones,
   testPotentialsForRowLones,
 	testPotentialsForBlockLones,
+	solvePuzzle,
 } from "../../../helpers/functions";
 import Loader from "../../Loader";
 
@@ -178,6 +179,23 @@ function GeneralMenu({
                 height="fit-content"
               >
                 Test Blocks
+              </OptionButton>
+							<OptionButton
+                themeNumber={themeNumber}
+                label={"Test columns button"}
+                title={"Test columns button"}
+                isDisabled={testsOngoing}
+                handleClick={() => {
+                  setTestsOngoing(true);
+                  const testResults =
+									solvePuzzle(solverPotentials);
+                  setSolverPotentials(testResults.potentialsArray);
+                  setNewInfoFound(testResults.newInfoFound);
+                  setTestsOngoing(false);
+                }}
+                height="fit-content"
+              >
+                Solve Puzzle
               </OptionButton>
             </Span>
           )}

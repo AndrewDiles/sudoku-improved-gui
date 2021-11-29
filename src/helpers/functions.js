@@ -658,6 +658,14 @@ function testIfSolutionIsFound(cellArray) {
   }
   return true;
 }
+function testIfSolutionIsFoundInPotentials(potentialArray) {
+  for (let i = 0; i < 81; i++) {
+    if (!potentialArray[i].solved) {
+      return false;
+    }
+  }
+  return true;
+}
 function formPotentialsArrayForKnown(knownValue) {
   let result = [""];
   for (let i = 1; i < 10; i++) {
@@ -975,6 +983,18 @@ function formNewValueHistoryWithNewKnowns(
   });
   result.push(newCellArray);
   return result;
+}
+function solvePuzzle (potentialsArray) {
+	let activePotentialsArray = duplicate(potentialsArray);
+	let newInfoFound = false;
+	if (testIfSolutionIsFoundInPotentials(activePotentialsArray)) {
+		return { potentialsArray: activePotentialsArray, newInfoFound }
+	}
+	let results = testPotentialsForNakedSingles(activePotentialsArray);
+	if (results.newInfoFound) {
+		
+	}
+	
 }
 // function resetInputValues () {
 //   for (let r = 1; r < 10; r++) {
@@ -1869,6 +1889,7 @@ export {
 	testPotentialsForRowLones,
 	testPotentialsForBlockLones,
   formNewValueHistoryWithNewKnowns,
+	solvePuzzle,
   // addKnowns,
   // testForKnowns,
   // testCols,
