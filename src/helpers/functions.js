@@ -666,6 +666,19 @@ function testIfSolutionIsFoundInPotentials(potentialArray) {
   }
   return true;
 }
+function formCellsArrayFromPotentialsArray(
+  potentialArray
+) {
+  let result = [];
+  for (let i = 0; i < 81; i++) {
+    result.push(potentialArray[i].solved);
+  }
+  return result;
+}
+function testIfPotentialsContainsAContradiction(potentialArray) {
+	let cellArray = formCellsArrayFromPotentialsArray(potentialArray);
+	return testIfCellsContainAContradiction(cellArray)
+}
 function formPotentialsArrayForKnown(knownValue) {
   let result = [""];
   for (let i = 1; i < 10; i++) {
@@ -990,9 +1003,14 @@ function solvePuzzle (potentialsArray) {
 	if (testIfSolutionIsFoundInPotentials(activePotentialsArray)) {
 		return { potentialsArray: activePotentialsArray, newInfoFound }
 	}
+	if (testIfPotentialsContainsAContradiction(activePotentialsArray)) {
+		return { potentialsArray: activePotentialsArray, newInfoFound }
+	}
+
+	// Need a function to updatePotentialsArray;
 	let results = testPotentialsForNakedSingles(activePotentialsArray);
 	if (results.newInfoFound) {
-		
+
 	}
 	
 }

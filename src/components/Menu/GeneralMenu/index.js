@@ -190,8 +190,17 @@ function GeneralMenu({
                   const testResults =
 									solvePuzzle(solverPotentials);
                   setSolverPotentials(testResults.potentialsArray);
-                  setNewInfoFound(testResults.newInfoFound);
-                  setTestsOngoing(false);
+									if (testResults.newInfoFound) {
+										setValueHistory(
+											formNewValueHistoryWithNewKnowns(
+												valueHistory,
+												placeInHistory,
+												testResults.potentialsArray
+											)
+										);
+									}
+									setPlaceInHistory(placeInHistory + 1);
+									setTestsOngoing(false);
                 }}
                 height="fit-content"
               >
