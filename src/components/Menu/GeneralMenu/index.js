@@ -190,6 +190,7 @@ function GeneralMenu({
                   const testResults =
 									solvePuzzle(solverPotentials);
                   setSolverPotentials(testResults.potentialsArray);
+									console.log(testResults.potentialsArray)
 									if (testResults.newInfoFound) {
 										setValueHistory(
 											formNewValueHistoryWithNewKnowns(
@@ -198,8 +199,8 @@ function GeneralMenu({
 												testResults.potentialsArray
 											)
 										);
+										setPlaceInHistory(placeInHistory + 1);
 									}
-									setPlaceInHistory(placeInHistory + 1);
 									setTestsOngoing(false);
                 }}
                 height="fit-content"

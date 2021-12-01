@@ -174,28 +174,34 @@ function calculateIfBlockIsSolved(blockNumber, cellArray) {
   );
 }
 
-function setArrayForGivens(
-  setfunctionOngoing,
-  valueHistory,
-  currentPotentials,
-  setCurrentPotentials
-) {
-  setfunctionOngoing(true);
-  let replacementCurrentPotentials = duplicate(currentPotentials);
-  valueHistory[0].forEach((value, index) => {
-    if (value) {
-      replacementCurrentPotentials.solved = true;
-      for (let i = 1; i < 10; i++) {
-        i === value
-          ? (replacementCurrentPotentials.potentials[i] = true)
-          : (replacementCurrentPotentials.potentials[i] = false);
-      }
-    }
-  });
-  setCurrentPotentials(replacementCurrentPotentials);
-  setfunctionOngoing(false);
+// function setArrayForGivens(
+//   setfunctionOngoing,
+//   valueHistory,
+//   currentPotentials,
+//   setCurrentPotentials
+// ) {
+//   setfunctionOngoing(true);
+//   let replacementCurrentPotentials = duplicate(currentPotentials);
+//   valueHistory[0].forEach((value, index) => {
+//     if (value) {
+//       replacementCurrentPotentials.solved = true;
+//       for (let i = 1; i < 10; i++) {
+//         i === value
+//           ? (replacementCurrentPotentials.potentials[i] = true)
+//           : (replacementCurrentPotentials.potentials[i] = false);
+//       }
+//     }
+//   });
+//   setCurrentPotentials(replacementCurrentPotentials);
+//   setfunctionOngoing(false);
+// }
+function replaceNullyCellArrayValuesWithZero (array) {
+	for (let i = 0; i < 81; i ++) {
+		if (!array[i]) {
+			array[i]=0;
+		}
+	}
 }
-
 function initiateEasyPuzzle() {
   let result = [];
   let cellArray = [];
@@ -240,6 +246,7 @@ function initiateEasyPuzzle() {
   cellArray[76] = 1;
   cellArray[79] = 4;
   cellArray[80] = 3;
+	replaceNullyCellArrayValuesWithZero(cellArray);
   result.push(cellArray);
   return result;
 }
@@ -277,6 +284,7 @@ function initiateMediumPuzzle() {
   cellArray[74] = 4;
   cellArray[76] = 6;
   cellArray[77] = 3;
+	replaceNullyCellArrayValuesWithZero(cellArray);
   result.push(cellArray);
   return result;
 }
@@ -310,6 +318,7 @@ function initiateHardPuzzle() {
   cellArray[74] = 4;
   cellArray[76] = 9;
   cellArray[79] = 3;
+	replaceNullyCellArrayValuesWithZero(cellArray);
   result.push(cellArray);
   return result;
 }
@@ -347,6 +356,7 @@ function initiateVeryHardPuzzle() {
   cellArray[76] = 9;
   cellArray[78] = 4;
   cellArray[80] = 5;
+	replaceNullyCellArrayValuesWithZero(cellArray);
   result.push(cellArray);
   return result;
 }
@@ -379,6 +389,7 @@ function initiateChallengePuzzle() {
   cellArray[70] = 2;
   cellArray[72] = 4;
   cellArray[78] = 5;
+	replaceNullyCellArrayValuesWithZero(cellArray);
   result.push(cellArray);
   return result;
 }
@@ -409,6 +420,7 @@ function initiateExtremePuzzle() {
   cellArray[71] = 8;
   cellArray[72] = 6;
   cellArray[79] = 4;
+	replaceNullyCellArrayValuesWithZero(cellArray);
   result.push(cellArray);
   return result;
 }
@@ -437,6 +449,7 @@ function initiateEpicPuzzle() {
   cellArray[70] = 1;
   cellArray[73] = 9;
   cellArray[78] = 4;
+	replaceNullyCellArrayValuesWithZero(cellArray);
   result.push(cellArray);
   return result;
 }
@@ -525,7 +538,7 @@ function initiateSolvedPuzzle() {
   cellArray[78] = 2;
   cellArray[79] = 3;
   cellArray[80] = 4;
-
+	replaceNullyCellArrayValuesWithZero(cellArray);
   result.push(cellArray);
   return result;
 }
@@ -666,9 +679,7 @@ function testIfSolutionIsFoundInPotentials(potentialArray) {
   }
   return true;
 }
-function formCellsArrayFromPotentialsArray(
-  potentialArray
-) {
+function formCellsArrayFromPotentialsArray(potentialArray) {
   let result = [];
   for (let i = 0; i < 81; i++) {
     result.push(potentialArray[i].solved);
@@ -676,8 +687,8 @@ function formCellsArrayFromPotentialsArray(
   return result;
 }
 function testIfPotentialsContainsAContradiction(potentialArray) {
-	let cellArray = formCellsArrayFromPotentialsArray(potentialArray);
-	return testIfCellsContainAContradiction(cellArray)
+  let cellArray = formCellsArrayFromPotentialsArray(potentialArray);
+  return testIfCellsContainAContradiction(cellArray);
 }
 function formPotentialsArrayForKnown(knownValue) {
   let result = [""];
@@ -891,11 +902,9 @@ function testIfIndecesHasOnePlaceForANumber(
 function testPotentialsForColumnLones(potentialsArray) {
   let newInfoFound = false;
   for (let c = 1; c < 10; c++) {
-		let indecesToTest = createArrayOfColumnIndeces(c);
+    let indecesToTest = createArrayOfColumnIndeces(c);
     for (let num = 1; num < 10; num++) {
-      if (
-        !testIfIndecesHasSolvedANumber(num, potentialsArray, indecesToTest)
-      ) {
+      if (!testIfIndecesHasSolvedANumber(num, potentialsArray, indecesToTest)) {
         let possibleResult = testIfIndecesHasOnePlaceForANumber(
           num,
           potentialsArray,
@@ -915,18 +924,16 @@ function testPotentialsForColumnLones(potentialsArray) {
 function createArrayOfRowIndeces(rowNumber) {
   let indecesToTest = [];
   for (let i = 0; i < 9; i++) {
-    indecesToTest.push(9 * (rowNumber-1) + i );
+    indecesToTest.push(9 * (rowNumber - 1) + i);
   }
   return indecesToTest;
 }
-function testPotentialsForRowLones (potentialsArray){
-	let newInfoFound = false;
+function testPotentialsForRowLones(potentialsArray) {
+  let newInfoFound = false;
   for (let r = 1; r < 10; r++) {
-		let indecesToTest = createArrayOfRowIndeces(r);
+    let indecesToTest = createArrayOfRowIndeces(r);
     for (let num = 1; num < 10; num++) {
-      if (
-        !testIfIndecesHasSolvedANumber(num, potentialsArray, indecesToTest)
-      ) {
+      if (!testIfIndecesHasSolvedANumber(num, potentialsArray, indecesToTest)) {
         let possibleResult = testIfIndecesHasOnePlaceForANumber(
           num,
           potentialsArray,
@@ -944,14 +951,14 @@ function testPotentialsForRowLones (potentialsArray){
   return { potentialsArray, newInfoFound };
 }
 
-function testPotentialsForBlockLones (potentialsArray){
-	let newInfoFound = false;
+function testPotentialsForBlockLones(potentialsArray) {
+  let newInfoFound = false;
   for (let b = 1; b < 10; b++) {
-		let indecesToTest = createCellNumbersForBlockArray(getFirstCellNumberOfBlock(b));
+    let indecesToTest = createCellNumbersForBlockArray(
+      getFirstCellNumberOfBlock(b)
+    );
     for (let num = 1; num < 10; num++) {
-      if (
-        !testIfIndecesHasSolvedANumber(num, potentialsArray, indecesToTest)
-      ) {
+      if (!testIfIndecesHasSolvedANumber(num, potentialsArray, indecesToTest)) {
         let possibleResult = testIfIndecesHasOnePlaceForANumber(
           num,
           potentialsArray,
@@ -985,7 +992,7 @@ function formNewValueHistoryWithNewKnowns(
   }
   let newCellArray = [...valueHistory[placeInHistory]];
   solverPotentials.forEach((potentialsObject) => {
-    if (potentialsObject.containsNewInformation) {
+    if (potentialsObject.containsNewInformation || potentialsObject.solved) {
       newCellArray[
         resolveCellNumberFromRowAndColumnNumber(
           potentialsObject.col,
@@ -997,22 +1004,63 @@ function formNewValueHistoryWithNewKnowns(
   result.push(newCellArray);
   return result;
 }
-function solvePuzzle (potentialsArray) {
-	let activePotentialsArray = duplicate(potentialsArray);
-	let newInfoFound = false;
-	if (testIfSolutionIsFoundInPotentials(activePotentialsArray)) {
-		return { potentialsArray: activePotentialsArray, newInfoFound }
-	}
-	if (testIfPotentialsContainsAContradiction(activePotentialsArray)) {
-		return { potentialsArray: activePotentialsArray, newInfoFound }
-	}
-
-	// Need a function to updatePotentialsArray;
-	let results = testPotentialsForNakedSingles(activePotentialsArray);
-	if (results.newInfoFound) {
-
-	}
-	
+function solvePuzzle(potentialsArray) {
+  let activePotentialsArray = duplicate(potentialsArray);
+  let newInfoFound = false;
+  for (let testLevel = 1; testLevel < 7; testLevel++) {
+    if (
+      testIfSolutionIsFoundInPotentials(activePotentialsArray) ||
+      testIfPotentialsContainsAContradiction(activePotentialsArray)
+    ) {
+      return { potentialsArray: activePotentialsArray, newInfoFound };
+    }
+    if (testLevel === 1) {
+			// console.log('naked singles test from solve');
+      let results = testPotentialsForNakedSingles(activePotentialsArray);
+      if (results.newInfoFound) {
+        newInfoFound = true;
+        testLevel = 0;
+        activePotentialsArray = calculateValuePotentials(
+          formCellsArrayFromPotentialsArray(activePotentialsArray)
+        );
+      }
+    } else if (testLevel === 2) {
+			// console.log('col test from solve');
+			let results = testPotentialsForColumnLones(activePotentialsArray);
+      if (results.newInfoFound) {
+        newInfoFound = true;
+        testLevel = 0;
+        activePotentialsArray = calculateValuePotentials(
+          formCellsArrayFromPotentialsArray(activePotentialsArray)
+        );
+      }
+    } else if (testLevel === 3) {
+			// console.log('row test from solve');
+			let results = testPotentialsForRowLones(activePotentialsArray);
+      if (results.newInfoFound) {
+        newInfoFound = true;
+        testLevel = 0;
+        activePotentialsArray = calculateValuePotentials(
+          formCellsArrayFromPotentialsArray(activePotentialsArray)
+        );
+      }
+    } else if (testLevel === 4) {
+			console.log('block test from solve');
+      let results = testPotentialsForBlockLones(activePotentialsArray);
+      if (results.newInfoFound) {
+        newInfoFound = true;
+        testLevel = 0;
+        activePotentialsArray = calculateValuePotentials(
+          formCellsArrayFromPotentialsArray(activePotentialsArray)
+        );
+      }
+    } else if (testLevel === 5) {
+      // guess 1 deep
+    } else if (testLevel === 6) {
+      // guess 2 deep
+    }
+  }
+  return { potentialsArray: activePotentialsArray, newInfoFound };
 }
 // function resetInputValues () {
 //   for (let r = 1; r < 10; r++) {
@@ -1904,10 +1952,10 @@ export {
   calculateValuePotentials,
   testPotentialsForNakedSingles,
   testPotentialsForColumnLones,
-	testPotentialsForRowLones,
-	testPotentialsForBlockLones,
+  testPotentialsForRowLones,
+  testPotentialsForBlockLones,
   formNewValueHistoryWithNewKnowns,
-	solvePuzzle,
+  solvePuzzle,
   // addKnowns,
   // testForKnowns,
   // testCols,
