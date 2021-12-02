@@ -6,7 +6,7 @@ import LogicListeners from "../LogicListeners";
 import {
   createInitialValueHistory,
   createInitialCurrentPotentials,
-} from "../../helpers/functions";
+} from "../../helpers/puzzleInitialization";
 
 function Sudoku({ themeNumber }) {
   const [difficulty, setDifficulty] = useState(null);

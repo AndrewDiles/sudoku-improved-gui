@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import {
-  condenseInitialValueHistoryForCustomGame,
   testIfCellsContainAContradiction,
   testIfSolutionIsFound,
 	calculateValuePotentials,
 } from "../../helpers/functions";
-import {getInitialPuzzleSetup} from "../../helpers/logicListenerFunctions";
+
+import {getInitialPuzzleSetup, condenseInitialValueHistoryForCustomGame} from "../../helpers/logicListenerFunctions";
 
 function LogicListeners({
   difficulty,

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { makeNextStepInInitialCustomGame } from "../../helpers/functions";
+import { makeNextStepInInitialCustomGame } from "../../helpers/puzzleInitialization";
 
 function NumberButton({
   themeNumber,

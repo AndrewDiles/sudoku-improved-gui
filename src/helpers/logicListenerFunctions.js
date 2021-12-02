@@ -8,7 +8,7 @@ import {
   initiateExtremePuzzle,
   initiateEpicPuzzle,
   initiateSolvedPuzzle,
-} from "./functions";
+} from "./puzzleInitialization";
 
 function getInitialPuzzleSetup(difficulty) {
   switch (difficulty) {
@@ -44,7 +44,11 @@ function getInitialPuzzleSetup(difficulty) {
     }
   }
 }
+function condenseInitialValueHistoryForCustomGame(valueHistory) {
+  return [[...valueHistory[valueHistory.length - 1]]];
+}
 
 export {
   getInitialPuzzleSetup,
+	condenseInitialValueHistoryForCustomGame,
 }
