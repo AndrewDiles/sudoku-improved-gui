@@ -1,4 +1,4 @@
-import {createInitialCurrentPotentials} from "./puzzleInitialization";
+import { createInitialCurrentPotentials } from "./puzzleInitialization";
 function duplicate(object) {
   return JSON.parse(JSON.stringify(object));
 }
@@ -587,18 +587,26 @@ function formNewValueHistoryWithNewKnowns(
   result.push(newCellArray);
   return result;
 }
-function solvePuzzle(potentialsArray) {
-  let activePotentialsArray = duplicate(potentialsArray);
+function attemptToSolvePuzzleWithoutGuessing (potentialsArray) {
+	let activePotentialsArray = duplicate(potentialsArray);
   let newInfoFound = false;
-  for (let testLevel = 1; testLevel < 7; testLevel++) {
-    if (
-      testIfSolutionIsFoundInPotentials(activePotentialsArray) ||
-      testIfPotentialsContainsAContradiction(activePotentialsArray)
-    ) {
-      return { potentialsArray: activePotentialsArray, newInfoFound };
+  let contradictionFound = null;
+  let isSolved = null;
+  for (let testLevel = 1; testLevel < 5; testLevel++) {
+    contradictionFound = testIfPotentialsContainsAContradiction(
+      activePotentialsArray
+    );
+    isSolved = testIfSolutionIsFoundInPotentials(activePotentialsArray);
+    if (contradictionFound || isSolved) {
+      return {
+        potentialsArray: activePotentialsArray,
+        newInfoFound,
+        contradictionFound,
+        isSolved,
+      };
     }
     if (testLevel === 1) {
-			// console.log('naked singles test from solve');
+      // console.log('naked singles test from solve');
       let results = testPotentialsForNakedSingles(activePotentialsArray);
       if (results.newInfoFound) {
         newInfoFound = true;
@@ -608,8 +616,8 @@ function solvePuzzle(potentialsArray) {
         );
       }
     } else if (testLevel === 2) {
-			// console.log('col test from solve');
-			let results = testPotentialsForColumnLones(activePotentialsArray);
+      // console.log('col test from solve');
+      let results = testPotentialsForColumnLones(activePotentialsArray);
       if (results.newInfoFound) {
         newInfoFound = true;
         testLevel = 0;
@@ -618,8 +626,8 @@ function solvePuzzle(potentialsArray) {
         );
       }
     } else if (testLevel === 3) {
-			// console.log('row test from solve');
-			let results = testPotentialsForRowLones(activePotentialsArray);
+      // console.log('row test from solve');
+      let results = testPotentialsForRowLones(activePotentialsArray);
       if (results.newInfoFound) {
         newInfoFound = true;
         testLevel = 0;
@@ -628,7 +636,7 @@ function solvePuzzle(potentialsArray) {
         );
       }
     } else if (testLevel === 4) {
-			console.log('block test from solve');
+      // console.log("block test from solve");
       let results = testPotentialsForBlockLones(activePotentialsArray);
       if (results.newInfoFound) {
         newInfoFound = true;
@@ -637,13 +645,58 @@ function solvePuzzle(potentialsArray) {
           formCellsArrayFromPotentialsArray(activePotentialsArray)
         );
       }
-    } else if (testLevel === 5) {
-      // guess 1 deep
-    } else if (testLevel === 6) {
-      // guess 2 deep
     }
   }
-  return { potentialsArray: activePotentialsArray, newInfoFound };
+  contradictionFound = testIfPotentialsContainsAContradiction(
+    activePotentialsArray
+  );
+  isSolved = testIfSolutionIsFoundInPotentials(activePotentialsArray);
+  return {
+    potentialsArray: activePotentialsArray,
+    newInfoFound,
+    contradictionFound,
+    isSolved,
+  };
+}
+function solvePuzzle(potentialsArray) {
+  let activePotentialsArray = duplicate(potentialsArray);
+  let newInfoFound = false;
+  let contradictionFound = null;
+  let isSolved = null;
+  for (let testLevel = 1; testLevel < 4; testLevel++) {
+		
+    if (testLevel === 1) {
+			let logicResults = attemptToSolvePuzzleWithoutGuessing(activePotentialsArray);
+			activePotentialsArray = logicResults.potentialsArray
+			newInfoFound = logicResults.newInfoFound;
+			contradictionFound = logicResults.contradictionFound
+			isSolved = logicResults.isSolved
+			if (contradictionFound || isSolved) {
+				return {
+					potentialsArray: activePotentialsArray,
+					newInfoFound,
+					contradictionFound,
+					isSolved,
+				};
+			}
+    } else if (testLevel === 2) {
+      // guess 1 deep
+      
+    } else if (testLevel === 3) {
+      // guess 2 deep
+      
+    }
+  }
+  contradictionFound = testIfPotentialsContainsAContradiction(
+    activePotentialsArray
+  );
+  isSolved = testIfSolutionIsFoundInPotentials(activePotentialsArray);
+  return {
+    potentialsArray: activePotentialsArray,
+    newInfoFound,
+    contradictionFound,
+    isSolved,
+  };
 }
 
 // // Level 2 Tests

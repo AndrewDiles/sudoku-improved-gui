@@ -45,8 +45,8 @@ function Grid({
       >
         {Array.from(Array(9).keys()).map((blockNumber) => {
           let blockIsSolved;
-					console.log({valueHistory});
-					console.log({placeInHistory})
+					// console.log({valueHistory});
+					// console.log({placeInHistory})
           if (contradictionExists) {
             blockIsSolved = false;
           } else {
