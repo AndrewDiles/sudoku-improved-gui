@@ -21,7 +21,9 @@ function Indicators({
       {solverOptionsOpen && (
         <>
           {newInfoFound ? (
-            <P themeNumber={themeNumber} yes={1}>NEW INFORMATION</P>
+            <P themeNumber={themeNumber} yes={1}>
+              NEW INFORMATION
+            </P>
           ) : (
             <P>NO NEW INFORMATION</P>
           )}

@@ -681,7 +681,25 @@ function solvePuzzle(potentialsArray) {
 			}
     } else if (testLevel === 2) {
       // guess 1 deep
-      
+      let guessResults = null;
+			for (let i = 0; i < 81; i++ ) {
+				if (!activePotentialsArray[i].solved) {
+					let potentialGuesses = [];
+					// potentials: ["", null, null, null, null, null, null, null, null, null],
+					for (let potentialsIndex = 1; potentialsIndex < 10; potentialsIndex ++) {
+						if (activePotentialsArray[i][potentialsIndex] === null) {
+							potentialGuesses.push(potentialsIndex)
+						}
+					}
+					let singleGuessPotentialsArray = duplicate(activePotentialsArray);
+					for (guessIndex = 0; guessIndex < potentialGuesses.length; potentialGuesses++) {
+						// update singleGuessPotentialsArray based on guess
+						// attempt to solve with logic
+						// see if solved or contradiction
+						
+					}
+				}
+			}
     } else if (testLevel === 3) {
       // guess 2 deep
       
