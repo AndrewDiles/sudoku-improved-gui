@@ -34,13 +34,13 @@ const Button = styled.button`
   ),
   linear-gradient(90deg, transparent 25%, purple 0.1em); */
   background-image: ${(p) => `linear-gradient(
-	var(--yes-${p.n}) 16%,
+	var(--yes-${p.n}) 8%,
 	transparent 1%,
-	transparent 80%,
+	transparent 89%,
 	transparent 1%,
-	var(--no-${p.n}) 2%
+	var(--no-${p.n}) 1%
 ),
-linear-gradient(90deg, transparent 75%, var(--bg2-${p.n}) 25%)`};
+linear-gradient(90deg, var(--bg-${p.n}), var(--bg2-${p.n}), var(--bg3-${p.n}))`};
   transform: scale(1);
 	outline: ${p=>p.isSelected && `3px solid var(--text-${p.n})`};
 	padding: 5px 10px;
