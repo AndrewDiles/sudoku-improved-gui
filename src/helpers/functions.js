@@ -700,7 +700,7 @@ function solvePuzzle(potentialsArray) {
       }
     } else if (testLevel === 2) {
       // guess 1 deep
-			console.log('guessing level 1')
+      console.log("guessing level 1");
       let newInfoFoundWithinGuess = false;
       for (let i = 0; i < 81; i++) {
         if (!activePotentialsArray[i].solved) {
@@ -708,7 +708,7 @@ function solvePuzzle(potentialsArray) {
           // potentials: ["", null, null, null, null, null, null, null, null, null],
           for (
             let potentialsIndex = 1;
-            potentialsIndex < 10;
+            potentialsIndex < 11;
             potentialsIndex++
           ) {
             if (activePotentialsArray[i].potentials[potentialsIndex] === null) {
@@ -719,9 +719,11 @@ function solvePuzzle(potentialsArray) {
           for (
             let guessIndex = 0;
             guessIndex < potentialGuesses.length;
-            potentialGuesses++
+            guessIndex++
           ) {
-						console.log(`guessing cell number ${i} is the number ${potentialGuesses[guessIndex]}`)
+            // console.log(
+            //   `guessing cell number ${i} is the number ${potentialGuesses[guessIndex]}`
+            // );
             singleGuessPotentialsArray[i].solved = potentialGuesses[guessIndex];
             singleGuessPotentialsArray[i].containsNewInformation = true;
             let updatedSingleGuessPotentialsArray = updateValuePotentials(
@@ -731,13 +733,11 @@ function solvePuzzle(potentialsArray) {
             let logicResults = attemptToSolvePuzzleWithoutGuessing(
               updatedSingleGuessPotentialsArray
             );
-            // activePotentialsArray = logicResults.potentialsArray;
-            // newInfoFound = logicResults.newInfoFound;
             contradictionFound = logicResults.contradictionFound;
             isSolved = logicResults.isSolved;
             if (logicResults.contradictionFound && !logicResults.isSolved) {
               // we know the guess is wrong, update the potentials function and break
-              activePotentialsArray[i].potentials[guessIndex] = false;
+              activePotentialsArray[i].potentials[potentialGuesses[guessIndex]] = false;
               activePotentialsArray[i].containsNewInformation = true;
               activePotentialsArray = updateValuePotentials(
                 activePotentialsArray
@@ -754,7 +754,8 @@ function solvePuzzle(potentialsArray) {
                 isSolved: logicResults.isSolved,
               };
             } else {
-							singleGuessPotentialsArray = duplicate(activePotentialsArray);
+              console.log("nothing new, move to next guess");
+              singleGuessPotentialsArray = duplicate(activePotentialsArray);
             }
           }
         }
