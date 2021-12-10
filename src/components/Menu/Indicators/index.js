@@ -11,7 +11,7 @@ function Indicators({
   return (
     <Container>
       {/* <ButtonsContainer> */}
-      {contradictionExists ? (
+      {isSolved ? null : contradictionExists ? (
         <P themeNumber={themeNumber} no={contradictionExists}>
           !!CONTRADICTION!!
         </P>
@@ -20,7 +20,7 @@ function Indicators({
       )}
       {solverOptionsOpen && (
         <>
-          {newInfoFound ? (
+          {isSolved ? null : newInfoFound ? (
             <P themeNumber={themeNumber} yes={1}>
               NEW INFORMATION
             </P>
