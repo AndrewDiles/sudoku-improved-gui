@@ -676,65 +676,14 @@ function attemptToSolvePuzzleWithoutGuessing(potentialsArray) {
     isSolved,
   };
 }
-function attemptToSolvePuzzleByGuessAndCheck(potentialsArray) {
-	console.log('guess and check function hit')
-  let newInfoFoundWithinGuess = false;
-  let contradictionFound = false;
-  let isSolved = false;
-  for (let i = 0; i < 81; i++) {
-    if (!potentialsArray[i].solved) {
-      let potentialGuesses = [];
-      // potentials: ["", null, null, null, null, null, null, null, null, null],
-      for (let potentialsIndex = 1; potentialsIndex < 11; potentialsIndex++) {
-        if (potentialsArray[i].potentials[potentialsIndex] === null) {
-          potentialGuesses.push(potentialsIndex);
-        }
-      }
-      let singleGuessPotentialsArray = duplicate(potentialsArray);
-      for (
-        let guessIndex = 0;
-        guessIndex < potentialGuesses.length;
-        guessIndex++
-      ) {
-        singleGuessPotentialsArray[i].solved = potentialGuesses[guessIndex];
-        singleGuessPotentialsArray[i].containsNewInformation = true;
-        let updatedSingleGuessPotentialsArray = updateValuePotentials(
-          singleGuessPotentialsArray
-        );
-        updatedSingleGuessPotentialsArray[i].containsNewInformation = false;
-        let logicResults = attemptToSolvePuzzleWithoutGuessing(
-          updatedSingleGuessPotentialsArray
-        );
-        contradictionFound = logicResults.contradictionFound;
-        isSolved = logicResults.isSolved;
-        if (logicResults.contradictionFound && !logicResults.isSolved) {
-          // we know the guess is wrong, update the potentials function and break
-          potentialsArray[i].potentials[potentialGuesses[guessIndex]] = false;
-          potentialsArray[i].containsNewInformation = true;
-          potentialsArray = updateValuePotentials(potentialsArray);
-          potentialsArray[i].containsNewInformation = false;
-          i += 81;
-          newInfoFoundWithinGuess = true;
-          break;
-        } else if (logicResults.isSolved) {
-          return {
-            potentialsArray: logicResults.potentialsArray,
-            newInfoFound: logicResults.newInfoFound,
-            contradictionFound: logicResults.contradictionFound,
-            isSolved: logicResults.isSolved,
-          };
-        } else {
-          singleGuessPotentialsArray = duplicate(potentialsArray);
-        }
-      }
-      return {
-        potentialsArray,
-        newInfoFound: false,
-        contradictionFound,
-        isSolved,
-      };
+function generatePotentialGuessesArray(potentials) {
+  let potentialGuesses = [];
+  for (let potentialsIndex = 1; potentialsIndex < 11; potentialsIndex++) {
+    if (potentials[potentialsIndex] === null) {
+      potentialGuesses.push(potentialsIndex);
     }
   }
+  return potentialGuesses;
 }
 function solvePuzzle(potentialsArray) {
   let activePotentialsArray = duplicate(potentialsArray);
@@ -759,93 +708,115 @@ function solvePuzzle(potentialsArray) {
         };
       }
     } else if (testLevel === 2) {
-
-			// begin shorter method
-			let logicResults = attemptToSolvePuzzleByGuessAndCheck(
-        activePotentialsArray
-      );
-			activePotentialsArray = logicResults.potentialsArray;
-      let newInfoFoundWithinGuess = logicResults.newInfoFound;
-      contradictionFound = logicResults.contradictionFound;
-      isSolved = logicResults.isSolved;
-			if (contradictionFound || isSolved) {
-        return {
-          potentialsArray: activePotentialsArray,
-          newInfoFound,
-          contradictionFound,
-          isSolved,
-        };
-      } else if (newInfoFoundWithinGuess) {
-				testLevel = 0;
-			}
-			// end shorter method
-
-			// begin long method
       // guess 1 deep
-      // let newInfoFoundWithinGuess = false;
-      // for (let i = 0; i < 81; i++) {
-      //   if (!activePotentialsArray[i].solved) {
-      //     let potentialGuesses = [];
-      //     // potentials: ["", null, null, null, null, null, null, null, null, null],
-      //     for (
-      //       let potentialsIndex = 1;
-      //       potentialsIndex < 11;
-      //       potentialsIndex++
-      //     ) {
-      //       if (activePotentialsArray[i].potentials[potentialsIndex] === null) {
-      //         potentialGuesses.push(potentialsIndex);
-      //       }
-      //     }
-      //     let singleGuessPotentialsArray = duplicate(activePotentialsArray);
-      //     for (
-      //       let guessIndex = 0;
-      //       guessIndex < potentialGuesses.length;
-      //       guessIndex++
-      //     ) {
-      //       singleGuessPotentialsArray[i].solved = potentialGuesses[guessIndex];
-      //       singleGuessPotentialsArray[i].containsNewInformation = true;
-      //       let updatedSingleGuessPotentialsArray = updateValuePotentials(
-      //         singleGuessPotentialsArray
-      //       );
-      //       updatedSingleGuessPotentialsArray[i].containsNewInformation = false;
-      //       let logicResults = attemptToSolvePuzzleWithoutGuessing(
-      //         updatedSingleGuessPotentialsArray
-      //       );
-      //       contradictionFound = logicResults.contradictionFound;
-      //       isSolved = logicResults.isSolved;
-      //       if (logicResults.contradictionFound && !logicResults.isSolved) {
-      //         // we know the guess is wrong, update the potentials function and break
-      //         activePotentialsArray[i].potentials[
-      //           potentialGuesses[guessIndex]
-      //         ] = false;
-      //         activePotentialsArray[i].containsNewInformation = true;
-      //         activePotentialsArray = updateValuePotentials(
-      //           activePotentialsArray
-      //         );
-      //         activePotentialsArray[i].containsNewInformation = false;
-      //         i += 81;
-      //         newInfoFoundWithinGuess = true;
-      //         break;
-      //       } else if (logicResults.isSolved) {
-      //         return {
-      //           potentialsArray: logicResults.potentialsArray,
-      //           newInfoFound: logicResults.newInfoFound,
-      //           contradictionFound: logicResults.contradictionFound,
-      //           isSolved: logicResults.isSolved,
-      //         };
-      //       } else {
-      //         singleGuessPotentialsArray = duplicate(activePotentialsArray);
-      //       }
-      //     }
-      //   }
-      // }
-      // if (newInfoFoundWithinGuess) {
-      //   testLevel = 0;
-      // }
-			// end long method
+      let newInfoFoundWithinGuess = false;
+      for (let i = 0; i < 81; i++) {
+        if (!activePotentialsArray[i].solved) {
+          let potentialGuesses = generatePotentialGuessesArray(activePotentialsArray[i].potentials);
+          // potentials: ["", null, null, null, null, null, null, null, null, null],
+          let singleGuessPotentialsArray = duplicate(activePotentialsArray);
+          for (
+            let guessIndex = 0;
+            guessIndex < potentialGuesses.length;
+            guessIndex++
+          ) {
+            singleGuessPotentialsArray[i].solved = potentialGuesses[guessIndex];
+            singleGuessPotentialsArray[i].containsNewInformation = true;
+            let updatedSingleGuessPotentialsArray = updateValuePotentials(
+              singleGuessPotentialsArray
+            );
+            updatedSingleGuessPotentialsArray[i].containsNewInformation = false;
+            let logicResults = attemptToSolvePuzzleWithoutGuessing(
+              updatedSingleGuessPotentialsArray
+            );
+            contradictionFound = logicResults.contradictionFound;
+            isSolved = logicResults.isSolved;
+            if (logicResults.contradictionFound && !logicResults.isSolved) {
+              // we know the guess is wrong, update the potentials function and break
+              // console.log(`Contradiction in guess resulted in progress.  Cell ${i} can't be ${potentialGuesses[guessIndex]}`)
+              activePotentialsArray[i].potentials[
+                potentialGuesses[guessIndex]
+              ] = false;
+              activePotentialsArray[i].containsNewInformation = true;
+              activePotentialsArray = updateValuePotentials(
+                activePotentialsArray
+              );
+              activePotentialsArray[i].containsNewInformation = false;
+              i += 81;
+              newInfoFoundWithinGuess = true;
+              break;
+            } else if (logicResults.isSolved) {
+              return {
+                potentialsArray: logicResults.potentialsArray,
+                newInfoFound: logicResults.newInfoFound,
+                contradictionFound: logicResults.contradictionFound,
+                isSolved: logicResults.isSolved,
+              };
+            } else {
+              singleGuessPotentialsArray = duplicate(activePotentialsArray);
+            }
+          }
+        }
+      }
+      if (newInfoFoundWithinGuess) {
+        testLevel = 0;
+      }
     } else if (testLevel === 3) {
       // guess 2 deep
       console.log("state of puzzle requires nested guessing");
+
+      let newInfoFoundWithinGuess = false;
+      for (let i = 0; i < 81; i++) {
+        if (!activePotentialsArray[i].solved) {
+          let potentialOuterGuesses = generatePotentialGuessesArray(activePotentialsArray[i].potentials);
+          let singleGuessPotentialsArray = duplicate(activePotentialsArray);
+          for (
+            let outerGuessIndex = 0;
+            outerGuessIndex < potentialOuterGuesses.length;
+            outerGuessIndex++
+          ) {
+            singleGuessPotentialsArray[i].solved =
+              potentialOuterGuesses[outerGuessIndex];
+            singleGuessPotentialsArray[i].containsNewInformation = true;
+            let updatedSingleGuessPotentialsArray = updateValuePotentials(
+              singleGuessPotentialsArray
+            );
+            updatedSingleGuessPotentialsArray[i].containsNewInformation = false;
+            let logicResults = attemptToSolvePuzzleWithoutGuessing(
+              updatedSingleGuessPotentialsArray
+            );
+            contradictionFound = logicResults.contradictionFound;
+            isSolved = logicResults.isSolved;
+            if (logicResults.contradictionFound && !logicResults.isSolved) {
+              // we know the guess is wrong, update the potentials function and break
+              // console.log(`Contradiction in guess resulted in progress.  Cell ${i} can't be ${potentialGuesses[guessIndex]}`)
+              activePotentialsArray[i].potentials[
+                potentialOuterGuesses[outerGuessIndex]
+              ] = false;
+              activePotentialsArray[i].containsNewInformation = true;
+              activePotentialsArray = updateValuePotentials(
+                activePotentialsArray
+              );
+              activePotentialsArray[i].containsNewInformation = false;
+              i += 81;
+              newInfoFoundWithinGuess = true;
+              break;
+            } else if (logicResults.isSolved) {
+              return {
+                potentialsArray: logicResults.potentialsArray,
+                newInfoFound: logicResults.newInfoFound,
+                contradictionFound: logicResults.contradictionFound,
+                isSolved: logicResults.isSolved,
+              };
+            } else {
+              singleGuessPotentialsArray = duplicate(activePotentialsArray);
+            }
+          }
+        }
+      }
+      if (newInfoFoundWithinGuess) {
+        testLevel = 0;
+      }
     }
   }
   contradictionFound = testIfPotentialsContainsAContradiction(

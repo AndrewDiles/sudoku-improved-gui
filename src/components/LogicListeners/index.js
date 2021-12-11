@@ -58,7 +58,7 @@ function LogicListeners({
     }
   }, [valueHistory, placeInHistory]);
 	useEffect(()=>{
-		console.log({valueHistory});
+		// console.log({valueHistory});
 		if (hasStarted && solverOptionsOpen) {
 			setSolverPotentials(calculateValuePotentials(valueHistory[placeInHistory]));
 			setNewInfoFound(false);
