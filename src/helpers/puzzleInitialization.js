@@ -393,6 +393,31 @@ function initiateSolvedPuzzle() {
   result.push(cellArray);
   return result;
 }
+function initiatePuzzleWithColumnBasedXWing () {
+	let result = [];
+  let cellArray = [];
+  cellArray[2] = 5;
+  cellArray[5] = 4;
+  cellArray[13] = 6;
+  cellArray[16] = 9;
+  cellArray[18] = 3;
+  cellArray[26] = 7;
+  cellArray[31] = 4;
+  cellArray[38] = 8;
+  cellArray[42] = 4;
+  cellArray[45] = 5;
+  cellArray[46] = 4;
+  cellArray[47] = 1;
+  cellArray[53] = 9;
+  cellArray[54] = 2;
+  cellArray[62] = 3;
+  cellArray[65] = 7;
+  cellArray[66] = 4;
+  cellArray[77] = 3;
+  replaceNullyCellArrayValuesWithZero(cellArray);
+  result.push(cellArray);
+  return result;
+}
 function makeNextStepInInitialCustomGame(
   valueHistory,
   number,
@@ -420,5 +445,6 @@ export {
   initiateExtremePuzzle,
   initiateEpicPuzzle,
   initiateSolvedPuzzle,
+	initiatePuzzleWithColumnBasedXWing,
   makeNextStepInInitialCustomGame,
 };

@@ -582,6 +582,79 @@ function testPotentialsForBlockLones(potentialsArray) {
   }
   return { potentialsArray, newInfoFound };
 }
+function verifyTwoLinesAreNotInSameBlock (line1, line2){
+// returns true if in same block and false if not
+if (line1 === line2) return true
+if (line1 <4) {
+	return line2 < 4 ? true : false
+}
+if (line1 < 7) {
+	return (line2 > 3 && line2 < 7) ? true : false
+}
+	return line2 > 6 ? true : false
+}
+function searchForXWings(potentialsArray) {
+	console.log('running x wing test')
+	for (let primaryLine = 1; primaryLine < 10; primaryLine ++) {
+		for (let num = 1; num < 10; num ++) {
+			let multiplicityOfAvailablePlacesInLine = 0;
+			let lineOne = 0;
+			let lineTwo = 0;
+			let solved = false;
+			let cellNumbersToTest = createArrayOfColumnIndeces(primaryLine);
+			for (let i = 0; i < 10; i ++) {
+				if (potentialsArray[cellNumbersToTest[i]].solved) {
+					solved = true;
+					break;
+				}
+				if (potentialsArray[cellNumbersToTest[i]].potentials[num] !== false) {
+					multiplicityOfAvailablePlacesInLine ++;
+					if (lineTwo) {
+						break;
+					}
+					if (!lineOne) {lineOne = potentialsArray[cellNumbersToTest[i]].row} else {lineTwo = potentialsArray[cellNumbersToTest[i]].row}
+				}
+			}
+			if (solved) {break}
+			if (multiplicityOfAvailablePlacesInLine === 2) {
+				console.log(`multiplicity of exactly two for number ${num} on columns ${lineOne} and ${lineTwo}`)
+				for (let potentialSecondLine = primaryLine+1; potentialSecondLine <10; potentialSecondLine++){
+					if (!verifyTwoLinesAreNotInSameBlock(primaryLine, potentialSecondLine)){
+						let multiplicityOfAvailablePlacesInSecondLine = 0;
+						let secondLineOne = 0;
+						let secondLineTwo = 0;
+						let solvedOnSecondLine = false;
+						let cellNumbersToTestInSecondLine = createArrayOfColumnIndeces(potentialSecondLine);
+
+						for (let j = 0; j < 10; j ++) {
+							if (potentialsArray[cellNumbersToTestInSecondLine[j]].solved) {
+								solvedOnSecondLine = true;
+								break;
+							}
+							if (potentialsArray[cellNumbersToTestInSecondLine[j]].potentials[num] !== false) {
+								multiplicityOfAvailablePlacesInSecondLine ++;
+								if (secondLineTwo) {
+									break;
+								}
+								if (!secondLineOne) {secondLineOne = potentialsArray[cellNumbersToTestInSecondLine[j]].row} else {secondLineTwo = potentialsArray[cellNumbersToTestInSecondLine[j]].row}
+							}
+						}
+						if (solvedOnSecondLine) {
+							break;
+						}
+						if (multiplicityOfAvailablePlacesInSecondLine === 2 && lineOne === secondLineOne && lineTwo === secondLineTwo) {
+							console.log(`encountered a column based X wing of number ${num} on columns ${potentialSecondLine} and ${primaryLine} of rows ${lineOne} and ${lineTwo}`)
+						}
+
+
+
+
+					}
+				}
+			}
+		}
+	}
+}
 function formNewValueHistoryWithNewKnowns(
   valueHistory,
   placeInHistory,
@@ -880,6 +953,7 @@ export {
   testPotentialsForColumnLones,
   testPotentialsForRowLones,
   testPotentialsForBlockLones,
+	searchForXWings,
   formNewValueHistoryWithNewKnowns,
   solvePuzzle,
 };

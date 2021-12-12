@@ -6,6 +6,7 @@ import {
   testPotentialsForColumnLones,
   testPotentialsForRowLones,
 	testPotentialsForBlockLones,
+	searchForXWings,
 	solvePuzzle,
 } from "../../../helpers/functions";
 import Loader from "../../Loader";
@@ -165,8 +166,8 @@ function GeneralMenu({
               </OptionButton>
 							<OptionButton
                 themeNumber={themeNumber}
-                label={"Test columns button"}
-                title={"Test columns button"}
+                label={"Test blocks button"}
+                title={"Test blocks button"}
                 isDisabled={testsOngoing}
                 handleClick={() => {
                   setTestsOngoing(true);
@@ -180,28 +181,50 @@ function GeneralMenu({
               >
                 Test Blocks
               </OptionButton>
+							
 							<OptionButton
                 themeNumber={themeNumber}
-                label={"Test columns button"}
-                title={"Test columns button"}
+                label={"X button"}
+                title={"X button"}
                 isDisabled={testsOngoing}
                 handleClick={() => {
                   setTestsOngoing(true);
-                  const testResults =
-									solvePuzzle(solverPotentials);
-                  setSolverPotentials(testResults.potentialsArray);
-									console.log(testResults.potentialsArray)
-									if (testResults.newInfoFound) {
-										setValueHistory(
-											formNewValueHistoryWithNewKnowns(
-												valueHistory,
-												placeInHistory,
-												testResults.potentialsArray
-											)
-										);
-										setPlaceInHistory(placeInHistory + 1);
-									}
-									setTestsOngoing(false);
+									searchForXWings(solverPotentials)
+                  // const testResults =
+									// testPotentialsForBlockLones(solverPotentials);
+                  // setSolverPotentials(testResults.potentialsArray);
+                  // setNewInfoFound(testResults.newInfoFound);
+                  setTestsOngoing(false);
+                }}
+                height="fit-content"
+              >
+                X WINGS
+              </OptionButton>
+
+							<OptionButton
+                themeNumber={themeNumber}
+                label={"Solve puzzle button"}
+                title={"Solve puzzle button"}
+                isDisabled={testsOngoing}
+                handleClick={() => {
+                  setTestsOngoing(true);
+									setTimeout(()=>{
+										const testResults =
+										solvePuzzle(solverPotentials);
+										setSolverPotentials(testResults.potentialsArray);
+										console.log(testResults.potentialsArray)
+										if (testResults.newInfoFound) {
+											setValueHistory(
+												formNewValueHistoryWithNewKnowns(
+													valueHistory,
+													placeInHistory,
+													testResults.potentialsArray
+												)
+											);
+											setPlaceInHistory(placeInHistory + 1);
+										}
+										setTestsOngoing(false);
+									},1)
                 }}
                 height="fit-content"
               >
