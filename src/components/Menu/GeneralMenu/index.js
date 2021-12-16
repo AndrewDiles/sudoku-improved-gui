@@ -189,7 +189,10 @@ function GeneralMenu({
                 isDisabled={testsOngoing}
                 handleClick={() => {
                   setTestsOngoing(true);
-									searchForXWings(solverPotentials)
+									let potentialResults = searchForXWings(solverPotentials);
+									if (potentialResults.found) {
+										setSolverPotentials(potentialResults.potentialsArray)
+									}
                   // const testResults =
 									// testPotentialsForBlockLones(solverPotentials);
                   // setSolverPotentials(testResults.potentialsArray);

@@ -664,15 +664,50 @@ function searchForXWings(potentialsArray) {
                 }
               }
             }
-            if (!solvedOnSecondLine &&
+            if (
+              !solvedOnSecondLine &&
               multiplicityOfAvailablePlacesInSecondLine === 2 &&
               lineOne === secondLineOne &&
               lineTwo === secondLineTwo
             ) {
-              console.log(
-                `encountered a column based X wing of number ${num} on columns ${potentialSecondLine} and ${primaryLine} of rows ${lineOne} and ${lineTwo}`
-              );
-							// make all rows and cells along lines that aren't the 4 x-wing locations have false for the num.
+              // console.log(
+              //   `encountered a column based X wing of number ${num} on columns ${potentialSecondLine} and ${primaryLine} of rows ${lineOne} and ${lineTwo}`
+              // );
+              // make all rows and cells along lines that aren't the 4 x-wing locations have false for the num.
+							let change = false;
+              potentialsArray.forEach((potential) => {
+                if (
+                  potential.row === lineOne ||
+                  potential.row === lineTwo ||
+                  potential.col === potentialSecondLine ||
+                  potential.col === primaryLine
+                ) {
+                  // console.log("in right row and column");
+                  if (
+                    !(
+                      potential.col === potentialSecondLine &&
+                      potential.row === lineTwo
+                    ) &&
+                    !(
+                      potential.col === potentialSecondLine &&
+                      potential.row === lineOne
+                    ) &&
+                    !(
+                      potential.col === primaryLine && potential.row === lineTwo
+                    ) &&
+                    !(
+                      potential.col === primaryLine && potential.row === lineOne
+                    )
+                  ) {
+										if (potential.potentials[num] !== false) {
+											console.log(`changing a cell row ${potential.row} col ${potential.col} potential to false`);
+											change = true;
+											potential.potentials[num] = false;
+										}
+                  }
+                }
+              });
+              if (change) return { found: true, potentialsArray };
             }
           }
         }
