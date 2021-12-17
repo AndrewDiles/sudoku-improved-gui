@@ -593,7 +593,7 @@ function verifyTwoLinesAreNotInSameBlock(line1, line2) {
   }
   return line2 > 6 ? true : false;
 }
-function searchForXWings(potentialsArray) {
+function searchForXWings(potentialsArray, testingRows) {
   console.log("running x wing test");
   for (let primaryLine = 1; primaryLine < 10; primaryLine++) {
     for (let num = 1; num < 10; num++) {
@@ -601,7 +601,9 @@ function searchForXWings(potentialsArray) {
       let lineOne = 0;
       let lineTwo = 0;
       let solved = false;
-      let cellNumbersToTest = createArrayOfColumnIndeces(primaryLine);
+      let cellNumbersToTest = testingRows
+        ? createArrayOfRowIndeces(primaryLine)
+        : createArrayOfColumnIndeces(primaryLine);
       for (let i = 0; i < 9; i++) {
         if (potentialsArray[cellNumbersToTest[i]].solved === num) {
           // console.log(`column ${primaryLine} is solved for number ${num}`);
@@ -614,9 +616,13 @@ function searchForXWings(potentialsArray) {
             break;
           }
           if (!lineOne) {
-            lineOne = potentialsArray[cellNumbersToTest[i]].row;
+            lineOne = testingRows
+              ? potentialsArray[cellNumbersToTest[i]].col
+              : potentialsArray[cellNumbersToTest[i]].row;
           } else {
-            lineTwo = potentialsArray[cellNumbersToTest[i]].row;
+            lineTwo = testingRows
+              ? potentialsArray[cellNumbersToTest[i]].col
+              : potentialsArray[cellNumbersToTest[i]].row;
           }
         }
       }
@@ -636,8 +642,9 @@ function searchForXWings(potentialsArray) {
             let secondLineOne = 0;
             let secondLineTwo = 0;
             let solvedOnSecondLine = false;
-            let cellNumbersToTestInSecondLine =
-              createArrayOfColumnIndeces(potentialSecondLine);
+            let cellNumbersToTestInSecondLine = testingRows
+              ? createArrayOfRowIndeces(potentialSecondLine)
+              : createArrayOfColumnIndeces(potentialSecondLine);
 
             for (let j = 0; j < 9; j++) {
               if (
@@ -656,11 +663,13 @@ function searchForXWings(potentialsArray) {
                   break;
                 }
                 if (!secondLineOne) {
-                  secondLineOne =
-                    potentialsArray[cellNumbersToTestInSecondLine[j]].row;
+                  secondLineOne = testingRows
+                    ? potentialsArray[cellNumbersToTestInSecondLine[j]].col
+                    : potentialsArray[cellNumbersToTestInSecondLine[j]].row;
                 } else {
-                  secondLineTwo =
-                    potentialsArray[cellNumbersToTestInSecondLine[j]].row;
+                  secondLineTwo = testingRows
+                    ? potentialsArray[cellNumbersToTestInSecondLine[j]].col
+                    : potentialsArray[cellNumbersToTestInSecondLine[j]].row;
                 }
               }
             }
@@ -674,36 +683,77 @@ function searchForXWings(potentialsArray) {
               //   `encountered a column based X wing of number ${num} on columns ${potentialSecondLine} and ${primaryLine} of rows ${lineOne} and ${lineTwo}`
               // );
               // make all rows and cells along lines that aren't the 4 x-wing locations have false for the num.
-							let change = false;
+              let change = false;
               potentialsArray.forEach((potential) => {
-                if (
-                  potential.row === lineOne ||
-                  potential.row === lineTwo ||
-                  potential.col === potentialSecondLine ||
-                  potential.col === primaryLine
-                ) {
-                  // console.log("in right row and column");
-                  if (
-                    !(
-                      potential.col === potentialSecondLine &&
-                      potential.row === lineTwo
-                    ) &&
-                    !(
-                      potential.col === potentialSecondLine &&
-                      potential.row === lineOne
-                    ) &&
-                    !(
-                      potential.col === primaryLine && potential.row === lineTwo
-                    ) &&
-                    !(
-                      potential.col === primaryLine && potential.row === lineOne
-                    )
+                if (testingRows) {
+									if (
+                    potential.col === lineOne ||
+                    potential.col === lineTwo ||
+                    potential.row === potentialSecondLine ||
+                    potential.row === primaryLine
                   ) {
-										if (potential.potentials[num] !== false) {
-											console.log(`changing a cell row ${potential.row} col ${potential.col} potential to false`);
-											change = true;
-											potential.potentials[num] = false;
-										}
+                    // console.log("in right row and column");
+                    if (
+                      !(
+                        potential.row === potentialSecondLine &&
+                        potential.col === lineTwo
+                      ) &&
+                      !(
+                        potential.row === potentialSecondLine &&
+                        potential.col === lineOne
+                      ) &&
+                      !(
+                        potential.row === primaryLine &&
+                        potential.col === lineTwo
+                      ) &&
+                      !(
+                        potential.row === primaryLine &&
+                        potential.col === lineOne
+                      )
+                    ) {
+                      if (potential.potentials[num] !== false) {
+                        console.log(
+                          `changing a cell row ${potential.row} col ${potential.col} potential to false`
+                        );
+                        change = true;
+                        potential.potentials[num] = false;
+                      }
+                    }
+                  }
+                } else {
+                  if (
+                    potential.row === lineOne ||
+                    potential.row === lineTwo ||
+                    potential.col === potentialSecondLine ||
+                    potential.col === primaryLine
+                  ) {
+                    // console.log("in right row and column");
+                    if (
+                      !(
+                        potential.col === potentialSecondLine &&
+                        potential.row === lineTwo
+                      ) &&
+                      !(
+                        potential.col === potentialSecondLine &&
+                        potential.row === lineOne
+                      ) &&
+                      !(
+                        potential.col === primaryLine &&
+                        potential.row === lineTwo
+                      ) &&
+                      !(
+                        potential.col === primaryLine &&
+                        potential.row === lineOne
+                      )
+                    ) {
+                      if (potential.potentials[num] !== false) {
+                        console.log(
+                          `changing a cell row ${potential.row} col ${potential.col} potential to false`
+                        );
+                        change = true;
+                        potential.potentials[num] = false;
+                      }
+                    }
                   }
                 }
               });
