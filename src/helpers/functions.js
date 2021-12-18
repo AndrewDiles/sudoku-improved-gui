@@ -793,7 +793,7 @@ function attemptToSolvePuzzleWithoutGuessing(potentialsArray) {
   let newInfoFound = false;
   let contradictionFound = null;
   let isSolved = null;
-  for (let testLevel = 1; testLevel < 5; testLevel++) {
+  for (let testLevel = 1; testLevel < 6; testLevel++) {
     contradictionFound = testIfPotentialsContainsAContradiction(
       activePotentialsArray
     );
@@ -807,7 +807,7 @@ function attemptToSolvePuzzleWithoutGuessing(potentialsArray) {
       };
     }
     if (testLevel === 1) {
-      // console.log('naked singles test from solve');
+      console.log('naked singles test from solve');
       let results = testPotentialsForNakedSingles(activePotentialsArray);
       if (results.newInfoFound) {
         newInfoFound = true;
@@ -817,7 +817,7 @@ function attemptToSolvePuzzleWithoutGuessing(potentialsArray) {
         );
       }
     } else if (testLevel === 2) {
-      // console.log('col test from solve');
+      console.log('col test from solve');
       let results = testPotentialsForColumnLones(activePotentialsArray);
       if (results.newInfoFound) {
         newInfoFound = true;
@@ -827,7 +827,7 @@ function attemptToSolvePuzzleWithoutGuessing(potentialsArray) {
         );
       }
     } else if (testLevel === 3) {
-      // console.log('row test from solve');
+      console.log('row test from solve');
       let results = testPotentialsForRowLones(activePotentialsArray);
       if (results.newInfoFound) {
         newInfoFound = true;
@@ -837,8 +837,19 @@ function attemptToSolvePuzzleWithoutGuessing(potentialsArray) {
         );
       }
     } else if (testLevel === 4) {
-      // console.log("block test from solve");
+      console.log("block test from solve");
       let results = testPotentialsForBlockLones(activePotentialsArray);
+      if (results.newInfoFound) {
+        newInfoFound = true;
+        testLevel = 0;
+        activePotentialsArray = calculateValuePotentials(
+          formCellsArrayFromPotentialsArray(activePotentialsArray)
+        );
+      }
+    } else if (testLevel === 5) {
+      console.log("test for X-Wings");
+      let results = searchForXWings(activePotentialsArray);
+			////////
       if (results.newInfoFound) {
         newInfoFound = true;
         testLevel = 0;
