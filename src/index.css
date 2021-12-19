@@ -66,3 +66,36 @@ code {
     transform: rotate(360deg);
   }
 } */
+@keyframes loader-theme-0 {
+	0% {
+		color: var(--text-0);
+	}
+	45% {
+		color: var(--text-0);
+	}
+	50% {
+		color: var(--yes-0);
+	}
+}
+@keyframes loader-theme-1 {
+	0% {
+		color: var(--text-1);
+	}
+	45% {
+		color: var(--text-1);
+	}
+	50% {
+		color: var(--yes-1);
+	}
+}
+@keyframes loader-theme-2 {
+	0% {
+		color: var(--text-2);
+	}
+	45% {
+		color: var(--text-2);
+	}
+	50% {
+		color: var(--yes-2);
+	}
+}

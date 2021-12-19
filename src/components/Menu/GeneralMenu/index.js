@@ -9,7 +9,7 @@ import {
 	searchForXWings,
 	solvePuzzle,
 } from "../../../helpers/functions";
-import Loader from "../../Loader";
+import Loader from "../../LoaderCssOnly";
 
 function GeneralMenu({
   themeNumber,

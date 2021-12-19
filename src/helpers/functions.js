@@ -686,7 +686,7 @@ function searchForXWings(potentialsArray, testingRows) {
               let change = false;
               potentialsArray.forEach((potential) => {
                 if (testingRows) {
-									if (
+                  if (
                     potential.col === lineOne ||
                     potential.col === lineTwo ||
                     potential.row === potentialSecondLine ||
@@ -713,8 +713,11 @@ function searchForXWings(potentialsArray, testingRows) {
                     ) {
                       if (potential.potentials[num] !== false) {
                         console.log(
-                          `changing a cell row ${potential.row} col ${potential.col} potential to false`
+                          `encountered a new column based X wing of number ${num} on columns ${potentialSecondLine} and ${primaryLine} of rows ${lineOne} and ${lineTwo}`
                         );
+                        // console.log(
+                        //   `changing a cell row ${potential.row} col ${potential.col} potential to false`
+                        // );
                         change = true;
                         potential.potentials[num] = false;
                       }
@@ -747,9 +750,12 @@ function searchForXWings(potentialsArray, testingRows) {
                       )
                     ) {
                       if (potential.potentials[num] !== false) {
-                        console.log(
-                          `changing a cell row ${potential.row} col ${potential.col} potential to false`
+												console.log(
+                          `encountered a new row based X wing of number ${num} on columns ${potentialSecondLine} and ${primaryLine} of rows ${lineOne} and ${lineTwo}`
                         );
+                        // console.log(
+                        //   `changing a cell row ${potential.row} col ${potential.col} potential to false`
+                        // );
                         change = true;
                         potential.potentials[num] = false;
                       }
@@ -763,7 +769,7 @@ function searchForXWings(potentialsArray, testingRows) {
         }
       }
     }
-		return {found: false}
+    return { found: false };
   }
 }
 function formNewValueHistoryWithNewKnowns(
@@ -794,7 +800,7 @@ function attemptToSolvePuzzleWithoutGuessing(potentialsArray) {
   let newInfoFound = false;
   let contradictionFound = null;
   let isSolved = null;
-  for (let testLevel = 1; testLevel < 6; testLevel++) {
+  for (let testLevel = 1; testLevel < 5; testLevel++) {
     contradictionFound = testIfPotentialsContainsAContradiction(
       activePotentialsArray
     );
@@ -808,7 +814,7 @@ function attemptToSolvePuzzleWithoutGuessing(potentialsArray) {
       };
     }
     if (testLevel === 1) {
-      console.log('naked singles test from solve');
+      // console.log("naked singles test from solve");
       let results = testPotentialsForNakedSingles(activePotentialsArray);
       if (results.newInfoFound) {
         newInfoFound = true;
@@ -818,7 +824,7 @@ function attemptToSolvePuzzleWithoutGuessing(potentialsArray) {
         );
       }
     } else if (testLevel === 2) {
-      console.log('col test from solve');
+      // console.log("col test from solve");
       let results = testPotentialsForColumnLones(activePotentialsArray);
       if (results.newInfoFound) {
         newInfoFound = true;
@@ -828,7 +834,7 @@ function attemptToSolvePuzzleWithoutGuessing(potentialsArray) {
         );
       }
     } else if (testLevel === 3) {
-      console.log('row test from solve');
+      // console.log("row test from solve");
       let results = testPotentialsForRowLones(activePotentialsArray);
       if (results.newInfoFound) {
         newInfoFound = true;
@@ -838,7 +844,7 @@ function attemptToSolvePuzzleWithoutGuessing(potentialsArray) {
         );
       }
     } else if (testLevel === 4) {
-      console.log("block test from solve");
+      // console.log("block test from solve");
       let results = testPotentialsForBlockLones(activePotentialsArray);
       if (results.newInfoFound) {
         newInfoFound = true;
@@ -847,27 +853,31 @@ function attemptToSolvePuzzleWithoutGuessing(potentialsArray) {
           formCellsArrayFromPotentialsArray(activePotentialsArray)
         );
       }
-    } else if (testLevel === 5) {
-      console.log("test for X-Wings");
-      let results = searchForXWings(activePotentialsArray);
-			////////
-      if (results.found) {
-        // newInfoFound = true;
-        // testLevel = 0;
-        activePotentialsArray = calculateValuePotentials(
-          formCellsArrayFromPotentialsArray(results.potentialsArray)
-        );
-      } else {
-				results = searchForXWings(activePotentialsArray, true);
-				if (results.found) {
-					// newInfoFound = true;
-					// testLevel = 0;
-					activePotentialsArray = calculateValuePotentials(
-						formCellsArrayFromPotentialsArray(results.potentialsArray)
-					);
-				}
-			}
-    }
+    } 
+		// else if (testLevel === 5) {
+			// Removing X-wing test - it does not decrease solve time
+      // console.log("test for X-Wings");
+      // let results = searchForXWings(activePotentialsArray);
+      // ////////
+      // if (results.found) {
+      //   // newInfoFound = true;
+      //   // testLevel = 0;
+      //   // activePotentialsArray = calculateValuePotentials(
+      //   //   formCellsArrayFromPotentialsArray(results.potentialsArray)
+      //   // );
+			// 	activePotentialsArray = results.potentialsArray;
+      // } else {
+      //   results = searchForXWings(activePotentialsArray, true);
+      //   if (results.found) {
+      //     // newInfoFound = true;
+      //     // testLevel = 0;
+      //     // activePotentialsArray = calculateValuePotentials(
+      //     //   formCellsArrayFromPotentialsArray(results.potentialsArray)
+      //     // );
+			// 		activePotentialsArray = results.potentialsArray;
+      //   }
+      // }
+    // }
   }
   contradictionFound = testIfPotentialsContainsAContradiction(
     activePotentialsArray
@@ -970,7 +980,6 @@ function solvePuzzle(potentialsArray) {
     } else if (testLevel === 3) {
       // guess 2 deep
       console.log("guess of two depths");
-
       let newInfoFoundWithinGuess = false;
       for (let i = 0; i < 81; i++) {
         if (!activePotentialsArray[i].solved) {

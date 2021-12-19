@@ -8,7 +8,7 @@ import {
   initiateExtremePuzzle,
   initiateEpicPuzzle,
   initiateSolvedPuzzle,
-	initiatePuzzleWithColumnBasedXWing,
+	// initiatePuzzleWithColumnBasedXWing,
 } from "./puzzleInitialization";
 
 function getInitialPuzzleSetup(difficulty) {
@@ -40,9 +40,9 @@ function getInitialPuzzleSetup(difficulty) {
     case "solved-test": {
       return initiateSolvedPuzzle();
     }
-		case "x-wing-columns": {
-      return initiatePuzzleWithColumnBasedXWing();
-    }
+		// case "x-wing-columns": {
+    //   return initiatePuzzleWithColumnBasedXWing();
+    // }
     default: {
       return createInitialValueHistory();
     }

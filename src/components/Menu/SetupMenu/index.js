@@ -18,7 +18,7 @@ function SetupMenu({
     "extreme",
     "epic",
 		"solved-test",
-		"x-wing-columns",
+		// "x-wing-columns",
   ];
   return (
     <Container>
