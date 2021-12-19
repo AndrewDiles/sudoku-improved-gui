@@ -763,6 +763,7 @@ function searchForXWings(potentialsArray, testingRows) {
         }
       }
     }
+		return {found: false}
   }
 }
 function formNewValueHistoryWithNewKnowns(
@@ -850,13 +851,22 @@ function attemptToSolvePuzzleWithoutGuessing(potentialsArray) {
       console.log("test for X-Wings");
       let results = searchForXWings(activePotentialsArray);
 			////////
-      if (results.newInfoFound) {
-        newInfoFound = true;
-        testLevel = 0;
+      if (results.found) {
+        // newInfoFound = true;
+        // testLevel = 0;
         activePotentialsArray = calculateValuePotentials(
-          formCellsArrayFromPotentialsArray(activePotentialsArray)
+          formCellsArrayFromPotentialsArray(results.potentialsArray)
         );
-      }
+      } else {
+				results = searchForXWings(activePotentialsArray, true);
+				if (results.found) {
+					// newInfoFound = true;
+					// testLevel = 0;
+					activePotentialsArray = calculateValuePotentials(
+						formCellsArrayFromPotentialsArray(results.potentialsArray)
+					);
+				}
+			}
     }
   }
   contradictionFound = testIfPotentialsContainsAContradiction(

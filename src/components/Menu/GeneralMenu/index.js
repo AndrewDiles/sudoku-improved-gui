@@ -182,7 +182,7 @@ function GeneralMenu({
                 Test Blocks
               </OptionButton>
 							
-							<OptionButton
+							{/* <OptionButton
                 themeNumber={themeNumber}
                 label={"X button"}
                 title={"X button"}
@@ -192,6 +192,8 @@ function GeneralMenu({
 									let potentialResults = searchForXWings(solverPotentials);
 									if (potentialResults.found) {
 										setSolverPotentials(potentialResults.potentialsArray)
+									} else {
+										potentialResults = searchForXWings(solverPotentials, true);
 									}
                   // const testResults =
 									// testPotentialsForBlockLones(solverPotentials);
@@ -202,7 +204,7 @@ function GeneralMenu({
                 height="fit-content"
               >
                 X WINGS
-              </OptionButton>
+              </OptionButton> */}
 
 							<OptionButton
                 themeNumber={themeNumber}
