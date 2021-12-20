@@ -81,7 +81,7 @@ const Potentials = styled.div`
 `;
 const Potential = styled.p`
   margin: 0;
-  font-size: min(4px + 1vw, 14px);
+  font-size: min(4px + 1vw, 13px);
   color: ${(p) =>
     p.isImpossible
       ? `var(--text-${p.themeNumber})`

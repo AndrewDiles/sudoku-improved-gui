@@ -34,7 +34,7 @@ const Potentials = styled.div`
 `;
 const Potential = styled.p`
   margin: 0;
-  font-size: min(4px + 1vw, 14px);
+  font-size: min(4px + 1vw, 13px);
   animation: ${p => `loader-theme-${p.themeNumber} infinite 4s linear`};
 	animation-delay: ${p => p.number/3}s;
 `;

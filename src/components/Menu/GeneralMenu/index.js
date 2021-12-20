@@ -214,6 +214,7 @@ function GeneralMenu({
                 handleClick={() => {
                   setTestsOngoing(true);
 									setTimeout(()=>{
+										let startTime = Date.now();
 										const testResults =
 										solvePuzzle(solverPotentials);
 										setSolverPotentials(testResults.potentialsArray);
@@ -228,6 +229,8 @@ function GeneralMenu({
 											);
 											setPlaceInHistory(placeInHistory + 1);
 										}
+										let finishTime = Date.now();
+										console.log(`Algorithms took ${(Math.floor((finishTime-startTime)/10)/100)} seconds to complete.`)
 										setTestsOngoing(false);
 									},1)
                 }}
