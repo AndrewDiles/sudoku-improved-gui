@@ -215,6 +215,8 @@ function GeneralMenu({
                   setTestsOngoing(true);
 									setTimeout(()=>{
 										let startTime = Date.now();
+										// const worker = new window.Worker("src/fib-worker.js");
+										// move to worker to get animation going
 										const testResults =
 										solvePuzzle(solverPotentials);
 										setSolverPotentials(testResults.potentialsArray);
