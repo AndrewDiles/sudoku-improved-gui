@@ -189,4 +189,15 @@ function solvePuzzle(potentialsArray) {
   };
 }
 
+// sample onmessage method creation
+// onmessage = (e) => {
+//   const { num } = e.data;
+//   const startTime = new Date().getTime();
+//   const fibNum = fib(num);
+//   postMessage({
+//     fibNum,
+//     time: new Date().getTime() - startTime,
+//   });
+// };
+
 export default solvePuzzle;
