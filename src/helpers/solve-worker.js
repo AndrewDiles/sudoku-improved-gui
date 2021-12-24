@@ -7,7 +7,7 @@ import {
   testIfSolutionIsFoundInPotentials,
 } from "./functions";
 
-function solvePuzzle(potentialsArray) {
+const solvePuzzle = (potentialsArray) => {
   let activePotentialsArray = duplicate(potentialsArray);
   let newInfoFound = false;
   let contradictionFound = null;
@@ -187,17 +187,19 @@ function solvePuzzle(potentialsArray) {
     contradictionFound,
     isSolved,
   };
-}
+};
 
-// sample onmessage method creation
-// onmessage = (e) => {
-//   const { num } = e.data;
-//   const startTime = new Date().getTime();
-//   const fibNum = fib(num);
-//   postMessage({
-//     fibNum,
-//     time: new Date().getTime() - startTime,
-//   });
-// };
+onmessage = (e) => {
+  const { potentialsArray } = e.data;
+  const startTime = new Date().getTime();
+  const solution = solvePuzzle(potentialsArray);
+  postMessage({
+    potentialsArray: solution.potentialsArray,
+    newInfoFound: solution.newInfoFound,
+    contradictionFound: solution.contradictionFound,
+    isSolved: solution.isSolved,
+    time: new Date().getTime() - startTime,
+  });
+};
 
 export default solvePuzzle;

@@ -39,7 +39,6 @@ function Menu({
       <GeneralMenu
         themeNumber={themeNumber}
         difficulty={difficulty}
-        setDifficulty={setDifficulty}
         hasStarted={hasStarted}
         setHasStarted={setHasStarted}
         valueHistory={valueHistory}

@@ -5,16 +5,17 @@ import {
   formNewValueHistoryWithNewKnowns,
   testPotentialsForColumnLones,
   testPotentialsForRowLones,
-	testPotentialsForBlockLones,
-	searchForXWings,
-	solvePuzzle,
+  testPotentialsForBlockLones,
+  searchForXWings,
+  solvePuzzle,
 } from "../../../helpers/functions";
 import Loader from "../../LoaderCssOnly";
+
+const worker = new window.Worker("../../../helpers/solve-worker.js");
 
 function GeneralMenu({
   themeNumber,
   difficulty,
-  setDifficulty,
   hasStarted,
   setHasStarted,
   valueHistory,
@@ -164,7 +165,7 @@ function GeneralMenu({
               >
                 Test Rows
               </OptionButton>
-							<OptionButton
+              <OptionButton
                 themeNumber={themeNumber}
                 label={"Test blocks button"}
                 title={"Test blocks button"}
@@ -172,7 +173,7 @@ function GeneralMenu({
                 handleClick={() => {
                   setTestsOngoing(true);
                   const testResults =
-									testPotentialsForBlockLones(solverPotentials);
+                    testPotentialsForBlockLones(solverPotentials);
                   setSolverPotentials(testResults.potentialsArray);
                   setNewInfoFound(testResults.newInfoFound);
                   setTestsOngoing(false);
@@ -181,8 +182,8 @@ function GeneralMenu({
               >
                 Test Blocks
               </OptionButton>
-							
-							{/* <OptionButton
+
+              {/* <OptionButton
                 themeNumber={themeNumber}
                 label={"X button"}
                 title={"X button"}
@@ -206,35 +207,62 @@ function GeneralMenu({
                 X WINGS
               </OptionButton> */}
 
-							<OptionButton
+              <OptionButton
                 themeNumber={themeNumber}
                 label={"Solve puzzle button"}
                 title={"Solve puzzle button"}
                 isDisabled={testsOngoing}
                 handleClick={() => {
                   setTestsOngoing(true);
-									setTimeout(()=>{
-										let startTime = Date.now();
-										// const worker = new window.Worker("src/fib-worker.js");
-										// move to worker to get animation going
-										const testResults =
-										solvePuzzle(solverPotentials);
-										setSolverPotentials(testResults.potentialsArray);
-										console.log(testResults.potentialsArray)
-										if (testResults.newInfoFound) {
-											setValueHistory(
-												formNewValueHistoryWithNewKnowns(
-													valueHistory,
-													placeInHistory,
-													testResults.potentialsArray
-												)
-											);
-											setPlaceInHistory(placeInHistory + 1);
-										}
-										let finishTime = Date.now();
-										console.log(`Algorithms took ${(Math.floor((finishTime-startTime)/10)/100)} seconds to complete.`)
-										setTestsOngoing(false);
-									},1)
+                  // previous method that doesn't allow animations (pre worker)
+                  // let startTime = Date.now();
+                  // setTimeout(()=>{
+                  // const testResults =
+                  // solvePuzzle(solverPotentials);
+                  // setSolverPotentials(testResults.potentialsArray);
+                  // console.log(testResults.potentialsArray)
+                  // if (testResults.newInfoFound) {
+                  // 	setValueHistory(
+                  // 		formNewValueHistoryWithNewKnowns(
+                  // 			valueHistory,
+                  // 			placeInHistory,
+                  // 			testResults.potentialsArray
+                  // 		)
+                  // 	);
+                  // 	setPlaceInHistory(placeInHistory + 1);
+                  // }
+                  // let finishTime = Date.now();
+                  // console.log(`Algorithms took ${(Math.floor((finishTime-startTime)/10)/100)} seconds to complete.`)
+                  // setTestsOngoing(false);
+                  // },1)
+
+                  // const worker = new window.Worker("src/fib-worker.js");
+                  // move to worker to get animation going
+                  worker.postMessage({ solverPotentials });
+                  worker.onerror = (err) => {
+                    console.log({ err });
+                  };
+                  worker.onmessage = (e) => {
+										console.log('worker returned message: ', e);
+                    const testResults = e.data;
+                    // const { potentialsArray, newInfoFound, contradictionFound, isSolved, time } = e.data;
+                    setSolverPotentials(testResults.potentialsArray);
+                    console.log(testResults.potentialsArray);
+                    if (testResults.newInfoFound) {
+                      setValueHistory(
+                        formNewValueHistoryWithNewKnowns(
+                          valueHistory,
+                          placeInHistory,
+                          testResults.potentialsArray
+                        )
+                      );
+                      setPlaceInHistory(placeInHistory + 1);
+                    }
+                    console.log(
+                      `Algorithms took ${testResults.time} seconds to complete.`
+                    );
+                    setTestsOngoing(false);
+                  };
                 }}
                 height="fit-content"
               >
