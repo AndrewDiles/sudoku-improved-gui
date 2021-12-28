@@ -13,6 +13,16 @@ import Loader from "../../LoaderCssOnly";
 
 const worker = new window.Worker("../../../helpers/solve-worker.js");
 
+// function loadWebWorker(worker) {
+// 	const code = worker.toString();
+// 	const blob = new Blob(['('+code+')()']);
+// 	return new Worker(URL.createObjectURL(blob));
+// }
+
+// const rasterToVectorWorker = loadWebWorker(rasterToVectorWorker);
+
+// rasterToVectorWorker.postMessage("message");
+
 function GeneralMenu({
   themeNumber,
   difficulty,
