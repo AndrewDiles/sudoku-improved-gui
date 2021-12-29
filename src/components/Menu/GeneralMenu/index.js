@@ -10,18 +10,17 @@ import {
   solvePuzzle,
 } from "../../../helpers/functions";
 import Loader from "../../LoaderCssOnly";
+import solveWorker from "../../../helpers/solve-worker.js";
 
-const worker = new window.Worker("../../../helpers/solve-worker.js");
+// const worker = new window.Worker("../../../helpers/solve-worker.js");
 
-// function loadWebWorker(worker) {
-// 	const code = worker.toString();
-// 	const blob = new Blob(['('+code+')()']);
-// 	return new Worker(URL.createObjectURL(blob));
-// }
+function loadWebWorker(worker) {
+	const code = worker.toString();
+	const blob = new Blob(['('+code+')()']);
+	return new Worker(URL.createObjectURL(blob));
+}
 
-// const rasterToVectorWorker = loadWebWorker(rasterToVectorWorker);
-
-// rasterToVectorWorker.postMessage("message");
+const worker = loadWebWorker(solveWorker);
 
 function GeneralMenu({
   themeNumber,
