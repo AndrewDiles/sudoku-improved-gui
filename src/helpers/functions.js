@@ -1,6 +1,8 @@
 import { createInitialCurrentPotentials } from "./puzzleInitialization";
 function duplicate(object) {
-  return JSON.parse(JSON.stringify(object));
+  return typeof object === "object"
+    ? JSON.parse(JSON.stringify(object))
+    : object;
 }
 
 function getFirstCellNumberOfBlock(blockNumber) {
@@ -750,7 +752,7 @@ function searchForXWings(potentialsArray, testingRows) {
                       )
                     ) {
                       if (potential.potentials[num] !== false) {
-												console.log(
+                        console.log(
                           `encountered a new row based X wing of number ${num} on columns ${potentialSecondLine} and ${primaryLine} of rows ${lineOne} and ${lineTwo}`
                         );
                         // console.log(
@@ -853,30 +855,30 @@ function attemptToSolvePuzzleWithoutGuessing(potentialsArray) {
           formCellsArrayFromPotentialsArray(activePotentialsArray)
         );
       }
-    } 
-		// else if (testLevel === 5) {
-			// Removing X-wing test - it does not decrease solve time
-      // console.log("test for X-Wings");
-      // let results = searchForXWings(activePotentialsArray);
-      // ////////
-      // if (results.found) {
-      //   // newInfoFound = true;
-      //   // testLevel = 0;
-      //   // activePotentialsArray = calculateValuePotentials(
-      //   //   formCellsArrayFromPotentialsArray(results.potentialsArray)
-      //   // );
-			// 	activePotentialsArray = results.potentialsArray;
-      // } else {
-      //   results = searchForXWings(activePotentialsArray, true);
-      //   if (results.found) {
-      //     // newInfoFound = true;
-      //     // testLevel = 0;
-      //     // activePotentialsArray = calculateValuePotentials(
-      //     //   formCellsArrayFromPotentialsArray(results.potentialsArray)
-      //     // );
-			// 		activePotentialsArray = results.potentialsArray;
-      //   }
-      // }
+    }
+    // else if (testLevel === 5) {
+    // Removing X-wing test - it does not decrease solve time
+    // console.log("test for X-Wings");
+    // let results = searchForXWings(activePotentialsArray);
+    // ////////
+    // if (results.found) {
+    //   // newInfoFound = true;
+    //   // testLevel = 0;
+    //   // activePotentialsArray = calculateValuePotentials(
+    //   //   formCellsArrayFromPotentialsArray(results.potentialsArray)
+    //   // );
+    // 	activePotentialsArray = results.potentialsArray;
+    // } else {
+    //   results = searchForXWings(activePotentialsArray, true);
+    //   if (results.found) {
+    //     // newInfoFound = true;
+    //     // testLevel = 0;
+    //     // activePotentialsArray = calculateValuePotentials(
+    //     //   formCellsArrayFromPotentialsArray(results.potentialsArray)
+    //     // );
+    // 		activePotentialsArray = results.potentialsArray;
+    //   }
+    // }
     // }
   }
   contradictionFound = testIfPotentialsContainsAContradiction(
@@ -1082,6 +1084,11 @@ function solvePuzzle(potentialsArray) {
 }
 
 export {
+  duplicate,
+  generatePotentialGuessesArray,
+  testIfSolutionIsFoundInPotentials,
+  testIfPotentialsContainsAContradiction,
+  updateValuePotentials,
   resolveSelectedCellNumberFromBlockNumberAndCellNumber,
   resolveCellNumberFromRowAndColumnNumber,
   resolveIsRealtedToSelectedCellNumber,
@@ -1095,5 +1102,6 @@ export {
   testPotentialsForBlockLones,
   searchForXWings,
   formNewValueHistoryWithNewKnowns,
+  attemptToSolvePuzzleWithoutGuessing,
   solvePuzzle,
 };

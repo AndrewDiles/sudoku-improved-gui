@@ -189,17 +189,31 @@ const solvePuzzle = (potentialsArray) => {
   };
 };
 
-onmessage = (e) => {
-  const { potentialsArray } = e.data;
-  const startTime = new Date().getTime();
-  const solution = solvePuzzle(potentialsArray);
-  postMessage({
-    potentialsArray: solution.potentialsArray,
-    newInfoFound: solution.newInfoFound,
-    contradictionFound: solution.contradictionFound,
-    isSolved: solution.isSolved,
-    time: new Date().getTime() - startTime,
-  });
+// onmessage = (e) => {
+// 	console.log({e})
+//   // const { potentialsArray } = e.data;
+//   // const startTime = new Date().getTime();
+//   // const solution = solvePuzzle(potentialsArray);
+//   // postMessage({
+//   //   potentialsArray: solution.potentialsArray,
+//   //   newInfoFound: solution.newInfoFound,
+//   //   contradictionFound: solution.contradictionFound,
+//   //   isSolved: solution.isSolved,
+//   //   time: new Date().getTime() - startTime,
+//   // });
+// };
+postMessage = (e) => {
+	console.log({e})
+  // const { potentialsArray } = e.data;
+  // const startTime = new Date().getTime();
+  // const solution = solvePuzzle(potentialsArray);
+  // onmessage({
+  //   potentialsArray: solution.potentialsArray,
+  //   newInfoFound: solution.newInfoFound,
+  //   contradictionFound: solution.contradictionFound,
+  //   isSolved: solution.isSolved,
+  //   time: new Date().getTime() - startTime,
+  // });
 };
 
 export default solvePuzzle;

@@ -1,3 +1,4 @@
+import {useState} from "react";
 import styled from "styled-components";
 import OptionButton from "../OptionButton";
 import {
@@ -20,8 +21,6 @@ function loadWebWorker(worker) {
 	return new Worker(URL.createObjectURL(blob));
 }
 
-const worker = loadWebWorker(solveWorker);
-
 function GeneralMenu({
   themeNumber,
   difficulty,
@@ -41,6 +40,8 @@ function GeneralMenu({
   newInfoFound,
   setNewInfoFound,
 }) {
+	const [worker, setWorker] = useState(loadWebWorker(solveWorker));
+	
   // console.log({ solverPotentials });
   return (
     <Container>
