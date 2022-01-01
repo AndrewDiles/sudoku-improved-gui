@@ -203,6 +203,7 @@ const solvePuzzle = (potentialsArray) => {
 //   // });
 // };
 postMessage = (e) => {
+	console.log("post made");
 	console.log({e})
   // const { potentialsArray } = e.data;
   // const startTime = new Date().getTime();
