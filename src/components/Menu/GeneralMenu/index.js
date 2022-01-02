@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import styled from "styled-components";
 import OptionButton from "../OptionButton";
 import {
@@ -41,6 +41,62 @@ function GeneralMenu({
   setNewInfoFound,
 }) {
 	const [worker, setWorker] = useState(loadWebWorker(solveWorker));
+	const [handleSolveClick, setHandleSolveClick] = useState(()=>{});
+
+	// useEffect(()=>{
+	// 	setHandleSolveClick(() => {
+	// 		setTestsOngoing(true);
+	// 		// previous method that doesn't allow animations (pre worker)
+	// 		// let startTime = Date.now();
+	// 		// setTimeout(()=>{
+	// 		// const testResults =
+	// 		// solvePuzzle(solverPotentials);
+	// 		// setSolverPotentials(testResults.potentialsArray);
+	// 		// console.log(testResults.potentialsArray)
+	// 		// if (testResults.newInfoFound) {
+	// 		// 	setValueHistory(
+	// 		// 		formNewValueHistoryWithNewKnowns(
+	// 		// 			valueHistory,
+	// 		// 			placeInHistory,
+	// 		// 			testResults.potentialsArray
+	// 		// 		)
+	// 		// 	);
+	// 		// 	setPlaceInHistory(placeInHistory + 1);
+	// 		// }
+	// 		// let finishTime = Date.now();
+	// 		// console.log(`Algorithms took ${(Math.floor((finishTime-startTime)/10)/100)} seconds to complete.`)
+	// 		// setTestsOngoing(false);
+	// 		// },1)
+
+	// 		// const worker = new window.Worker("src/fib-worker.js");
+	// 		// move to worker to get animation going
+	// 		worker.postMessage({ solverPotentials });
+	// 		worker.onerror = (err) => {
+	// 			console.log({ err });
+	// 		};
+	// 		worker.onmessage = (e) => {
+	// 			console.log('worker returned message: ', e);
+	// 			const testResults = e.data;
+	// 			// const { potentialsArray, newInfoFound, contradictionFound, isSolved, time } = e.data;
+	// 			setSolverPotentials(testResults.potentialsArray);
+	// 			console.log(testResults.potentialsArray);
+	// 			if (testResults.newInfoFound) {
+	// 				setValueHistory(
+	// 					formNewValueHistoryWithNewKnowns(
+	// 						valueHistory,
+	// 						placeInHistory,
+	// 						testResults.potentialsArray
+	// 					)
+	// 				);
+	// 				setPlaceInHistory(placeInHistory + 1);
+	// 			}
+	// 			console.log(
+	// 				`Algorithms took ${testResults.time} seconds to complete.`
+	// 			);
+	// 			setTestsOngoing(false);
+	// 		};
+	// 	})
+	// },[])
 	
   // console.log({ solverPotentials });
   return (
@@ -222,6 +278,7 @@ function GeneralMenu({
                 label={"Solve puzzle button"}
                 title={"Solve puzzle button"}
                 isDisabled={testsOngoing}
+								// handleClick = {()=>handleSolveClick()}
                 handleClick={() => {
                   setTestsOngoing(true);
                   // previous method that doesn't allow animations (pre worker)
