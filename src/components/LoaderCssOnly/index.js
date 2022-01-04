@@ -6,14 +6,9 @@ function Loader({ themeNumber }) {
       <Potentials themeNumber={themeNumber}>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((number) => {
           return (
-            // <NumberContainer key={number}>
-            //   <HiddenPotential themeNumber={themeNumber} number={number}>
-            //     {number}
-            //   </HiddenPotential>
-              <Potential themeNumber={themeNumber} number={number}>
-                {number}
-              </Potential>
-            // </NumberContainer>
+            <Potential themeNumber={themeNumber} number={number}>
+              {number}
+            </Potential>
           );
         })}
       </Potentials>
@@ -33,25 +28,15 @@ const Potentials = styled.div`
   outline: ${(p) => `2px solid var(--border-${p.themeNumber})`};
   outline-offset: -1px;
 `;
-// const NumberContainer = styled.div`
-// 	position: relative;
-// `
-// const HiddenPotential = styled.p`
-//   position: absolute;
-// 	margin: 0;
-//   font-size: min(4px + 1vw, 13px);
-//   color: ${(p) => `var(--yes-${p.themeNumber})`};
-// `;
 const Potential = styled.p`
   margin: 0;
   font-size: min(4px + 1vw, 13px);
-  /* animation: ${(p) => `loader-theme-${p.themeNumber} infinite 4s linear`};
-	animation-delay: ${(p) => p.number / 3}s; */
+	/* animation: potential-expand infinite 4s linear; */
+  /* animation: ${(p) => `loader-theme-${p.themeNumber} infinite 4s linear`}; */
   color: ${(p) => `var(--text-${p.themeNumber})`};
-  /* animation: bounce infinite 4s linear; */
+  animation: rotate-hue infinite 4s linear;
   animation-delay: ${(p) => p.number / 3}s;
 `;
-
 const Container = styled.span`
   width: 100%;
   position: relative;

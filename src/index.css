@@ -65,21 +65,30 @@ code {
     transform: rotate(360deg);
   }
 } */
-@keyframes vanish {
+/* @keyframes potential-expand {
 	0% {
-    opacity: 1;
+    transform: scale(0.8) translateX(0);
   }
-  45% {
-    opacity: 1;
+	25% {
+    transform: scale(1.2) translateX(-5%);
   }
-  50% {
-    opacity: 0;
+  75% {
+    transform: scale(1.2) translateX(5%);
   }
 	100% {
-		opacity: 0;
+		transform: scale(0.8) translateX(0);
 	}
+} */
+
+@keyframes rotate-hue {
+  0% {
+    filter: hue-rotate(0)
+  }
+  10% {
+    filter: hue-rotate(180deg)
+  }
 }
-@keyframes loader-theme-0 {
+/* @keyframes loader-theme-0 {
   0% {
     color: var(--text-0);
   }
@@ -111,4 +120,4 @@ code {
   50% {
     color: var(--yes-2);
   }
-}
+} */

@@ -108,7 +108,6 @@ function GeneralMenu({
           )
         ) : null}
         {testsOngoing && <Loader themeNumber={themeNumber} />}
-				<Loader themeNumber={themeNumber} />
         {solverOptionsOpen &&
           solverPotentials &&
           !newInfoFound &&
