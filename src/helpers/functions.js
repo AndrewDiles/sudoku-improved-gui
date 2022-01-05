@@ -1084,13 +1084,8 @@ function solvePuzzle(potentialsArray) {
 }
 
 export {
-  duplicate,
-  generatePotentialGuessesArray,
-  testIfSolutionIsFoundInPotentials,
-  testIfPotentialsContainsAContradiction,
-  updateValuePotentials,
   resolveSelectedCellNumberFromBlockNumberAndCellNumber,
-  resolveCellNumberFromRowAndColumnNumber,
+  // resolveCellNumberFromRowAndColumnNumber,
   resolveIsRealtedToSelectedCellNumber,
   calculateIfBlockIsSolved,
   testIfCellsContainAContradiction,
@@ -1100,8 +1095,7 @@ export {
   testPotentialsForColumnLones,
   testPotentialsForRowLones,
   testPotentialsForBlockLones,
-  searchForXWings,
+  // searchForXWings,
   formNewValueHistoryWithNewKnowns,
-  attemptToSolvePuzzleWithoutGuessing,
   solvePuzzle,
 };
