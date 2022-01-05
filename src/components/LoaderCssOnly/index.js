@@ -6,7 +6,7 @@ function Loader({ themeNumber }) {
       <Potentials themeNumber={themeNumber}>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((number) => {
           return (
-            <Potential themeNumber={themeNumber} number={number}>
+            <Potential key={number} themeNumber={themeNumber} number={number}>
               {number}
             </Potential>
           );
@@ -31,7 +31,7 @@ const Potentials = styled.div`
 const Potential = styled.p`
   margin: 0;
   font-size: min(4px + 1vw, 13px);
-	/* animation: potential-expand infinite 4s linear; */
+  /* animation: potential-expand infinite 4s linear; */
   /* animation: ${(p) => `loader-theme-${p.themeNumber} infinite 4s linear`}; */
   color: ${(p) => `var(--text-${p.themeNumber})`};
   animation: rotate-hue infinite 4s linear;
