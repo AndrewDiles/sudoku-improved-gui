@@ -43,7 +43,7 @@ const Button = styled.button`
   transform: scale(1);
   outline-offset: -2px;
   text-decoration: ${(p) => p.isSelected && "underline"};
-	opacity: ${p => p.isDisabled && "0.5"};
+	opacity: ${p => p.isDisabled ? "0.5" : "1"};
   height: ${(p) => p.height && p.height};
   flex: 0;
 	white-space: nowrap;

@@ -77,7 +77,7 @@ const Button = styled.button`
     font-size: 26px;
   }
   outline-offset: -2px;
-  opacity: ${(p) => p.isDisabled && "0.5"};
+  opacity: ${(p) => p.isDisabled ? "0.5":"1"};
   :hover {
     background: ${(p) => `var(--bg2-${p.themeNumber})`};
     outline: 2px solid ${(p) => `var(--hover-${p.themeNumber})`};
