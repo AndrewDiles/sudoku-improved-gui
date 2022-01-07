@@ -20,9 +20,9 @@ function OptionButton({
       isSelected={isSelected}
       height={height}
 			isDisabled = {isDisabled}
-			disabled = {isDisabled}
+			// disabled = {isDisabled}
       onClick={() => {
-        handleClick ? handleClick() : console.log("no handleClick function");
+        isDisabled ? console.log("button disabled") : handleClick ? handleClick() : console.log("no handleClick function");
       }}
     >
       {children}
