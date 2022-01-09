@@ -17,7 +17,7 @@ function SetupMenu({
     "challenge",
     "extreme",
     "epic",
-		"solved-test",
+		// "solved-test",
 		// "x-wing-columns",
   ];
   return (

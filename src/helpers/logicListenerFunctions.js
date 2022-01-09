@@ -7,7 +7,7 @@ import {
   initiateChallengePuzzle,
   initiateExtremePuzzle,
   initiateEpicPuzzle,
-  initiateSolvedPuzzle,
+  // initiateSolvedPuzzle,
 	// initiatePuzzleWithColumnBasedXWing,
 } from "./puzzleInitialization";
 
@@ -37,9 +37,9 @@ function getInitialPuzzleSetup(difficulty) {
     case "epic": {
       return initiateEpicPuzzle();
     }
-    case "solved-test": {
-      return initiateSolvedPuzzle();
-    }
+    // case "solved-test": {
+    //   return initiateSolvedPuzzle();
+    // }
 		// case "x-wing-columns": {
     //   return initiatePuzzleWithColumnBasedXWing();
     // }
