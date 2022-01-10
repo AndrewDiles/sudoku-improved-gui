@@ -32,14 +32,14 @@ function getFirstCellNumberOfBlock(blockNumber) {
   }
 }
 
-function testArrayEquivalence(arr1, arr2) {
-  for (let i1 = 0; i1 < arr1.length; i1++) {
-    for (let i2 = 0; i2 < arr2.length; i2++) {
-      if (arr1[i1] !== arr2[i2]) return false;
-    }
-  }
-  return true;
-}
+// function testArrayEquivalence(arr1, arr2) {
+//   for (let i1 = 0; i1 < arr1.length; i1++) {
+//     for (let i2 = 0; i2 < arr2.length; i2++) {
+//       if (arr1[i1] !== arr2[i2]) return false;
+//     }
+//   }
+//   return true;
+// }
 
 function returnCellNumberGivenInitial(initial, cellNumber) {
   switch (cellNumber) {

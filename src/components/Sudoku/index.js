@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Grid from "../Grid";
 import Menu from "../Menu";
@@ -22,9 +22,7 @@ function Sudoku({ themeNumber }) {
   );
   const [testsOngoing, setTestsOngoing] = useState(false);
   const [newInfoFound, setNewInfoFound] = useState(false);
-  // useEffect(()=>{
-  // 	console.log({solverPotentials});
-  // },[solverPotentials])
+  
   return (
     <GridAndMenuContainer>
       <Menu

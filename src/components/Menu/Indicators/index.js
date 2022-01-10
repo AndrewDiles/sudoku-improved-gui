@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import OptionButton from "../OptionButton";
 
 function Indicators({
   themeNumber,
@@ -10,7 +9,6 @@ function Indicators({
 }) {
   return (
     <Container>
-      {/* <ButtonsContainer> */}
       {isSolved ? null : contradictionExists ? (
         <P themeNumber={themeNumber} no={contradictionExists}>
           !!CONTRADICTION!!
@@ -36,7 +34,6 @@ function Indicators({
       ) : (
         <P>PUZZLE INCOMPLETE</P>
       )}
-      {/* </ButtonsContainer> */}
     </Container>
   );
 }
@@ -49,19 +46,6 @@ const Container = styled.div`
   /* justify-content: flex-start; */
   justify-content: center;
   flex-direction: column;
-`;
-const ButtonsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  /* margin-right: 10px; */
-  justify-content: center;
-  /* @media screen and (min-width: 500px) {
-    margin-right: 20px;
-  } */
-  @media screen and (min-width: 1000px) {
-    /* margin-right: 0px; */
-    margin-top: 22px;
-  }
 `;
 const P = styled.p`
   font-weight: 900;
