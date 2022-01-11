@@ -418,8 +418,8 @@ function addPotentialInfoFromBlocks(potentialArray) {
   }
   return potentialArray;
 }
-function addPotentialInfoFromNakePairs (potentialArray) {
-	let obtainedNewInformation = false;
+function addPotentialInfoFromNakePairs(potentialArray) {
+  let obtainedNewInformation = false;
   // result.push({
   // 	row,
   // 	col,
@@ -428,60 +428,129 @@ function addPotentialInfoFromNakePairs (potentialArray) {
   // 	containsNewInformation: false,
   // 	potentials: ["",null, null, null, null, null, null, null, null, null],
   // });
-	for (let blockNumber = 1; blockNumber < 10; blockNumber ++) {
-		let arrayOfIndecesToTest = createCellNumbersForBlockArray(
-			getFirstCellNumberOfBlock(blockNumber)
-		);
-		let arraysOfPossibleValues = [];
-		for (let indexBeingTested = 0; indexBeingTested < arrayOfIndecesToTest.length; indexBeingTested++) {
-			if (!potentialArray[arrayOfIndecesToTest[indexBeingTested]].solved) {
-				let arrayOfPossibleValues = [];
-				for (let potentialIndex = 1; potentialIndex < 10; potentialIndex ++) {
-					if (potentialArray[arrayOfIndecesToTest[indexBeingTested]].potentials[potentialIndex] === null) {
-						arrayOfPossibleValues.push(potentialIndex)
-					}
-				}
-				arraysOfPossibleValues.push(arrayOfPossibleValues)
-			} else {
-				arraysOfPossibleValues.push([])
-			}
-		}
-		// Minor shortcut here on length - 1 since we can't pair a naked pair once we're on the last index
-		for (let i = 0; i < arraysOfPossibleValues.length-1; i ++) {
-			if (arraysOfPossibleValues[i].length === 2) {
-				// console.log(`Potential Naked Pair, numbers: ${arraysOfPossibleValues[i][0]} and ${arraysOfPossibleValues[i][1]} of cell ${arrayOfIndecesToTest[i]}`);
-				let arrayOfMatchingIndeces = [i];
-				for (let j = i +1; j < arraysOfPossibleValues.length; j++) {
-					if (arraysOfPossibleValues[j].length === 2) {
-						if (arraysOfPossibleValues[i][0] === arraysOfPossibleValues[j][0] && arraysOfPossibleValues[i][1] === arraysOfPossibleValues[j][1]) {
-							arrayOfMatchingIndeces.push(j)
-						}
-					}
-				}
-				if (arrayOfMatchingIndeces.length === 2) {
-					console.log(`Successfully found a naked pair between cells ${arrayOfIndecesToTest[arrayOfMatchingIndeces[0]]} and ${arrayOfIndecesToTest[arrayOfMatchingIndeces[1]]}`)
-				}
-			}
-		}
-	}
-	return potentialArray;
+  for (let blockNumber = 1; blockNumber < 10; blockNumber++) {
+    let arrayOfIndecesToTest = createCellNumbersForBlockArray(
+      getFirstCellNumberOfBlock(blockNumber)
+    );
+    let arraysOfPossibleValues = [];
+    for (
+      let indexBeingTested = 0;
+      indexBeingTested < arrayOfIndecesToTest.length;
+      indexBeingTested++
+    ) {
+      if (!potentialArray[arrayOfIndecesToTest[indexBeingTested]].solved) {
+        let arrayOfPossibleValues = [];
+        for (let potentialIndex = 1; potentialIndex < 10; potentialIndex++) {
+          if (
+            potentialArray[arrayOfIndecesToTest[indexBeingTested]].potentials[
+              potentialIndex
+            ] === null
+          ) {
+            arrayOfPossibleValues.push(potentialIndex);
+          }
+        }
+        arraysOfPossibleValues.push(arrayOfPossibleValues);
+      } else {
+        arraysOfPossibleValues.push([]);
+      }
+    }
+    // Minor shortcut here on length - 1 since we can't pair a naked pair once we're on the last index
+    for (let i = 0; i < arraysOfPossibleValues.length - 1; i++) {
+      if (arraysOfPossibleValues[i].length === 2) {
+        // console.log(`Potential Naked Pair, numbers: ${arraysOfPossibleValues[i][0]} and ${arraysOfPossibleValues[i][1]} of cell ${arrayOfIndecesToTest[i]}`);
+        let arrayOfMatchingIndeces = [i];
+        for (let j = i + 1; j < arraysOfPossibleValues.length; j++) {
+          if (arraysOfPossibleValues[j].length === 2) {
+            if (
+              arraysOfPossibleValues[i][0] === arraysOfPossibleValues[j][0] &&
+              arraysOfPossibleValues[i][1] === arraysOfPossibleValues[j][1]
+            ) {
+              arrayOfMatchingIndeces.push(j);
+            }
+          }
+        }
+        if (arrayOfMatchingIndeces.length === 2) {
+          console.log(
+            `Successfully found a naked pair between cells ${
+              arrayOfIndecesToTest[arrayOfMatchingIndeces[0]]
+            } and ${arrayOfIndecesToTest[arrayOfMatchingIndeces[1]]}`
+          );
+
+          for (let i = 0; i < arrayOfIndecesToTest.length; i++) {
+            if (
+              i !== arrayOfMatchingIndeces[0] &&
+              i !== arrayOfMatchingIndeces[1]
+            ) {
+              if (!potentialArray[arrayOfIndecesToTest[i]].solved) {
+                console.log(
+                  `unsolved cell ${arrayOfIndecesToTest[i]} needs to have ${
+                    arraysOfPossibleValues[arrayOfMatchingIndeces[0]][0]
+                  } and ${
+                    arraysOfPossibleValues[arrayOfMatchingIndeces[0]][1]
+                  } set to false`
+                );
+                if (
+                  potentialArray[arrayOfIndecesToTest[i]].potentials[
+                    arraysOfPossibleValues[arrayOfMatchingIndeces[0]][0]
+                  ] !== false
+                ) {
+                  obtainedNewInformation = true;
+                  potentialArray[arrayOfIndecesToTest[i]].potentials[
+                    arraysOfPossibleValues[arrayOfMatchingIndeces[0]][0]
+                  ] = false;
+                }
+                if (
+                  potentialArray[arrayOfIndecesToTest[i]].potentials[
+                    arraysOfPossibleValues[arrayOfMatchingIndeces[0]][1]
+                  ] !== false
+                ) {
+                  obtainedNewInformation = true;
+                  potentialArray[arrayOfIndecesToTest[i]].potentials[
+                    arraysOfPossibleValues[arrayOfMatchingIndeces[0]][1]
+                  ] = false;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return { potentialArray, obtainedNewInformation };
 }
 function calculateValuePotentials(cellArray) {
-  let basePotentials = createInitialCurrentPotentials();
-  let potentialsWithKnowns = applyKnownValues(basePotentials, cellArray);
-  let potentialsWithRows = addPotentialInfoFromRows(potentialsWithKnowns);
-  let potentialsWithColumns = addPotentialInfoFromColumns(potentialsWithRows);
-  let potentialsWithBlocks = addPotentialInfoFromBlocks(potentialsWithColumns);
-	let potentialsWithNakedPairs = addPotentialInfoFromNakePairs(potentialsWithBlocks);
-  return potentialsWithNakedPairs;
+  let needsToBeRepeated = true;
+  let result = null;
+	let basePotentials = createInitialCurrentPotentials();
+  while (needsToBeRepeated) {
+    let potentialsWithKnowns = applyKnownValues(basePotentials, cellArray);
+    let potentialsWithRows = addPotentialInfoFromRows(potentialsWithKnowns);
+    let potentialsWithColumns = addPotentialInfoFromColumns(potentialsWithRows);
+    let potentialsWithBlocks = addPotentialInfoFromBlocks(
+      potentialsWithColumns
+    );
+    let nakedPairsResults = addPotentialInfoFromNakePairs(potentialsWithBlocks);
+    result = nakedPairsResults.potentialArray;
+    needsToBeRepeated = nakedPairsResults.obtainedNewInformation;
+  }
+
+  return result;
 }
 function updateValuePotentials(potentials) {
-  let potentialsWithKnowns = applyNewKnownValuesFromPotentials(potentials);
-  let potentialsWithRows = addPotentialInfoFromRows(potentialsWithKnowns);
-  let potentialsWithColumns = addPotentialInfoFromColumns(potentialsWithRows);
-  let potentialsWithBlocks = addPotentialInfoFromBlocks(potentialsWithColumns);
-	let potentialsWithNakedPairs = addPotentialInfoFromNakePairs(potentialsWithBlocks);
-  return potentialsWithNakedPairs;
+  let needsToBeRepeated = true;
+  let result = null;
+  while (needsToBeRepeated) {
+    let potentialsWithKnowns = applyNewKnownValuesFromPotentials(potentials);
+    let potentialsWithRows = addPotentialInfoFromRows(potentialsWithKnowns);
+    let potentialsWithColumns = addPotentialInfoFromColumns(potentialsWithRows);
+    let potentialsWithBlocks = addPotentialInfoFromBlocks(
+      potentialsWithColumns
+    );
+    let nakedPairsResults = addPotentialInfoFromNakePairs(potentialsWithBlocks);
+    result = nakedPairsResults.potentialArray;
+    needsToBeRepeated = nakedPairsResults.obtainedNewInformation;
+  }
+  return result;
 }
 
 function testPotentialsForNakedSingles(potentialsArray) {
