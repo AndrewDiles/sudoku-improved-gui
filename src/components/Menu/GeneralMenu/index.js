@@ -89,6 +89,7 @@ function GeneralMenu({
               handleClick={() => {
                 setSolverOptionsOpen(false);
               }}
+							isDisabled={testsOngoing}
               height="fit-content"
             >
               Close Solver
@@ -268,7 +269,7 @@ function GeneralMenu({
             themeNumber={themeNumber}
             label={"Previous step button"}
             title={"Previous step button"}
-            isDisabled={placeInHistory === 0}
+            isDisabled={placeInHistory === 0 || testsOngoing}
             handleClick={() => {
               if (placeInHistory > 0) {
                 setPlaceInHistory(placeInHistory - 1);
@@ -283,7 +284,7 @@ function GeneralMenu({
             themeNumber={themeNumber}
             label={"Next step button"}
             title={"Next step button"}
-            isDisabled={placeInHistory === valueHistory.length - 1}
+            isDisabled={placeInHistory === valueHistory.length - 1 || testsOngoing}
             handleClick={() => {
               if (placeInHistory !== valueHistory.length) {
                 setPlaceInHistory(placeInHistory + 1);
