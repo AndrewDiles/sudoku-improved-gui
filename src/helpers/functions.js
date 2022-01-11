@@ -420,14 +420,6 @@ function addPotentialInfoFromBlocks(potentialArray) {
 }
 function addPotentialInfoFromNakePairs(potentialArray) {
   let obtainedNewInformation = false;
-  // result.push({
-  // 	row,
-  // 	col,
-  // 	block,
-  // 	solved: false,
-  // 	containsNewInformation: false,
-  // 	potentials: ["",null, null, null, null, null, null, null, null, null],
-  // });
   for (let blockNumber = 1; blockNumber < 10; blockNumber++) {
     let arrayOfIndecesToTest = createCellNumbersForBlockArray(
       getFirstCellNumberOfBlock(blockNumber)
@@ -470,25 +462,24 @@ function addPotentialInfoFromNakePairs(potentialArray) {
           }
         }
         if (arrayOfMatchingIndeces.length === 2) {
-          console.log(
-            `Successfully found a naked pair between cells ${
-              arrayOfIndecesToTest[arrayOfMatchingIndeces[0]]
-            } and ${arrayOfIndecesToTest[arrayOfMatchingIndeces[1]]}`
-          );
-
+          // console.log(
+          //   `Successfully found a naked pair between cells ${
+          //     arrayOfIndecesToTest[arrayOfMatchingIndeces[0]]
+          //   } and ${arrayOfIndecesToTest[arrayOfMatchingIndeces[1]]}`
+          // );
           for (let i = 0; i < arrayOfIndecesToTest.length; i++) {
             if (
               i !== arrayOfMatchingIndeces[0] &&
               i !== arrayOfMatchingIndeces[1]
             ) {
               if (!potentialArray[arrayOfIndecesToTest[i]].solved) {
-                console.log(
-                  `unsolved cell ${arrayOfIndecesToTest[i]} needs to have ${
-                    arraysOfPossibleValues[arrayOfMatchingIndeces[0]][0]
-                  } and ${
-                    arraysOfPossibleValues[arrayOfMatchingIndeces[0]][1]
-                  } set to false`
-                );
+                // console.log(
+                //   `unsolved cell ${arrayOfIndecesToTest[i]} needs to have ${
+                //     arraysOfPossibleValues[arrayOfMatchingIndeces[0]][0]
+                //   } and ${
+                //     arraysOfPossibleValues[arrayOfMatchingIndeces[0]][1]
+                //   } set to false`
+                // );
                 if (
                   potentialArray[arrayOfIndecesToTest[i]].potentials[
                     arraysOfPossibleValues[arrayOfMatchingIndeces[0]][0]
@@ -1036,7 +1027,7 @@ function solvePuzzle(potentialsArray) {
       }
     } else if (testLevel === 2) {
       // guess 1 deep
-      console.log("guess of one depth");
+      // console.log("guess of one depth");
       let newInfoFoundWithinGuess = false;
       for (let i = 0; i < 81; i++) {
         if (!activePotentialsArray[i].solved) {
@@ -1092,7 +1083,7 @@ function solvePuzzle(potentialsArray) {
       }
     } else if (testLevel === 3) {
       // guess 2 deep
-      console.log("guess of two depths");
+      // console.log("guess of two depths");
       let newInfoFoundWithinGuess = false;
       for (let i = 0; i < 81; i++) {
         if (!activePotentialsArray[i].solved) {
@@ -1143,9 +1134,9 @@ function solvePuzzle(potentialsArray) {
                     logicResults.contradictionFound &&
                     !logicResults.isSolved
                   ) {
-                    console.log(
-                      `Contradiction in 2nd guess resulted in progress.  Cell ${i} can't be ${potentialOuterGuesses[outerGuessIndex]}`
-                    );
+                    // console.log(
+                    //   `Contradiction in 2nd guess resulted in progress.  Cell ${i} can't be ${potentialOuterGuesses[outerGuessIndex]}`
+                    // );
                     activePotentialsArray[i].potentials[
                       potentialOuterGuesses[outerGuessIndex]
                     ] = false;

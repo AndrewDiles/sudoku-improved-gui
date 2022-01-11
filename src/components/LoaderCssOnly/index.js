@@ -33,7 +33,7 @@ const Potential = styled.p`
   font-size: min(4px + 1vw, 13px);
   /* animation: potential-expand infinite 4s linear; */
   /* animation: ${(p) => `loader-theme-${p.themeNumber} infinite 4s linear`}; */
-  color: ${(p) => `var(--text-${p.themeNumber})`};
+  color: ${(p) => p.themeNumber === 1 ? `var(--yes-${p.themeNumber})` : `var(--text-${p.themeNumber})`};
   animation: rotate-hue infinite 4s linear;
   animation-delay: ${(p) => p.number / 3}s;
 `;
