@@ -42,7 +42,7 @@ function NumberButton({
 					let nextStep = [...valueHistory[placeInHistory]];
 					nextStep[selectedCellNumber] = number;
 					newValueHistory.push(nextStep);
-					console.log({newValueHistory})
+					// console.log({newValueHistory});
 					setValueHistory(newValueHistory);
 					setPlaceInHistory(placeInHistory+1);
 				}

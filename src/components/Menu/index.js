@@ -54,6 +54,7 @@ function Menu({
         setTestsOngoing={setTestsOngoing}
         newInfoFound={newInfoFound}
         setNewInfoFound={setNewInfoFound}
+				isSolved={isSolved}
       />
       <Indicators
         themeNumber={themeNumber}

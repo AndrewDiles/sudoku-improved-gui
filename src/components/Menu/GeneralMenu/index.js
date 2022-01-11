@@ -29,8 +29,8 @@ function GeneralMenu({
   setTestsOngoing,
   newInfoFound,
   setNewInfoFound,
+  isSolved,
 }) {
-	
   // console.log({ solverPotentials });
   return (
     <Container>
@@ -89,7 +89,7 @@ function GeneralMenu({
               handleClick={() => {
                 setSolverOptionsOpen(false);
               }}
-							isDisabled={testsOngoing}
+              isDisabled={testsOngoing}
               height="fit-content"
             >
               Close Solver
@@ -102,6 +102,7 @@ function GeneralMenu({
               handleClick={() => {
                 setSolverOptionsOpen(true);
               }}
+              isDisabled={testsOngoing || isSolved}
               height="fit-content"
             >
               Open Solver
@@ -207,7 +208,7 @@ function GeneralMenu({
                 X WINGS
               </OptionButton> */}
 
-              <OptionButton
+              {/* <OptionButton
                 themeNumber={themeNumber}
                 label={"Solve puzzle button"}
                 title={"Solve puzzle button"}
@@ -234,6 +235,48 @@ function GeneralMenu({
                   console.log(`Algorithms took ${(Math.floor((finishTime-startTime)/10)/100)} seconds to complete.`)
                   setTestsOngoing(false);
                   },1)
+                }}
+                height="fit-content"
+              >
+                Solve Puzzle
+              </OptionButton> */}
+            </Span>
+          )}
+        {solverOptionsOpen &&
+          solverPotentials &&
+          !newInfoFound &&
+          !testsOngoing && (
+            <Span>
+              <OptionButton
+                themeNumber={themeNumber}
+                label={"Solve puzzle button"}
+                title={"Solve puzzle button"}
+                isDisabled={testsOngoing}
+                handleClick={() => {
+                  setTestsOngoing(true);
+                  let startTime = Date.now();
+                  setTimeout(() => {
+                    const testResults = solvePuzzle(solverPotentials);
+                    setSolverPotentials(testResults.potentialsArray);
+                    // console.log(testResults.potentialsArray);
+                    if (testResults.newInfoFound) {
+                      setValueHistory(
+                        formNewValueHistoryWithNewKnowns(
+                          valueHistory,
+                          placeInHistory,
+                          testResults.potentialsArray
+                        )
+                      );
+                      setPlaceInHistory(placeInHistory + 1);
+                    }
+                    let finishTime = Date.now();
+                    console.log(
+                      `Algorithms took ${
+                        Math.floor((finishTime - startTime) / 10) / 100
+                      } seconds to complete.`
+                    );
+                    setTestsOngoing(false);
+                  }, 1);
                 }}
                 height="fit-content"
               >
@@ -284,7 +327,9 @@ function GeneralMenu({
             themeNumber={themeNumber}
             label={"Next step button"}
             title={"Next step button"}
-            isDisabled={placeInHistory === valueHistory.length - 1 || testsOngoing}
+            isDisabled={
+              placeInHistory === valueHistory.length - 1 || testsOngoing
+            }
             handleClick={() => {
               if (placeInHistory !== valueHistory.length) {
                 setPlaceInHistory(placeInHistory + 1);

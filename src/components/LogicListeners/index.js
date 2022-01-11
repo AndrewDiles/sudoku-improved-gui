@@ -54,7 +54,11 @@ function LogicListeners({
     if (contradictionExists) {
       setIsSolved(false);
     } else {
+			let puzzleIsSolved = testIfSolutionIsFound(valueHistory[placeInHistory]);
       setIsSolved(testIfSolutionIsFound(valueHistory[placeInHistory]));
+			if (puzzleIsSolved) {
+				setSolverOptionsOpen(false);
+			}
     }
   }, [valueHistory, placeInHistory]);
 	useEffect(()=>{
