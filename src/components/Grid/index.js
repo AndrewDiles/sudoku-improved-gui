@@ -263,7 +263,7 @@ const Cell = styled.div`
       ? "600"
       : "inherit"};
 			/* -webkit-text-fill-color: ${p => p.numberMatchesSelectedCellNumber &&`var(--border-${p.themeNumber})`}; */
-    -webkit-text-stroke-width: medium;
+    -webkit-text-stroke-width: thin;
     -webkit-text-stroke-color: ${p => p.numberMatchesSelectedCellNumber &&`var(--yes-${p.themeNumber})`};
   background: ${(p) =>
     p.isSelected
@@ -292,6 +292,9 @@ const Cell = styled.div`
     outline: ${(p) => `1px solid var(--focus-${p.themeNumber})`};
   }
   font-size: min(10px + 3vw, 40px);
+	@media screen and (min-width: 500px) {
+    -webkit-text-stroke-width: medium;
+  }
 `;
 
 const Potentials = styled.div`
