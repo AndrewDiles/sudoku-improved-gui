@@ -40,7 +40,7 @@ function NumberSelection({
 export default NumberSelection;
 const Container = styled.span`
   position: absolute;
-  overflow-x: scroll;
+  /* overflow-x: scroll; */
   white-space: nowrap;
   bottom: -10px;
   @media screen and (min-width: 300px) {
